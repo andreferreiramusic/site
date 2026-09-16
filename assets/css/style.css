@@ -55,8 +55,8 @@ img{ max-width:100%; display:block; }
 .concerts-wrap h2{ font-family:var(--font-display); font-weight:500; font-size:clamp(2rem,4vw,2.9rem); margin:0 0 30px; }
 .concerts-wrap .note{ font-size:.82rem; color:var(--sub); margin:0 0 30px; }
 .clist{ border-top:1px solid var(--line); }
-.crow{ display:grid; grid-template-columns:150px 1fr 28px 1fr auto; align-items:center; gap:16px; padding:22px 0; border-bottom:1px solid var(--line); }
-.crow .date{ display:block; font-weight:800; font-size:.95rem; letter-spacing:.02em; font-variant-numeric:tabular-nums; }
+.crow{ display:grid; grid-template-columns:minmax(150px,auto) 1fr 28px 1fr auto; align-items:center; gap:16px; padding:22px 0; border-bottom:1px solid var(--line); }
+.crow .date{ display:block; font-weight:800; font-size:.95rem; letter-spacing:.02em; font-variant-numeric:tabular-nums; white-space:nowrap; }
 .crow .title{ font-size:1.02rem; }
 .crow .plus{ color:var(--wood); font-size:1.1rem; text-align:center; }
 .crow .venue{ font-size:.94rem; color:var(--sub); }

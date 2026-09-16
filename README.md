@@ -42,13 +42,42 @@ GitHub Pages → Run workflow**.
 1. Make a sheet with this header row (only `date` is required; order doesn't
    matter, capitalisation doesn't either):
 
-   | date | title | title_en | title_de | venue | tickets |
-   |------|-------|----------|----------|-------|---------|
-   | 2026-10-18 | Bach Consort Wien | | | Musikverein, Wien, AT | https://… |
-   | 2027-01-22 | Recital a solo | Solo recital | Solorezital | Fundação Gulbenkian, Lisboa, PT | |
+   | date | end_date | title | title_en | title_de | venue | tickets |
+   |------|----------|-------|----------|----------|-------|---------|
+   | 2026-10-18 | | Bach Consort Wien | | | Musikverein, Wien, AT | https://… |
+   | 2026-10-16 | 2026-10-18 | Festival de Música Antiga | Early Music Festival | Alte-Musik-Festival | Konzerthaus, Wien, AT | https://… |
+   | 2027-01-22 | | Recital a solo | Solo recital | Solorezital | Fundação Gulbenkian, Lisboa, PT | |
 
    - `date` must be ISO `yyyy-mm-dd`. **Past dates disappear from the site by
      themselves** — no need to delete old rows.
+   - **Dates must be plain text.** If you type `2026-10-18` into a normal cell,
+     Sheets turns it into a date value and exports it in your locale's format
+     (`18/10/2026`), which the build can't read. Select the `date`/`end_date`
+     columns and set **Format → Number → Plain text** first.
+   - Several nights at the same place? Two ways, and the difference matters:
+
+     | Situation | How to write it | Shows as |
+     |---|---|---|
+     | Consecutive run, 16th–18th | `date` = `2026-10-16`, `end_date` = `2026-10-18` | `16–18 OUT` |
+     | Separate nights, 16th and 18th | `date` = `2026-10-16; 2026-10-18`, `end_date` blank | `16 & 18 OUT` |
+
+     Put non-consecutive dates in the **`date`** cell, separated by `;` (or `,`),
+     as many as you like — three become `03, 07 & 12 NOV`. `end_date` is only
+     for an unbroken run, and is ignored if `date` already lists several dates.
+   - The two behave differently once they start, deliberately: a consecutive run
+     stays listed in full until its last day (it's one engagement), while
+     separate nights drop off one at a time as each is played.
+   - **You never type the year label** — it's added only when the date isn't in
+     the current year, so the list stays uncluttered but a date further out is
+     never ambiguous:
+
+     | | Rendered |
+     |---|---|
+     | This year | `07 NOV` |
+     | Next year | `22 JAN 2027` |
+     | Two years out | `04 JUN 2028` |
+     | All in one later year | `29 JAN & 02 FEV 2027` |
+     | Straddling new year | `28 DEZ – 02 JAN 2027` |
    - `title` is the Portuguese/default wording. Fill `title_en`/`title_de` only
      when it actually differs; "Bach Consort Wien" is the same in all three, but
      "Recital a solo" isn't. Blank means "use `title`".
