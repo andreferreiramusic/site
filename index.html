@@ -7,7 +7,6 @@
 <meta name="description" content="André Ferreira, guitarrista e alaudista português radicado em Viena. Concertos, biografia, vídeo e ensino.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Nunito:wght@400;600;700;800&display=swap">
 <link rel="stylesheet" href="assets/css/style.css">
-<script src="https://cdn.jsdelivr.net/npm/htmx.org@1.9.12/dist/htmx.min.js"></script>
 </head>
 <body>
 
@@ -55,38 +54,53 @@
 
   <section class="concerts-wrap" id="concerts">
     <h2 data-i18n="concerts.h">Próximos Concertos</h2>
-    <p class="note" data-i18n="concerts.note">Esta lista vem de <code>partials/concerts.html</code> — edita esse ficheiro para atualizar datas (ou liga-o a uma Google Sheet mais tarde).</p>
-    <div id="concerts-list"
-         hx-get="partials/concerts.html"
-         hx-trigger="load"
-         hx-swap="innerHTML">
-      <!-- htmx swaps partials/concerts.html in here on load; this is the no-JS fallback -->
+    <!-- concerts:start — regenerated from the Google Sheet by scripts/build_concerts.py
+         at deploy time. Edits below survive in git but are replaced on the live site
+         whenever the sheet is reachable; they are what shows if it ever isn't. -->
       <div class="clist">
         <div class="crow">
-          <div class="date">18 OUT</div>
-          <div class="title">Bach Consort Wien</div>
+          <time class="date" datetime="2026-10-18" data-pt="18 OUT" data-en="18 OCT" data-de="18 OKT">18 OUT</time>
+          <div class="title" data-pt="Bach Consort Wien" data-en="Bach Consort Wien" data-de="Bach Consort Wien">Bach Consort Wien</div>
           <div class="plus">+</div>
           <div class="venue">Musikverein, Wien, AT</div>
-          <a class="tix" href="#" data-i18n="concerts.tickets">Bilhetes →</a>
+        </div>
+        <div class="crow">
+          <time class="date" datetime="2026-11-07" data-pt="07 NOV" data-en="07 NOV" data-de="07 NOV">07 NOV</time>
+          <div class="title" data-pt="Concentus Musicus Wien" data-en="Concentus Musicus Wien" data-de="Concentus Musicus Wien">Concentus Musicus Wien</div>
+          <div class="plus">+</div>
+          <div class="venue">Theater an der Wien, AT</div>
+        </div>
+        <div class="crow">
+          <time class="date" datetime="2027-01-22" data-pt="22 JAN" data-en="22 JAN" data-de="22 JAN">22 JAN</time>
+          <div class="title" data-pt="Recital a solo" data-en="Solo recital" data-de="Solorezital">Recital a solo</div>
+          <div class="plus">+</div>
+          <div class="venue">Fundação Gulbenkian, Lisboa, PT</div>
+        </div>
+        <div class="crow">
+          <time class="date" datetime="2027-03-14" data-pt="14 MAR" data-en="14 MAR" data-de="14 MÄR">14 MAR</time>
+          <div class="title" data-pt="Recital a solo" data-en="Solo recital" data-de="Solorezital">Recital a solo</div>
+          <div class="plus">+</div>
+          <div class="venue">Palau de la Música, Barcelona, ES</div>
         </div>
       </div>
-    </div>
+    <!-- concerts:end -->
   </section>
 
   <section class="band" id="video">
     <h2 data-i18n="nav.video">Vídeo</h2>
-    <p class="note" data-i18n="video.note">Espaço reservado — ligar a uma atuação real no YouTube.</p>
-    <a class="video-card" href="https://youtu.be/8HuC4jDdDU4?is=1DZsk2FCCGQJr4zh" target="_blank" rel="noopener">
-      <div class="video-thumb">
-        <!-- Real thumbnail: <img src="assets/img/video-thumb.jpg" alt=""> instead of the tag below -->
-        <span class="tag">Vídeo — placeholder</span>
+    <div class="video-card">
+      <!-- Poster only. main.js swaps in the YouTube iframe on click, so the
+           player's scripts load for people who actually press play. -->
+      <button class="video-thumb" id="videoBtn" data-video-id="8HuC4jDdDU4"
+              data-i18n-aria="video.play" aria-label="Reproduzir vídeo">
+        <img src="https://i.ytimg.com/vi/8HuC4jDdDU4/maxresdefault.jpg" alt="" loading="lazy">
         <span class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
-      </div>
+      </button>
       <div class="video-caption">
-        <span class="vt" data-i18n="video.title">Título da atuação</span>
-        <span class="vl" data-i18n="video.link">Ver no YouTube →</span>
+        <span class="vt">J.&nbsp;S. Bach — Violin Sonata No. 3, BWV 1005: Largo</span>
+        <a class="vl" href="https://youtu.be/8HuC4jDdDU4" target="_blank" rel="noopener" data-i18n="video.link">Ver no YouTube →</a>
       </div>
-    </a>
+    </div>
   </section>
 
   <section class="band" id="teaching" style="border-bottom:1px solid var(--line);">
