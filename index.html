@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>André Ferreira — Guitarra Clássica &amp; Alaúde</title>
+<meta name="description" content="André Ferreira, guitarrista e alaudista português radicado em Viena. Concertos, biografia, vídeo e ensino.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Nunito:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/htmx.org@1.9.12/dist/htmx.min.js"></script>
+</head>
+<body>
+
+  <header class="topbar">
+    <a class="mono" href="#">AF</a>
+    <button class="burger" id="burgerBtn" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="menu" id="menu">
+      <a href="#bio" data-i18n="nav.bio">Biografia</a>
+      <a href="#concerts" data-i18n="nav.concerts">Concertos</a>
+      <a href="#video" data-i18n="nav.video">Vídeo</a>
+      <a href="#teaching" data-i18n="nav.teaching">Ensino</a>
+      <a href="#contact" data-i18n="nav.contact">Contacto</a>
+      <div class="langs">
+        <button data-lang="pt" aria-pressed="true">PT</button>
+        <button data-lang="en" aria-pressed="false">EN</button>
+        <button data-lang="de" aria-pressed="false">DE</button>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <span class="hero-photo-tag">Portrait — placeholder</span>
+    <!-- To use a real photo: delete the .hero background in style.css and add
+         <img> inside .hero-photo-wrap, or set .hero{background-image:url('assets/img/hero.jpg')} -->
+    <div class="hero-inner">
+      <p class="eyebrow" data-i18n="hero.eyebrow">Guitarra Clássica &amp; Alaúde · Viena</p>
+      <h1 data-i18n="hero.name">André<br>Ferreira</h1>
+      <a class="cta" href="#concerts" data-i18n="hero.cta">Próximos concertos ↓</a>
+    </div>
+  </section>
+
+  <section class="bio" id="bio">
+    <div class="bio-photo">
+      <!-- Real photo: <img src="assets/img/bio.jpg" alt="André Ferreira"> instead of the tag+svg below -->
+      <span class="tag">Foto — placeholder</span>
+      <svg viewBox="0 0 100 100" fill="none" stroke="#f3efe6" stroke-width="1.4"><path d="M50 8c-9 0-14 7-14 15 0 6 3 9 3 14 0 10-9 12-9 24 0 16 9 27 20 27s20-11 20-27c0-12-9-14-9-24 0-5 3-8 3-14 0-8-5-15-14-15z"/><path d="M50 88V52M40 52h20"/></svg>
+    </div>
+    <div class="bio-text">
+      <p data-i18n="bio.body">André Ferreira é um guitarrista e alaudista português radicado em Viena. Natural de Leiria, iniciou os estudos de guitarra aos doze anos e formou-se com distinção no Conservatorio Superior de Música de Vigo, prosseguindo estudos avançados em Darmstadt, Graz, Weimar e Colónia. O seu percurso foi reconhecido com prémios nos concursos internacionais José Tomás, Ciutat d'Elx e Leiria. Atua por toda a Europa como solista e com formações como o Bach Consort Wien e o Concentus Musicus Wien, tendo editado o álbum de estreia "Sonatas" em 2018.</p>
+      <a href="#" data-i18n="bio.link">Sobre André →</a>
+    </div>
+  </section>
+
+  <section class="concerts-wrap" id="concerts">
+    <h2 data-i18n="concerts.h">Próximos Concertos</h2>
+    <p class="note" data-i18n="concerts.note">Esta lista vem de <code>partials/concerts.html</code> — edita esse ficheiro para atualizar datas (ou liga-o a uma Google Sheet mais tarde).</p>
+    <div id="concerts-list"
+         hx-get="partials/concerts.html"
+         hx-trigger="load"
+         hx-swap="innerHTML">
+      <!-- htmx swaps partials/concerts.html in here on load; this is the no-JS fallback -->
+      <div class="clist">
+        <div class="crow">
+          <div class="date">18 OUT</div>
+          <div class="title">Bach Consort Wien</div>
+          <div class="plus">+</div>
+          <div class="venue">Musikverein, Wien, AT</div>
+          <a class="tix" href="#" data-i18n="concerts.tickets">Bilhetes →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="video">
+    <h2 data-i18n="nav.video">Vídeo</h2>
+    <p class="note" data-i18n="video.note">Espaço reservado — ligar a uma atuação real no YouTube.</p>
+    <a class="video-card" href="https://www.youtube.com/@andreferreira" target="_blank" rel="noopener">
+      <div class="video-thumb">
+        <!-- Real thumbnail: <img src="assets/img/video-thumb.jpg" alt=""> instead of the tag below -->
+        <span class="tag">Vídeo — placeholder</span>
+        <span class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+      </div>
+      <div class="video-caption">
+        <span class="vt" data-i18n="video.title">Título da atuação</span>
+        <span class="vl" data-i18n="video.link">Ver no YouTube →</span>
+      </div>
+    </a>
+  </section>
+
+  <section class="band" id="teaching" style="border-bottom:1px solid var(--line);">
+    <h2 data-i18n="nav.teaching">Ensino</h2>
+    <p class="prose" data-i18n="teaching.body">André leciona instrumentos históricos de alaúde no Departamento de Música Antiga da mdw — Universidade de Música e Artes Cénicas de Viena, e dá masterclasses por toda a Europa.</p>
+  </section>
+
+  <footer class="foot" id="contact">
+    <span data-i18n="foot.text">Reservas e contacto</span>
+    <a href="mailto:contacto@andreferreiramusic.com">contacto@andreferreiramusic.com</a>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
