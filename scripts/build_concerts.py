@@ -35,7 +35,7 @@ import re
 import sys
 import urllib.request
 
-SHEET_CSV_URL = ""  # <- paste the published-to-web CSV URL here
+SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1-1bQn9qvNd3qO9F6_xqg5GrS9e9eqLN9YrKgq2iVgsg/edit?usp=drivesdk"  # <- paste the published-to-web CSV URL here
 
 MONTHS = {
     "pt": "JAN FEV MAR ABR MAI JUN JUL AGO SET OUT NOV DEZ".split(),
