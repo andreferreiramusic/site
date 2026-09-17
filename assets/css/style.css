@@ -59,14 +59,23 @@ img{ max-width:100%; display:block; }
 }
 
 /* hero */
-.hero{ position:relative; min-height:min(88vh,780px); background:
+/* The hero box carries the photo's own 3:2 ratio and nothing else constrains
+   its height, so the image always scales to the page width and `cover` has
+   nothing to crop — no min-height, which would make the box taller than 3:2 on
+   narrower windows and clip the sides instead. */
+.hero{ position:relative; aspect-ratio:3/2; background:
     linear-gradient(180deg, rgba(6,5,4,.05) 0%, rgba(6,5,4,.75) 78%, rgba(6,5,4,.92) 100%),
-    /* Top-anchored: the photo has barely any headroom above his head, so any
-       vertical centring crops it once the viewport gets wide. */
+    /* Top-anchored so the head is never cut in the cropped (narrow) case. */
     url('../img/hero.jpg') 50% 0% / cover no-repeat,
     radial-gradient(circle at 32% 30%, #6b5d4f 0%, #453a30 42%, #221c16 100%);
-  display:flex; align-items:flex-end; }
-.hero-inner{ padding:0 var(--pad) clamp(30px,6vw,56px); color:#f7f3ea; width:100%; }
+  display:block; }
+/* The hero is now taller than the screen on most displays, so the name is
+   pinned to the bottom of the FIRST screenful rather than the bottom of the
+   photo — otherwise it would open below the fold. Falls back to the hero's own
+   bottom when the photo is the shorter of the two. */
+.hero-inner{ position:absolute; left:0; right:0; top:0; height:min(88vh,100%);
+  display:flex; flex-direction:column; justify-content:flex-end; align-items:flex-start;
+  padding:0 var(--pad) clamp(30px,6vw,56px); color:#f7f3ea; }
 .hero .eyebrow{ font-size:.78rem; letter-spacing:.16em; text-transform:uppercase; margin:0 0 18px; color:#d9cdb2; font-weight:600; }
 .hero h1{ font-family:var(--font-display); font-weight:400; font-size:clamp(3rem,9vw,6.2rem); line-height:.94; letter-spacing:.02em; text-transform:uppercase; margin:0 0 20px; text-wrap:balance; }
 .hero .cta{ display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:#f7f3ea; font-size:.9rem; letter-spacing:.03em; border-bottom:1px solid rgba(247,243,234,.6); padding-bottom:4px; }
