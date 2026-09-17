@@ -10,7 +10,7 @@
     pt: {
       'nav.home':'Início','nav.about':'Sobre','nav.guitar':'Guitarra','nav.lute':'Alaúde',
       'nav.dates':'Datas','nav.contact':'Contacto','nav.video':'Vídeo',
-      'hero.eyebrow':'Guitarrista & Alaudista · Viena','hero.cta':'Próximos concertos →',
+      'hero.eyebrow':'Guitarrista & Alaudista · Viena','hero.cta':'Próximos concertos ↓',
       'home.about':'André Ferreira é um guitarrista e alaudista português radicado em Viena, atuando por toda a Europa como solista, músico de câmara e instrumentista de orquestra.',
       'home.about.d':'Biografia, formação e as salas e festivais onde tem atuado.',
       'home.guitar.d':'Repertório, instrumentos e projetos em torno da guitarra clássica.',
@@ -36,7 +36,7 @@
     en: {
       'nav.home':'Home','nav.about':'About','nav.guitar':'Guitar','nav.lute':'Lute',
       'nav.dates':'Dates','nav.contact':'Contact','nav.video':'Video',
-      'hero.eyebrow':'Guitarist & Lutenist · Vienna','hero.cta':'Upcoming concerts →',
+      'hero.eyebrow':'Guitarist & Lutenist · Vienna','hero.cta':'Upcoming concerts ↓',
       'home.about':'André Ferreira is a Portuguese guitarist and lutenist based in Vienna, performing across Europe as a soloist, chamber musician and orchestral player.',
       'home.about.d':'Biography, training, and the halls and festivals he has played.',
       'home.guitar.d':'Repertoire, instruments and projects on the classical guitar.',
@@ -62,7 +62,7 @@
     de: {
       'nav.home':'Start','nav.about':'Über','nav.guitar':'Gitarre','nav.lute':'Laute',
       'nav.dates':'Termine','nav.contact':'Kontakt','nav.video':'Video',
-      'hero.eyebrow':'Gitarrist & Lautenist · Wien','hero.cta':'Kommende Konzerte →',
+      'hero.eyebrow':'Gitarrist & Lautenist · Wien','hero.cta':'Kommende Konzerte ↓',
       'home.about':'André Ferreira ist ein portugiesischer Gitarrist und Lautenist mit Sitz in Wien und tritt in ganz Europa als Solist, Kammermusiker und Orchestermusiker auf.',
       'home.about.d':'Biografie, Ausbildung und die Säle und Festivals, in denen er gespielt hat.',
       'home.guitar.d':'Repertoire, Instrumente und Projekte rund um die klassische Gitarre.',

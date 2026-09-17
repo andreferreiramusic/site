@@ -13,6 +13,11 @@
 }
 
 *{ box-sizing:border-box; }
+/* In-page jumps would otherwise land with the heading tucked under the sticky
+   bar, which is 69px tall. */
+[id]{ scroll-margin-top:88px; }
+html{ scroll-behavior:smooth; }
+@media(prefers-reduced-motion:reduce){ html{ scroll-behavior:auto; } }
 html,body{ margin:0; padding:0; }
 body{ background:var(--bg); color:var(--ink); font-family:var(--font-body); }
 a{ color:inherit; }
