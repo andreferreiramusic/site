@@ -31,7 +31,7 @@ img{ max-width:100%; display:block; }
 /* hero */
 .hero{ position:relative; min-height:min(88vh,780px); background:
     linear-gradient(180deg, rgba(6,5,4,.05) 0%, rgba(6,5,4,.75) 78%, rgba(6,5,4,.92) 100%),
-    url('../img/hero.jpeg') center / cover no-repeat,
+    url('../img/hero.jpg') center / cover no-repeat,
     radial-gradient(circle at 32% 30%, #6b5d4f 0%, #453a30 42%, #221c16 100%);
   display:flex; align-items:flex-end; }
 .hero-inner{ padding:0 var(--pad) clamp(30px,6vw,56px); color:#f7f3ea; width:100%; }
