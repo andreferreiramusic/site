@@ -5,11 +5,15 @@
 
 :root{
   --black:#0a0a0a; --bg:#0a0a0a; --ink:#f1ece1; --sub:#a89c86; --line:rgba(241,236,225,.16); --wood:#d9b98a;
-  --font-display:'Cormorant Garamond',Georgia,serif; --font-body:'Nunito',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-  /* Lateral gutters: one twelfth of the viewport each side, so content sits
-     in the middle ten columns of a notional 12. Floored so phones keep a
-     usable margin rather than 8% of 375px. */
-  --pad:max(22px,8.3333vw);
+  /* --font-display is the hero name only; everything else that used to be
+     Cormorant is now the geometric sans. */
+  --font-display:'Cormorant Garamond',Georgia,serif;
+  --font-heading:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --font-body:'Nunito',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  /* Lateral gutters: one eighth of the viewport each side, so content sits in
+     the middle six columns of a notional 8. Floored so phones keep a usable
+     margin rather than 12.5% of 375px. */
+  --pad:max(22px,12.5vw);
 }
 
 *{ box-sizing:border-box; }
@@ -29,7 +33,7 @@ img{ max-width:100%; display:block; }
    The hairline matters — bar and page background are the same black, so
    without it content appears to dissolve into the bar as you scroll. */
 .topbar{ background:var(--black); color:#f2ede2; display:flex; align-items:center; justify-content:space-between;
-  padding:16px var(--pad); position:sticky; top:0; z-index:10; border-bottom:1px solid var(--line); }
+  padding:16px var(--pad); gap:clamp(14px,2vw,32px); position:sticky; top:0; z-index:10; border-bottom:1px solid var(--line); }
 /* The circle is CSS, not a pre-masked file — the source stays a plain square. */
 .mono{ width:36px; height:36px; border-radius:50%; overflow:hidden; display:block;
   flex:0 0 auto; text-decoration:none; background:#131010; }
@@ -91,9 +95,12 @@ img{ max-width:100%; display:block; }
 .hero-inner{ position:absolute; left:0; right:0; top:0; height:min(88vh,100%);
   display:flex; flex-direction:column; justify-content:flex-end; align-items:flex-start;
   padding:0 var(--pad) clamp(30px,6vw,56px); color:#f7f3ea; }
-.hero .eyebrow{ font-size:.78rem; letter-spacing:.16em; text-transform:uppercase; margin:0 0 18px; color:#d9cdb2; font-weight:600; }
-.hero h1{ font-family:var(--font-display); font-weight:400; font-size:clamp(3rem,9vw,6.2rem); line-height:.94; letter-spacing:.02em; text-transform:uppercase; margin:0 0 20px; text-wrap:balance; }
-.hero .cta{ display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:#f7f3ea; font-size:.9rem; letter-spacing:.03em; border-bottom:1px solid rgba(247,243,234,.6); padding-bottom:4px; }
+.hero .eyebrow{ font-size:1.1rem; letter-spacing:.16em; text-transform:uppercase; margin:0 0 18px; color:#d9cdb2; font-weight:600; }
+/* 7vw rather than 9vw: the cap is then reached at ~1417px instead of ~1102px,
+   so the name starts scaling down as soon as the window leaves a full
+   desktop width rather than holding its maximum well into laptop sizes. */
+.hero h1{ font-family:var(--font-display); font-weight:400; font-size:clamp(3rem,7vw,6.2rem); line-height:.94; letter-spacing:.02em; text-transform:uppercase; margin:0 0 20px; text-wrap:balance; }
+.hero .cta{ display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:#f7f3ea; font-size:1.1rem; letter-spacing:.03em; border-bottom:1px solid rgba(247,243,234,.6); padding-bottom:4px; }
 
 /* bio */
 /* photo beside a block of text — about / guitar / lute / contact.
@@ -113,17 +120,23 @@ img{ max-width:100%; display:block; }
    share and align both to the top so they start on the same line. */
 @media(min-width:768px) and (max-width:1023px){
   .split, .intro{ grid-template-columns:0.95fr 1fr; align-items:start; }
+  /* Wider gutters mean less room for the bar; tighten it instead of dropping
+     back to a burger at a width where the full nav still reads fine. */
+  .menu{ gap:clamp(10px,1.4vw,18px); }
+  .menu a{ font-size:.78rem; letter-spacing:.03em; }
+  .menu .langs{ padding-left:12px; }
+  .menu .langs button{ font-size:.66rem; padding:3px 7px; }
 }
 
 /* concerts */
 .concerts-wrap{ padding:0 var(--pad) clamp(48px,8vw,88px); }
-.concerts-wrap h2{ font-family:var(--font-display); font-weight:500; font-size:clamp(2rem,4vw,2.9rem); margin:0 0 30px; }
+.concerts-wrap h2{ font-family:var(--font-heading); font-weight:600; font-size:clamp(1.5rem,2.6vw,2rem); letter-spacing:.01em; margin:0 0 30px; }
 .concerts-wrap .note{ font-size:.82rem; color:var(--sub); margin:0 0 30px; }
 .clist{ border-top:1px solid var(--line); }
 .crow{ display:grid; grid-template-columns:minmax(150px,auto) 1fr 28px 1fr auto; align-items:center; gap:16px; padding:22px 0; border-bottom:1px solid var(--line); }
 .crow .date{ display:block; font-weight:800; font-size:.95rem; letter-spacing:.02em; font-variant-numeric:tabular-nums; white-space:nowrap; }
 .crow .title{ font-size:1.02rem; }
-.crow .tname{ display:block; }
+.crow .tname{ display:block; font-family:var(--font-heading); font-weight:600; letter-spacing:.005em; }
 .crow .performers{ display:block; font-size:.86rem; line-height:1.45; color:var(--sub); margin-top:4px; }
 .crow .plus{ color:var(--wood); font-size:1.1rem; text-align:center; }
 .crow .venue{ font-size:.94rem; color:var(--sub); }
@@ -132,7 +145,7 @@ img{ max-width:100%; display:block; }
 
 /* video / teaching */
 .band{ padding:clamp(44px,7vw,72px) var(--pad); border-top:1px solid var(--line); }
-.band h2{ font-family:var(--font-display); font-weight:500; font-size:2rem; margin:0 0 22px; }
+.band h2{ font-family:var(--font-heading); font-weight:600; font-size:1.5rem; letter-spacing:.01em; margin:0 0 22px; }
 .band .note{ font-size:.82rem; color:var(--sub); margin:-14px 0 24px; }
 .video-card{ max-width:720px; margin-inline:auto; }
 .video-thumb{ appearance:none; padding:0; width:100%; display:block; cursor:pointer; color:inherit; font:inherit;
@@ -152,7 +165,7 @@ radial-gradient(circle at 68% 32%, #3a322a 0%, #1c1712 62%, #100d0a 100%); }
 
 /* page header — every page but home opens with one */
 .page-head{ padding:clamp(40px,7vw,72px) var(--pad) clamp(18px,3vw,28px); }
-.page-head h1{ font-family:var(--font-display); font-weight:400; font-size:clamp(2.4rem,6vw,4rem);
+.page-head h1{ font-family:var(--font-heading); font-weight:700; font-size:clamp(1.9rem,4vw,2.9rem);
   line-height:1; letter-spacing:.02em; text-transform:uppercase; margin:0; }
 
 /* home: photo left, introduction and the three section links right.
@@ -177,7 +190,13 @@ radial-gradient(circle at 68% 32%, #3a322a 0%, #1c1712 62%, #100d0a 100%); }
 }
 
 /* a cta used as a standalone block rather than inside the hero */
-.cta-block{ display:inline-flex; margin-top:30px; }
+/* .cta outside the hero had no rule at all, so this link fell back to browser
+   defaults. Match the ticket links instead; .hero .cta still overrides it. */
+.cta{ display:inline-flex; align-items:center; gap:8px; text-decoration:none;
+  font-size:.82rem; letter-spacing:.06em; text-transform:uppercase;
+  border-bottom:1px solid var(--wood); padding-bottom:4px; }
+.cta:hover, .cta:focus-visible{ color:var(--wood); }
+.cta-block{ margin-top:34px; }
 
 /* dates page: the archive reads quieter than the upcoming list */
 .concerts-wrap.past{ border-top:1px solid var(--line); padding-top:clamp(44px,7vw,72px); }
