@@ -44,7 +44,14 @@
       <svg viewBox="0 0 100 100" fill="none" stroke="#f3efe6" stroke-width="1.4"><path d="M50 8c-9 0-14 7-14 15 0 6 3 9 3 14 0 10-9 12-9 24 0 16 9 27 20 27s20-11 20-27c0-12-9-14-9-24 0-5 3-8 3-14 0-8-5-15-14-15z"/><path d="M50 88V52M40 52h20"/></svg>
     </div>
     <div class="bio-text">
-      <p data-i18n="bio.body">André Ferreira é um guitarrista e alaudista português radicado em Viena. Natural de Leiria, iniciou os estudos de guitarra aos doze anos e formou-se com distinção no Conservatorio Superior de Música de Vigo, prosseguindo estudos avançados em Darmstadt, Graz, Weimar e Colónia. O seu percurso foi reconhecido com prémios nos concursos internacionais José Tomás, Ciutat d'Elx e Leiria. Atua por toda a Europa como solista e com formações como o Bach Consort Wien e o Concentus Musicus Wien, tendo editado o álbum de estreia "Sonatas" em 2018.</p>
+      <!-- Four paragraphs, so this is a div: main.js swaps the whole inner
+           HTML per language and <p> cannot nest inside <p>. -->
+      <div class="bio-body" data-i18n="bio.body">
+        <p>André Ferreira é um guitarrista e alaudista português radicado em Viena. Músico versátil, com uma sólida formação tanto na performance histórica como na moderna, o seu tocar reflete um envolvimento profundo com as possibilidades expressivas das cordas dedilhadas.</p>
+        <p>Atua regularmente como solista, músico de câmara e instrumentista de orquestra, colaborando com agrupamentos como o Concentus Musicus Wien e o Bach Consort Wien. As suas atuações levaram-no a importantes salas e festivais por toda a Europa, incluindo o Wiener Musikverein, o Wiener Konzerthaus, o Palau de la Música Catalana, o Auditorio Nacional de Madrid, a Kölner Philharmonie e o Brucknerhaus Linz.</p>
+        <p>A formação musical de André abrange as tradições europeias da guitarra e dos instrumentos antigos de corda dedilhada. Estudou com Margarita Escarpa, Tilman Hoppstock, Paolo Pegoraro, Ricardo Gallén e David Bergmüller, tendo concluído mestrados em Guitarra e em Alaúde, bem como uma licenciatura em Pedagogia Musical.</p>
+        <p>Desde 2023, integra o corpo docente da Universidade de Música e Artes Cénicas de Viena, onde leciona ambos os instrumentos.</p>
+      </div>
       <a href="#" data-i18n="bio.link">Sobre André →</a>
     </div>
   </section>
