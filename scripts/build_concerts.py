@@ -1,37 +1,40 @@
 #!/usr/bin/env python3
-"""Render the concert list into index.html from a published Google Sheet.
+"""Render the upcoming concert rows into index.html from data/events.csv.
 
 Run by .github/workflows/deploy.yml before the Pages artifact is uploaded, so
-the dates ship as real markup that search engines can read, instead of being
+the dates ship as real markup that search engines can read, rather than being
 fetched in the visitor's browser. Nothing is committed back: the generated rows
 exist only in the deployed artifact, so index.html in git keeps whatever rows
-were last hand-written there as a sensible fallback.
+were last written there as a fallback.
 
-Setting up the sheet:
-  File -> Share -> Publish to web -> choose the sheet -> Comma-separated
-  values (.csv) -> Publish. Paste the resulting URL into SHEET_CSV_URL below,
-  or set a repo variable of the same name (Settings -> Secrets and variables
-  -> Actions -> Variables), which wins over the constant.
+data/events.csv is the full history — past events stay in the file, they are
+just not rendered. Only the next LIMIT upcoming ones reach the home page, and
+which ones those are is decided at build time, which is why the workflow also
+rebuilds on a daily schedule: events drop off by themselves as they are played.
 
 Columns (header row, case-insensitive, any order; only `date` is required):
-  date      2026-10-18             ISO yyyy-mm-dd. Past dates are dropped.
+  date       2026-10-18            ISO yyyy-mm-dd. Past events are skipped.
                                    Several nights that are NOT consecutive go
                                    in this one cell separated by ; or , —
                                    "2026-10-16; 2026-10-18" shows as "16 & 18
                                    OUT", and each night drops off once played.
-  end_date  2026-10-18             optional, for a run of CONSECUTIVE days; the
-                                   row shows as "16-18 OUT" and stays listed in
-                                   full until the last day is past. Ignored if
-                                   `date` already lists several dates.
-  title     Bach Consort Wien      Portuguese / default title
-  title_en  Solo recital           optional, falls back to title
-  title_de  Solorezital            optional, falls back to title
-  venue     Musikverein, Wien, AT  plain text, not translated
-  tickets   https://...            optional, the link is omitted when blank
+  end_date   2026-10-18            optional, for a run of CONSECUTIVE days; the
+                                   row shows as "25 OUT - 03 NOV" and stays
+                                   listed in full until the last day is past.
+                                   Ignored if `date` already lists several.
+  title      Concerto de Natal     Portuguese / default title
+  title_en   Christmas Concert     optional, falls back to title
+  title_de   Weihnachtskonzert     optional, falls back to title
+  performers Bach Consort Wien     optional, shown under the title
+  venue      Wiener Musikverein    optional
+  city       Vienna                optional
+  country    AT                    optional; venue/city/country are joined with
+                                   commas, so any of them may be blank
+  tickets    https://...           optional, the link is omitted when blank
 
-Failure is deliberately soft: if the sheet is unreachable or malformed the
-script warns and leaves index.html alone, so a broken sheet degrades to
-slightly stale dates rather than a failed deploy.
+Failure is deliberately soft: if the CSV is missing or malformed the script
+warns and leaves index.html alone, so a bad edit costs slightly stale rows
+rather than a failed deploy.
 """
 
 import csv
@@ -41,9 +44,16 @@ import io
 import os
 import re
 import sys
-import urllib.request
 
-SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1-1bQn9qvNd3qO9F6_xqg5GrS9e9eqLN9YrKgq2iVgsg/edit?usp=drivesdk"  # <- paste the published-to-web CSV URL here
+EVENTS_CSV = "data/events.csv"  # override with the EVENTS_CSV env var
+LIMIT = 4  # how many upcoming events the home page shows
+
+# Shown when the CSV is readable but everything in it has been played. Keeping
+# the previous rows would leave finished concerts sitting under "Upcoming".
+EMPTY_STATE = (
+    '      <p class="note" data-i18n="concerts.none">'
+    'Sem concertos anunciados de momento.</p>'
+)
 
 MONTHS = {
     "pt": "JAN FEV MAR ABR MAI JUN JUL AGO SET OUT NOV DEZ".split(),
@@ -62,20 +72,13 @@ def warn(msg):
     print("::warning title=build_concerts::%s" % msg)
 
 
-def fetch(url):
-    req = urllib.request.Request(url, headers={"User-Agent": "andreferreira-site-build"})
-    with urllib.request.urlopen(req, timeout=30) as resp:
-        return resp.read().decode("utf-8-sig")
-
-
 def read_date(value, where):
-    """ISO only. Sheets exports a real date cell in the sheet's locale format
-    (16/10/2026), which is ambiguous, so the column must be plain text."""
+    """ISO only — 03/04 is ambiguous between two continents, so it is rejected
+    rather than guessed at."""
     try:
         return dt.date.fromisoformat(value)
     except ValueError:
-        warn("%s: %r is not yyyy-mm-dd. If the sheet shows it as a date, set that "
-             "column to Format -> Number -> Plain text and retype it." % (where, value))
+        warn("%s: %r is not yyyy-mm-dd, skipping it" % (where, value))
         return None
 
 
@@ -170,7 +173,7 @@ def date_label(kind, days, lang, this_year):
 
 
 def safe_url(value):
-    """Sheets are hand-edited; don't let a stray javascript: land in an href."""
+    """The CSV is hand-edited; don't let a stray javascript: land in an href."""
     return value if value.lower().startswith(("http://", "https://")) else ""
 
 
@@ -199,12 +202,24 @@ def render(rows, indent="      "):
             '%s    <time class="date" datetime="%s"%s %s>%s</time>'
             % (indent, days[0].isoformat(), span, attrs(dates), html.escape(dates["pt"]))
         )
+        performers = row.get("performers", "")
+        out.append('%s    <div class="title">' % indent)
         out.append(
-            '%s    <div class="title" %s>%s</div>'
+            '%s      <span class="tname" %s>%s</span>'
             % (indent, attrs(titles), html.escape(titles["pt"]))
         )
+        if performers:
+            out.append(
+                '%s      <span class="performers">%s</span>'
+                % (indent, html.escape(performers))
+            )
+        out.append("%s    </div>" % indent)
         out.append('%s    <div class="plus">+</div>' % indent)
-        out.append('%s    <div class="venue">%s</div>' % (indent, html.escape(row.get("venue", ""))))
+        # Any of venue/city/country may be blank — a recording session has none.
+        place = ", ".join(
+            p for p in (row.get("venue", ""), row.get("city", ""), row.get("country", "")) if p
+        )
+        out.append('%s    <div class="venue">%s</div>' % (indent, html.escape(place)))
         tickets = safe_url(row.get("tickets", ""))
         if tickets:
             out.append(
@@ -217,19 +232,18 @@ def render(rows, indent="      "):
 
 
 def main():
-    url = os.environ.get("SHEET_CSV_URL", "").strip() or SHEET_CSV_URL
-    if not url:
-        print("No SHEET_CSV_URL set; leaving the concert rows in index.html as they are.")
+    path = os.environ.get("EVENTS_CSV", "").strip() or EVENTS_CSV
+
+    try:
+        text = io.open(path, encoding="utf-8-sig").read()
+    except OSError as exc:
+        warn("could not read %s (%s); keeping the existing concert rows" % (path, exc))
         return 0
 
     try:
-        rows = parse(fetch(url))
+        upcoming = parse(text)
     except Exception as exc:
-        warn("could not read the sheet (%s); keeping the existing concert rows" % exc)
-        return 0
-
-    if not rows:
-        warn("the sheet has no upcoming dates; keeping the existing concert rows")
+        warn("could not parse %s (%s); keeping the existing concert rows" % (path, exc))
         return 0
 
     page = io.open("index.html", encoding="utf-8").read()
@@ -237,9 +251,17 @@ def main():
         warn("concerts:start/end markers missing from index.html; nothing written")
         return 0
 
-    page = BLOCK.sub(lambda m: m.group(1) + render(rows) + m.group(3), page, count=1)
+    shown = upcoming[:LIMIT]
+    block = render(shown) if shown else EMPTY_STATE
+    page = BLOCK.sub(lambda m: m.group(1) + block + m.group(3), page, count=1)
     io.open("index.html", "w", encoding="utf-8").write(page)
-    print("Wrote %d upcoming concert(s) into index.html." % len(rows))
+    if shown:
+        print(
+            "Wrote %d of %d upcoming event(s) from %s into index.html."
+            % (len(shown), len(upcoming), path)
+        )
+    else:
+        print("Nothing upcoming in %s; wrote the empty state." % path)
     return 0
 
 

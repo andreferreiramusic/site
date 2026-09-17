@@ -3,8 +3,8 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [ main ]
-  # Picks up Google Sheet edits without anyone touching the repo. Use the
-  # "Run workflow" button on the Actions tab to publish a change immediately.
+  # Rebuilds daily so events drop off the home page once they've been played —
+  # which of the upcoming four show is decided at build time, not in the browser.
   schedule:
     - cron: '17 5 * * *'
   workflow_dispatch:
@@ -26,12 +26,11 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v7
-      # Writes the concert rows into index.html before the artifact is packed,
-      # so the dates ship as crawlable markup. Soft-fails to the committed rows.
-      - name: Build concert list from the Google Sheet
+      # Writes the next four events into index.html before the artifact is
+      # packed, so the dates ship as crawlable markup. Soft-fails to the
+      # committed rows if data/events.csv can't be read.
+      - name: Build concert list from data/events.csv
         run: python3 scripts/build_concerts.py
-        env:
-          SHEET_CSV_URL: ${{ vars.SHEET_CSV_URL }}
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
         with:

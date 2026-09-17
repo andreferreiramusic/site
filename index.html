@@ -30,9 +30,6 @@
   </header>
 
   <section class="hero">
-    <span class="hero-photo-tag">Portrait — placeholder</span>
-    <!-- To use a real photo: delete the .hero background in style.css and add
-         <img> inside .hero-photo-wrap, or set .hero{background-image:url('assets/img/hero.jpg')} -->
     <div class="hero-inner">
       <p class="eyebrow" data-i18n="hero.eyebrow">Guitarra Clássica &amp; Alaúde · Viena</p>
       <h1 data-i18n="hero.name">André<br>Ferreira</h1>
@@ -54,33 +51,49 @@
 
   <section class="concerts-wrap" id="concerts">
     <h2 data-i18n="concerts.h">Próximos Concertos</h2>
-    <!-- concerts:start — regenerated from the Google Sheet by scripts/build_concerts.py
-         at deploy time. Edits below survive in git but are replaced on the live site
-         whenever the sheet is reachable; they are what shows if it ever isn't. -->
+    <!-- concerts:start — the next 4 upcoming events, regenerated from
+         data/events.csv by scripts/build_concerts.py at deploy time. Edits here
+         are overwritten; they are only what shows if the CSV can't be read. -->
       <div class="clist">
         <div class="crow">
-          <time class="date" datetime="2026-10-18" data-pt="18 OUT" data-en="18 OCT" data-de="18 OKT">18 OUT</time>
-          <div class="title" data-pt="Bach Consort Wien" data-en="Bach Consort Wien" data-de="Bach Consort Wien">Bach Consort Wien</div>
+          <time class="date" datetime="2026-10-09" data-end="2026-10-11" data-pt="09–11 OUT" data-en="09–11 OCT" data-de="09–11 OKT">09–11 OUT</time>
+          <div class="title">
+            <span class="tname" data-pt="Die Wunderkofferbande" data-en="Die Wunderkofferbande" data-de="Die Wunderkofferbande">Die Wunderkofferbande</span>
+            <span class="performers">Christine Gnigler (Recorder &amp; Singing) &amp; Veronika Mandl (Text, Acting)</span>
+          </div>
           <div class="plus">+</div>
-          <div class="venue">Musikverein, Wien, AT</div>
+          <div class="venue">Wiener Musikverein, Vienna, AT</div>
+          <a class="tix" href="https://musikverein.at/konzert/?id=000e0e8f" target="_blank" rel="noopener" data-i18n="concerts.tickets">Bilhetes →</a>
         </div>
         <div class="crow">
-          <time class="date" datetime="2026-11-07" data-pt="07 NOV" data-en="07 NOV" data-de="07 NOV">07 NOV</time>
-          <div class="title" data-pt="Concentus Musicus Wien" data-en="Concentus Musicus Wien" data-de="Concentus Musicus Wien">Concentus Musicus Wien</div>
+          <time class="date" datetime="2026-10-25" data-end="2026-11-03" data-pt="25 OUT – 03 NOV" data-en="25 OCT – 03 NOV" data-de="25 OKT – 03 NOV">25 OUT – 03 NOV</time>
+          <div class="title">
+            <span class="tname" data-pt="Claudio Monteverdi — L&#x27;Orfeo" data-en="Claudio Monteverdi — L&#x27;Orfeo" data-de="Claudio Monteverdi — L&#x27;Orfeo">Claudio Monteverdi — L&#x27;Orfeo</span>
+            <span class="performers">Concentus Musicus Wien &amp; Stefan Gottfried</span>
+          </div>
           <div class="plus">+</div>
-          <div class="venue">Theater an der Wien, AT</div>
+          <div class="venue">Wiener Staatsoper, Vienna, AT</div>
+          <a class="tix" href="https://www.wiener-staatsoper.at/kalender/detail/lorfeo/2026-10-28/" target="_blank" rel="noopener" data-i18n="concerts.tickets">Bilhetes →</a>
         </div>
         <div class="crow">
-          <time class="date" datetime="2027-01-22" data-pt="22 JAN 2027" data-en="22 JAN 2027" data-de="22 JAN 2027">22 JAN 2027</time>
-          <div class="title" data-pt="Recital a solo" data-en="Solo recital" data-de="Solorezital">Recital a solo</div>
+          <time class="date" datetime="2026-12-20" data-pt="20 DEZ" data-en="20 DEC" data-de="20 DEZ">20 DEZ</time>
+          <div class="title">
+            <span class="tname" data-pt="Concerto de Natal" data-en="Concerto de Natal" data-de="Concerto de Natal">Concerto de Natal</span>
+            <span class="performers">Orquestra Metropolitana de Lisboa &amp; Rubén Dubrovsky</span>
+          </div>
           <div class="plus">+</div>
-          <div class="venue">Fundação Gulbenkian, Lisboa, PT</div>
+          <div class="venue">Fórum Municipal Luísa Todi, Setúbal, PT</div>
+          <a class="tix" href="https://www.metropolitana.pt/programacao/concerto-de-natal-13/" target="_blank" rel="noopener" data-i18n="concerts.tickets">Bilhetes →</a>
         </div>
         <div class="crow">
-          <time class="date" datetime="2027-03-14" data-pt="14 MAR 2027" data-en="14 MAR 2027" data-de="14 MÄR 2027">14 MAR 2027</time>
-          <div class="title" data-pt="Recital a solo" data-en="Solo recital" data-de="Solorezital">Recital a solo</div>
+          <time class="date" datetime="2026-12-21" data-pt="21 DEZ" data-en="21 DEC" data-de="21 DEZ">21 DEZ</time>
+          <div class="title">
+            <span class="tname" data-pt="Concerto de Natal" data-en="Concerto de Natal" data-de="Concerto de Natal">Concerto de Natal</span>
+            <span class="performers">Orquestra Metropolitana de Lisboa &amp; Rubén Dubrovsky</span>
+          </div>
           <div class="plus">+</div>
-          <div class="venue">Palau de la Música, Barcelona, ES</div>
+          <div class="venue">Igreja de São Roque, Lisboa, PT</div>
+          <a class="tix" href="https://www.metropolitana.pt/programacao/concerto-de-natal-14/" target="_blank" rel="noopener" data-i18n="concerts.tickets">Bilhetes →</a>
         </div>
       </div>
     <!-- concerts:end -->
