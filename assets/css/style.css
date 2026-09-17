@@ -43,8 +43,8 @@ img{ max-width:100%; display:block; }
 
 /* bio */
 .bio{ padding:clamp(48px,8vw,88px) var(--pad); display:grid; grid-template-columns:0.85fr 1fr; gap:clamp(28px,5vw,64px); align-items:center; }
-.bio-photo{ aspect-ratio:4/5; border-radius:4px; background:
-    radial-gradient(circle at 60% 30%, #3a322a 0%, #1c1712 65%, #100d0a 100%); border:1px solid var(--line); position:relative; overflow:hidden; }
+.bio-photo{ aspect-ratio:4/5; background:
+radial-gradient(circle at 60% 30%, #3a322a 0%, #1c1712 65%, #100d0a 100%); position:relative; overflow:hidden; }
 .bio-photo img{ width:100%; height:100%; object-fit:cover; }
 .bio-photo .tag{ position:absolute; bottom:12px; left:12px; font-size:.62rem; letter-spacing:.06em; text-transform:uppercase; color:rgba(243,239,230,.6); }
 .bio-photo svg{ position:absolute; inset:0; margin:auto; width:34%; opacity:.28; }
@@ -73,14 +73,14 @@ img{ max-width:100%; display:block; }
 .band .note{ font-size:.82rem; color:var(--sub); margin:-14px 0 24px; }
 .video-card{ max-width:720px; margin-inline:auto; }
 .video-thumb{ appearance:none; padding:0; width:100%; display:block; cursor:pointer; color:inherit; font:inherit;
-    position:relative; aspect-ratio:16/9; border-radius:4px; overflow:hidden; border:1px solid var(--line); background:
-    radial-gradient(circle at 68% 32%, #3a322a 0%, #1c1712 62%, #100d0a 100%); }
+position:relative; aspect-ratio:16/9; overflow:hidden; background:
+radial-gradient(circle at 68% 32%, #3a322a 0%, #1c1712 62%, #100d0a 100%); }
 .video-thumb img{ width:100%; height:100%; object-fit:cover; }
 .video-thumb .play{ position:absolute; inset:0; margin:auto; width:64px; height:64px; border-radius:50%; background:rgba(243,239,230,.92); display:flex; align-items:center; justify-content:center; transition:background .15s; }
 .video-thumb .play svg{ width:20px; height:20px; fill:#141005; margin-left:3px; }
 .video-thumb:hover .play, .video-thumb:focus-visible .play{ background:var(--wood); }
 /* replaces .video-thumb once play is pressed */
-.video-player{ position:relative; aspect-ratio:16/9; border-radius:4px; overflow:hidden; border:1px solid var(--line); background:#000; }
+.video-player{ position:relative; aspect-ratio:16/9; overflow:hidden; background:#000; }
 .video-player iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
 .video-caption{ display:flex; justify-content:space-between; align-items:baseline; gap:12px; padding-top:14px; flex-wrap:wrap; }
 .video-caption .vt{ font-size:1.02rem; font-weight:700; }
