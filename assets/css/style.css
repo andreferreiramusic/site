@@ -6,7 +6,10 @@
 :root{
   --black:#0a0a0a; --bg:#0a0a0a; --ink:#f1ece1; --sub:#a89c86; --line:rgba(241,236,225,.16); --wood:#d9b98a;
   --font-display:'Cormorant Garamond',Georgia,serif; --font-body:'Nunito',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-  --pad:clamp(20px,5vw,64px);
+  /* Lateral gutters: one twelfth of the viewport each side, so content sits
+     in the middle ten columns of a notional 12. Floored so phones keep a
+     usable margin rather than 8% of 375px. */
+  --pad:max(22px,8.3333vw);
 }
 
 *{ box-sizing:border-box; }
