@@ -11,11 +11,10 @@
       'nav.home':'Início','nav.about':'Sobre','nav.guitar':'Guitarra','nav.lute':'Alaúde',
       'nav.dates':'Datas','nav.contact':'Contacto','nav.video':'Vídeo',
       'hero.eyebrow':'Guitarra Clássica & Alaúde · Viena','hero.cta':'Próximos concertos →',
-      'home.more':'Ver mais →',
       'home.about':'André Ferreira é um guitarrista e alaudista português radicado em Viena, atuando por toda a Europa como solista, músico de câmara e instrumentista de orquestra.',
-      'home.guitar':'Repertório, instrumentos e projetos em torno da guitarra clássica.',
-      'home.lute':'Alaúde, teorba e instrumentos históricos de corda dedilhada.',
-      'home.contact':'Reservas, masterclasses e pedidos de imprensa.',
+      'home.about.d':'Biografia, formação e as salas e festivais onde tem atuado.',
+      'home.guitar.d':'Repertório, instrumentos e projetos em torno da guitarra clássica.',
+      'home.lute.d':'Alaúde, teorba e outros instrumentos históricos de corda dedilhada.',
       'home.dates.h':'Próximos Concertos','home.dates.all':'Todas as datas →',
       'bio.body':
         '<p>André Ferreira é um guitarrista e alaudista português radicado em Viena. Músico versátil, com uma sólida formação tanto na performance histórica como na moderna, o seu tocar reflete um envolvimento profundo com as possibilidades expressivas das cordas dedilhadas.</p>' +
@@ -38,11 +37,10 @@
       'nav.home':'Home','nav.about':'About','nav.guitar':'Guitar','nav.lute':'Lute',
       'nav.dates':'Dates','nav.contact':'Contact','nav.video':'Video',
       'hero.eyebrow':'Classical Guitar & Lute · Vienna','hero.cta':'Upcoming concerts →',
-      'home.more':'Read more →',
       'home.about':'André Ferreira is a Portuguese guitarist and lutenist based in Vienna, performing across Europe as a soloist, chamber musician and orchestral player.',
-      'home.guitar':'Repertoire, instruments and projects on the classical guitar.',
-      'home.lute':'Lute, theorbo and historical plucked string instruments.',
-      'home.contact':'Booking, masterclasses and press enquiries.',
+      'home.about.d':'Biography, training, and the halls and festivals he has played.',
+      'home.guitar.d':'Repertoire, instruments and projects on the classical guitar.',
+      'home.lute.d':'Lute, theorbo and other historical plucked string instruments.',
       'home.dates.h':'Upcoming Concerts','home.dates.all':'All dates →',
       'bio.body':
         '<p>André Ferreira is a Portuguese guitarist and lutenist based in Vienna. A versatile musician with a strong foundation in both historical and modern performance, his playing reflects a deep engagement with the expressive possibilities of plucked strings.</p>' +
@@ -65,11 +63,10 @@
       'nav.home':'Start','nav.about':'Über','nav.guitar':'Gitarre','nav.lute':'Laute',
       'nav.dates':'Termine','nav.contact':'Kontakt','nav.video':'Video',
       'hero.eyebrow':'Klassische Gitarre & Laute · Wien','hero.cta':'Kommende Konzerte →',
-      'home.more':'Mehr lesen →',
       'home.about':'André Ferreira ist ein portugiesischer Gitarrist und Lautenist mit Sitz in Wien und tritt in ganz Europa als Solist, Kammermusiker und Orchestermusiker auf.',
-      'home.guitar':'Repertoire, Instrumente und Projekte rund um die klassische Gitarre.',
-      'home.lute':'Laute, Theorbe und historische Zupfinstrumente.',
-      'home.contact':'Buchung, Meisterkurse und Presseanfragen.',
+      'home.about.d':'Biografie, Ausbildung und die Säle und Festivals, in denen er gespielt hat.',
+      'home.guitar.d':'Repertoire, Instrumente und Projekte rund um die klassische Gitarre.',
+      'home.lute.d':'Laute, Theorbe und weitere historische Zupfinstrumente.',
       'home.dates.h':'Kommende Konzerte','home.dates.all':'Alle Termine →',
       'bio.body':
         '<p>André Ferreira ist ein portugiesischer Gitarrist und Lautenist mit Sitz in Wien. Als vielseitiger Musiker mit einem soliden Fundament in historischer wie moderner Aufführungspraxis zeugt sein Spiel von einer tiefen Auseinandersetzung mit den Ausdrucksmöglichkeiten der Zupfinstrumente.</p>' +
