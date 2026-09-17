@@ -91,6 +91,9 @@
   // every nav click would snap back to Portuguese. Wrapped because storage
   // throws outright in some privacy modes.
   var STORE = 'af-lang';
+  // Shown to visitors whose browser asks for none of pt/en/de — French,
+  // Spanish, Italian and so on. Change this one value to prefer Portuguese.
+  var FALLBACK = 'en';
   function readStored(){
     try { return localStorage.getItem(STORE); } catch(e){ return null; }
   }
@@ -171,6 +174,24 @@
     });
   }
 
+  // On a first visit, follow the browser's own language preferences. That is
+  // the language the visitor asked for, which is not the same as where they
+  // are: a Portuguese speaker in Vienna should still get Portuguese. Deciding
+  // by country would need a third-party IP lookup on every page load, and
+  // would answer the wrong question anyway.
+  function preferredLang(){
+    var prefs = navigator.languages && navigator.languages.length
+      ? navigator.languages
+      : [navigator.language || ''];
+    for(var i = 0; i < prefs.length; i++){
+      // "de-AT" and "de" both count as German.
+      var base = String(prefs[i]).toLowerCase().split('-')[0];
+      if(i18n[base]) return base;
+    }
+    return FALLBACK;
+  }
+
+  // An explicit click always wins over detection, and forever after.
   var stored = readStored();
-  setLang(stored && i18n[stored] ? stored : 'pt', false);
+  setLang(stored && i18n[stored] ? stored : preferredLang(), false);
 })();
