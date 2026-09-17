@@ -7,6 +7,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Nunito:wght@400;600;700;800&display=swap">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../assets/img/favicon-192.png">
+<!-- iOS ignores transparency here and composites onto black, so this one
+     is the plain square photo and iOS applies its own rounded mask. -->
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
 <link rel="stylesheet" href="../assets/css/style.css">
 <!-- head:end -->
 </head>
@@ -14,7 +19,9 @@
 
 <!-- nav:start -->
   <header class="topbar">
-    <a class="mono" href="../index.html">AF</a>
+    <a class="mono" href="../index.html">
+      <img src="../assets/img/logo-128.jpg" alt="André Ferreira — início">
+    </a>
     <button class="burger" id="burgerBtn" aria-label="Menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
