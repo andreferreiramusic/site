@@ -31,7 +31,9 @@ img{ max-width:100%; display:block; }
 /* hero */
 .hero{ position:relative; min-height:min(88vh,780px); background:
     linear-gradient(180deg, rgba(6,5,4,.05) 0%, rgba(6,5,4,.75) 78%, rgba(6,5,4,.92) 100%),
-    url('../img/hero.jpg') center / cover no-repeat,
+    /* Top-anchored: the photo has barely any headroom above his head, so any
+       vertical centring crops it once the viewport gets wide. */
+    url('../img/hero.jpg') 50% 0% / cover no-repeat,
     radial-gradient(circle at 32% 30%, #6b5d4f 0%, #453a30 42%, #221c16 100%);
   display:flex; align-items:flex-end; }
 .hero-inner{ padding:0 var(--pad) clamp(30px,6vw,56px); color:#f7f3ea; width:100%; }
@@ -69,7 +71,7 @@ img{ max-width:100%; display:block; }
 .band{ padding:clamp(44px,7vw,72px) var(--pad); border-top:1px solid var(--line); }
 .band h2{ font-family:var(--font-display); font-weight:500; font-size:2rem; margin:0 0 22px; }
 .band .note{ font-size:.82rem; color:var(--sub); margin:-14px 0 24px; }
-.video-card{ max-width:720px; }
+.video-card{ max-width:720px; margin-inline:auto; }
 .video-thumb{ appearance:none; padding:0; width:100%; display:block; cursor:pointer; color:inherit; font:inherit;
     position:relative; aspect-ratio:16/9; border-radius:4px; overflow:hidden; border:1px solid var(--line); background:
     radial-gradient(circle at 68% 32%, #3a322a 0%, #1c1712 62%, #100d0a 100%); }

@@ -1,6 +1,6 @@
 Drop real photos here, then swap the placeholders in index.html:
 
-- hero.jpeg — **in use.** Full portrait behind the big name on the homepage,
+- hero.jpg — **in use.** Full portrait behind the big name on the homepage,
   set as a background image on `.hero` in assets/css/style.css with a dark
   gradient over it so the white name stays readable. To swap it, overwrite the
   file (keeping the name) or update the url() in that rule.
