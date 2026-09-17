@@ -34,10 +34,12 @@ img{ max-width:100%; display:block; }
 .menu .langs button{ appearance:none; background:none; border:1px solid rgba(242,237,226,.4); color:#f2ede2; font-size:.72rem; letter-spacing:.05em; padding:4px 9px; cursor:pointer; }
 .menu .langs button[aria-pressed="true"]{ background:var(--wood); border-color:var(--wood); color:#141005; }
 
-/* Narrow first: the menu is a dropdown behind the burger. From 900px up there
-   is room for all six items plus the language buttons on one line, so the
-   whole thing flattens into the bar and the burger is dropped. */
-@media(min-width:900px){
+/* Narrow first: the menu is a dropdown behind the burger. From 768px up — iPad
+   portrait included — there is room for all six items plus the language buttons
+   on one line, so the whole thing flattens into the bar and the burger goes.
+   Width, not user agent: iPadOS Safari reports itself as macOS, so sniffing
+   would miss the very device this targets. */
+@media(min-width:768px){
   .burger{ display:none; }
   .menu{ position:static; display:flex; flex-direction:row; align-items:center;
     gap:clamp(14px,2vw,30px); background:none; border:0; padding:0; min-width:0; }
@@ -45,7 +47,7 @@ img{ max-width:100%; display:block; }
     border-top:0; border-left:1px solid rgba(242,237,226,.15); }
 }
 /* Comfortable tap targets while it is still a dropdown. */
-@media(max-width:899px){
+@media(max-width:767px){
   .menu{ gap:2px; padding:10px 22px 18px; }
   .menu a{ padding:9px 0; }
 }
@@ -72,9 +74,15 @@ img{ max-width:100%; display:block; }
 .split-photo img{ width:100%; height:100%; object-fit:cover; }
 .bio-body p{ font-size:1.12rem; line-height:1.75; color:var(--ink); margin:0 0 26px; max-width:46ch; }
 .bio-body p:last-child{ margin-bottom:0; }
-@media(max-width:760px){
+@media(max-width:767px){
   .split{ grid-template-columns:1fr; }
   .split-photo{ max-width:340px; }
+}
+/* Tablet: keep the two columns, but the text column runs tall at this width,
+   which left the photo looking small and stranded mid-paragraph. Widen its
+   share and align both to the top so they start on the same line. */
+@media(min-width:768px) and (max-width:1023px){
+  .split, .intro{ grid-template-columns:0.95fr 1fr; align-items:start; }
 }
 
 /* concerts */
@@ -133,7 +141,7 @@ radial-gradient(circle at 68% 32%, #3a322a 0%, #1c1712 62%, #100d0a 100%); }
 .ilabel::after{ content:' →'; }
 .idesc{ display:block; font-size:.95rem; line-height:1.6; color:var(--sub); max-width:48ch; }
 .ilink:hover .idesc{ color:var(--ink); }
-@media(max-width:760px){
+@media(max-width:767px){
   .intro{ grid-template-columns:1fr; }
   .intro-photo{ max-width:340px; }
 }
