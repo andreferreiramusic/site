@@ -26,11 +26,11 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v7
-      # Writes the next four events into index.html before the artifact is
-      # packed, so the dates ship as crawlable markup. Soft-fails to the
-      # committed rows if data/events.csv can't be read.
-      - name: Build concert list from data/events.csv
-        run: python3 scripts/events.py
+      # Rebuilds all six pages from templates/ + content/ before the artifact
+      # is packed, so which events count as upcoming is decided on the deploy
+      # date and the rows ship as crawlable markup.
+      - name: Build site
+        run: python3 scripts/build.py
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
         with:

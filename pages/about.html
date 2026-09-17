@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<title>Sobre — André Ferreira</title>
+<meta name="description" content="Biografia de André Ferreira, guitarrista e alaudista português radicado em Viena.">
+<!-- head:start -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Nunito:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="../assets/css/style.css">
+<!-- head:end -->
+</head>
+<body>
+
+<!-- nav:start -->
+  <header class="topbar">
+    <a class="mono" href="../index.html">AF</a>
+    <button class="burger" id="burgerBtn" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="menu" id="menu">
+      <a href="../index.html" data-i18n="nav.home">Início</a>
+      <a href="../pages/about.html" aria-current="page" data-i18n="nav.about">Sobre</a>
+      <a href="../pages/guitar.html" data-i18n="nav.guitar">Guitarra</a>
+      <a href="../pages/lute.html" data-i18n="nav.lute">Alaúde</a>
+      <a href="../pages/dates.html" data-i18n="nav.dates">Datas</a>
+      <a href="../pages/contact.html" data-i18n="nav.contact">Contacto</a>
+      <div class="langs">
+        <button data-lang="pt" aria-pressed="true">PT</button>
+        <button data-lang="en" aria-pressed="false">EN</button>
+        <button data-lang="de" aria-pressed="false">DE</button>
+      </div>
+    </nav>
+  </header>
+<!-- nav:end -->
+
+  <section class="page-head">
+    <h1 data-i18n="nav.about">Sobre</h1>
+  </section>
+
+  <section class="bio">
+    <div class="bio-photo">
+      <!-- Real photo: <img src="../assets/img/bio.jpg" alt="André Ferreira"> instead of the tag+svg below -->
+      <span class="tag">Foto — placeholder</span>
+      <svg viewBox="0 0 100 100" fill="none" stroke="#f3efe6" stroke-width="1.4"><path d="M50 8c-9 0-14 7-14 15 0 6 3 9 3 14 0 10-9 12-9 24 0 16 9 27 20 27s20-11 20-27c0-12-9-14-9-24 0-5 3-8 3-14 0-8-5-15-14-15z"/><path d="M50 88V52M40 52h20"/></svg>
+    </div>
+    <div class="bio-text">
+      <!-- Four paragraphs, so this is a div: main.js swaps the whole inner
+           HTML per language and <p> cannot nest inside <p>. -->
+      <div class="bio-body" data-i18n="bio.body">
+        <p>André Ferreira é um guitarrista e alaudista português radicado em Viena. Músico versátil, com uma sólida formação tanto na performance histórica como na moderna, o seu tocar reflete um envolvimento profundo com as possibilidades expressivas das cordas dedilhadas.</p>
+        <p>Atua regularmente como solista, músico de câmara e instrumentista de orquestra, colaborando com agrupamentos como o Concentus Musicus Wien e o Bach Consort Wien. As suas atuações levaram-no a importantes salas e festivais por toda a Europa, incluindo o Wiener Musikverein, o Wiener Konzerthaus, o Palau de la Música Catalana, o Auditorio Nacional de Madrid, a Kölner Philharmonie e o Brucknerhaus Linz.</p>
+        <p>A formação musical de André abrange as tradições europeias da guitarra e dos instrumentos antigos de corda dedilhada. Estudou com Margarita Escarpa, Tilman Hoppstock, Paolo Pegoraro, Ricardo Gallén e David Bergmüller, tendo concluído mestrados em Guitarra e em Alaúde, bem como uma licenciatura em Pedagogia Musical.</p>
+        <p>Desde 2023, integra o corpo docente da Universidade de Música e Artes Cénicas de Viena, onde leciona ambos os instrumentos.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <h2 data-i18n="about.teaching.h">Ensino</h2>
+    <p class="prose" data-i18n="teaching.body">André leciona instrumentos históricos de alaúde no Departamento de Música Antiga da mdw — Universidade de Música e Artes Cénicas de Viena, e dá masterclasses por toda a Europa.</p>
+  </section>
+
+<!-- footer:start -->
+  <footer class="foot">
+    <span data-i18n="foot.text">Reservas e contacto</span>
+    <a href="mailto:contacto@andreferreiramusic.com">contacto@andreferreiramusic.com</a>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+<!-- footer:end -->
+</body>
+</html>

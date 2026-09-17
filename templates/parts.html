@@ -1,22 +1,23 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
+<!-- Shared chrome, written into every page by scripts/build.py between the
+     matching <!-- name:start --> / <!-- name:end --> markers. Edit here, then
+     run the build; never edit the injected copies inside the pages.
+     {{base}} becomes "" on index.html and "../" on pages/*.html. -->
+
+<!-- part:head -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{title}}</title>
-<meta name="description" content="{{description}}">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Nunito:wght@400;600;700;800&display=swap">
 <link rel="stylesheet" href="{{base}}assets/css/style.css">
-</head>
-<body>
 
+<!-- part:header-open -->
   <header class="topbar">
     <a class="mono" href="{{base}}index.html">AF</a>
     <button class="burger" id="burgerBtn" aria-label="Menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
     <nav class="menu" id="menu">
-{{nav}}
+
+<!-- part:header-close -->
       <div class="langs">
         <button data-lang="pt" aria-pressed="true">PT</button>
         <button data-lang="en" aria-pressed="false">EN</button>
@@ -25,13 +26,10 @@
     </nav>
   </header>
 
-{{content}}
-
+<!-- part:footer -->
   <footer class="foot">
     <span data-i18n="foot.text">Reservas e contacto</span>
     <a href="mailto:contacto@andreferreiramusic.com">contacto@andreferreiramusic.com</a>
   </footer>
 
   <script src="{{base}}assets/js/main.js"></script>
-</body>
-</html>

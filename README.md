@@ -7,14 +7,62 @@ on GitHub Pages.
 ## Structure
 
 ```
-index.html                    the whole one-page site
+index.html                    home page
+pages/about.html              the other five pages — each one is a real,
+pages/guitar.html             complete page you edit directly
+pages/lute.html
+pages/dates.html
+pages/contact.html
+templates/parts.html          shared head / header / footer, defined once
+data/events.csv               every concert, past and upcoming
+scripts/build.py              writes the shared parts + concert rows into the pages
+scripts/events.py             reads the CSV (library used by build.py)
 assets/css/style.css          all styles (black / cream-text / light-wood palette)
 assets/js/main.js             language toggle (PT/EN/DE) + menu + video player
 assets/img/                   photos (see assets/img/README.md)
-data/events.csv               every concert, past and upcoming — the one file to edit
-scripts/build_concerts.py     reads that CSV, writes the upcoming rows into index.html
 .github/workflows/deploy.yml  GitHub Actions workflow that deploys to Pages
 ```
+
+## Local preview
+
+```
+python3 -m http.server 8000
+```
+
+Then open <http://localhost:8000>. Use a server rather than double-clicking the
+files: over `file://` some browsers refuse `localStorage`, which is where the
+chosen language is remembered, so the PT/EN/DE toggle won't survive a page
+change. Ctrl+C stops it.
+
+## Editing a page
+
+Open the page and edit it — `pages/about.html` is the real page, there is no
+separate source file. Only the regions between marker comments are generated:
+
+```html
+<!-- nav:start -->
+  …written by scripts/build.py, don't edit…
+<!-- nav:end -->
+```
+
+Everything outside the markers is yours and is never touched, so text and
+layout changes need no build step at all.
+
+Run the build when you change either of the shared things:
+
+```
+python3 scripts/build.py
+```
+
+- `templates/parts.html` — the head, header/nav and footer, shared by all six
+  pages. Edit once, build, and all six update.
+- `data/events.csv` — the concert list (see below).
+
+The build is idempotent: running it twice changes nothing. It also runs on
+every deploy, which is what keeps "upcoming" honest — see below.
+
+Adding a page means creating the file with the markers you want, then adding it
+to the `NAV` list at the top of `scripts/build.py` so it appears in the menu.
 
 ## Publish it
 
@@ -37,13 +85,16 @@ scripts/build_concerts.py     reads that CSV, writes the upcoming rows into inde
 Everything lives in `data/events.csv` — past and upcoming together, one row per
 engagement. Edit it, commit, push; the deploy regenerates the home page.
 
-**The home page shows the next 4 upcoming events only**, chosen at build time by
-comparing against the date of the build. Past events are never deleted — they
-stay in the CSV as the archive, they just stop being rendered. The workflow also
-runs once a day precisely so an event disappears from the site the day after
-it's played, without anyone pushing anything.
+**The home page shows the next 4**; `pages/dates.html` shows every upcoming
+event plus the full archive below it, newest first. Which events count as
+upcoming is decided at build time against the current date, so past events are
+never deleted — they just move from the upcoming list into the archive.
 
-To show more or fewer, change `LIMIT` at the top of `scripts/build_concerts.py`.
+The workflow also runs once a day precisely so an event moves to the archive the
+day after it's played, without anyone pushing anything.
+
+To show more or fewer on the home page, change `HOME_LIMIT` at the top of
+`scripts/build.py`. Archive rows deliberately carry no ticket links.
 
 ### Columns
 

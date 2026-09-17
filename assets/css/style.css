@@ -24,9 +24,26 @@ img{ max-width:100%; display:block; }
 .menu.open{ display:flex; }
 .menu a{ text-decoration:none; color:inherit; font-size:.86rem; letter-spacing:.05em; text-transform:uppercase; opacity:.88; }
 .menu a:hover{ opacity:1; }
+.menu a[aria-current="page"]{ opacity:1; color:var(--wood); }
 .menu .langs{ display:flex; gap:8px; padding-top:8px; border-top:1px solid rgba(242,237,226,.15); }
 .menu .langs button{ appearance:none; background:none; border:1px solid rgba(242,237,226,.4); color:#f2ede2; font-size:.72rem; letter-spacing:.05em; padding:4px 9px; cursor:pointer; }
 .menu .langs button[aria-pressed="true"]{ background:var(--wood); border-color:var(--wood); color:#141005; }
+
+/* Narrow first: the menu is a dropdown behind the burger. From 900px up there
+   is room for all six items plus the language buttons on one line, so the
+   whole thing flattens into the bar and the burger is dropped. */
+@media(min-width:900px){
+  .burger{ display:none; }
+  .menu{ position:static; display:flex; flex-direction:row; align-items:center;
+    gap:clamp(14px,2vw,30px); background:none; border:0; padding:0; min-width:0; }
+  .menu .langs{ padding:0 0 0 clamp(14px,1.8vw,22px); margin-left:2px;
+    border-top:0; border-left:1px solid rgba(242,237,226,.15); }
+}
+/* Comfortable tap targets while it is still a dropdown. */
+@media(max-width:899px){
+  .menu{ gap:2px; padding:10px 22px 18px; }
+  .menu a{ padding:9px 0; }
+}
 
 /* hero */
 .hero{ position:relative; min-height:min(88vh,780px); background:
@@ -86,6 +103,41 @@ radial-gradient(circle at 68% 32%, #3a322a 0%, #1c1712 62%, #100d0a 100%); }
 .video-caption .vt{ font-size:1.02rem; font-weight:700; }
 .video-caption .vl{ text-decoration:none; font-size:.82rem; letter-spacing:.05em; text-transform:uppercase; border-bottom:1px solid var(--ink); padding-bottom:3px; white-space:nowrap; }
 .band .prose{ max-width:60ch; font-size:1.05rem; line-height:1.7; }
+
+/* page header — every page but home opens with one */
+.page-head{ padding:clamp(40px,7vw,72px) var(--pad) clamp(18px,3vw,28px); }
+.page-head h1{ font-family:var(--font-display); font-weight:400; font-size:clamp(2.4rem,6vw,4rem);
+  line-height:1; letter-spacing:.02em; text-transform:uppercase; margin:0; }
+
+/* home: one card per section, each linking to its page */
+.teasers{ padding:clamp(44px,7vw,72px) var(--pad); display:grid; gap:1px;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); background:var(--line); border-top:1px solid var(--line); }
+.teaser{ background:var(--bg); padding:clamp(24px,3vw,34px); text-decoration:none; color:inherit;
+  display:flex; flex-direction:column; gap:12px; transition:background .18s; }
+.teaser:hover, .teaser:focus-visible{ background:#141210; }
+.teaser h2{ font-family:var(--font-display); font-weight:500; font-size:1.6rem; margin:0; }
+.teaser p{ margin:0; font-size:.95rem; line-height:1.6; color:var(--sub); max-width:38ch; }
+.teaser .more{ margin-top:auto; font-size:.78rem; letter-spacing:.06em; text-transform:uppercase; color:var(--wood); }
+
+/* a cta used as a standalone block rather than inside the hero */
+.cta-block{ display:inline-flex; margin-top:30px; }
+
+/* dates page: the archive reads quieter than the upcoming list */
+.concerts-wrap.past{ border-top:1px solid var(--line); padding-top:clamp(44px,7vw,72px); }
+.concerts-wrap.past .crow{ padding:15px 0; }
+.concerts-wrap.past .crow .date, .concerts-wrap.past .crow .tname{ color:var(--sub); }
+.concerts-wrap.past .crow .performers{ font-size:.82rem; }
+
+/* prose blocks are now containers holding paragraphs, not paragraphs */
+.band .prose p{ margin:0 0 20px; }
+.band .prose p:last-child{ margin-bottom:0; }
+
+/* contact */
+.contact-list{ list-style:none; margin:28px 0 0; padding:0; border-top:1px solid var(--line); max-width:560px; }
+.contact-list li{ display:flex; flex-wrap:wrap; gap:6px 24px; align-items:baseline;
+  padding:16px 0; border-bottom:1px solid var(--line); }
+.contact-list .clabel{ flex:0 0 96px; font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--sub); }
+.contact-list a{ text-decoration:none; border-bottom:1px solid var(--wood); padding-bottom:2px; }
 
 .foot{ background:var(--black); color:#e9e3d5; padding:26px var(--pad); display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; align-items:center; font-size:.82rem; }
 .foot a{ color:var(--wood); text-decoration:none; font-weight:700; }
