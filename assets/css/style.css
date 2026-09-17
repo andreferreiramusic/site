@@ -1,286 +1,91 @@
-/* ==========================================================================
-   ANDRÉ FERREIRA — GLOBAL STYLES & TYPOGRAPHY
-   ========================================================================== */
-:root {
-  --bg: #F5F2EC;
-  --text: #1A1A1A;
-  --text-muted: #555555;
-  --line: #E0DCD5;
-  --font-serif: 'Cormorant Garamond', Georgia, serif;
-  --font-sans: 'Nunito', 'Proxima Nova', sans-serif;
+/* André Ferreira — site styles
+   Palette: all-black ground, light cream type, light-wood accent.
+   Fonts: Cormorant Garamond (display) + Nunito (body).
+*/
+
+:root{
+  --black:#0a0a0a; --bg:#0a0a0a; --ink:#f1ece1; --sub:#a89c86; --line:rgba(241,236,225,.16); --wood:#d9b98a;
+  --font-display:'Cormorant Garamond',Georgia,serif; --font-body:'Nunito',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --pad:clamp(20px,5vw,64px);
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
+body{ background:var(--bg); color:var(--ink); font-family:var(--font-body); }
+a{ color:inherit; }
+img{ max-width:100%; display:block; }
 
-html {
-  scroll-behavior: smooth;
-  background-color: var(--bg);
-  color: var(--text);
-  font-family: var(--font-sans);
-}
+/* top bar */
+.topbar{ background:var(--black); color:#f2ede2; display:flex; align-items:center; justify-content:space-between; padding:16px var(--pad); position:relative; }
+.mono{ width:36px; height:36px; border-radius:50%; border:1px solid rgba(242,237,226,.5); display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-size:.85rem; letter-spacing:.04em; text-decoration:none; }
+.burger{ appearance:none; background:none; border:0; cursor:pointer; padding:6px; display:flex; flex-direction:column; gap:5px; }
+.burger span{ width:24px; height:2px; background:#f2ede2; display:block; }
+.menu{ position:absolute; top:100%; right:var(--pad); background:var(--black); color:#f2ede2; padding:18px 22px; display:none; flex-direction:column; gap:12px; min-width:200px; border:1px solid rgba(242,237,226,.15); z-index:5; }
+.menu.open{ display:flex; }
+.menu a{ text-decoration:none; color:inherit; font-size:.86rem; letter-spacing:.05em; text-transform:uppercase; opacity:.88; }
+.menu a:hover{ opacity:1; }
+.menu .langs{ display:flex; gap:8px; padding-top:8px; border-top:1px solid rgba(242,237,226,.15); }
+.menu .langs button{ appearance:none; background:none; border:1px solid rgba(242,237,226,.4); color:#f2ede2; font-size:.72rem; letter-spacing:.05em; padding:4px 9px; cursor:pointer; }
+.menu .langs button[aria-pressed="true"]{ background:var(--wood); border-color:var(--wood); color:#141005; }
 
-body {
-  background-color: var(--bg);
-  color: var(--text);
-  line-height: 1.6;
-}
+/* hero */
+.hero{ position:relative; min-height:min(88vh,780px); background:
+    linear-gradient(180deg, rgba(6,5,4,.05) 0%, rgba(6,5,4,.75) 78%, rgba(6,5,4,.92) 100%),
+    /* Top-anchored: the photo has barely any headroom above his head, so any
+       vertical centring crops it once the viewport gets wide. */
+    url('../img/hero.jpg') 50% 0% / cover no-repeat,
+    radial-gradient(circle at 32% 30%, #6b5d4f 0%, #453a30 42%, #221c16 100%);
+  display:flex; align-items:flex-end; }
+.hero-inner{ padding:0 var(--pad) clamp(30px,6vw,56px); color:#f7f3ea; width:100%; }
+.hero .eyebrow{ font-size:.78rem; letter-spacing:.16em; text-transform:uppercase; margin:0 0 18px; color:#d9cdb2; font-weight:600; }
+.hero h1{ font-family:var(--font-display); font-weight:400; font-size:clamp(3rem,9vw,6.2rem); line-height:.94; letter-spacing:.02em; text-transform:uppercase; margin:0 0 20px; text-wrap:balance; }
+.hero .cta{ display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:#f7f3ea; font-size:.9rem; letter-spacing:.03em; border-bottom:1px solid rgba(247,243,234,.6); padding-bottom:4px; }
 
-/* ==========================================================================
-   NAVIGATION & HEADER
-   ========================================================================== */
+/* bio */
+.bio{ padding:clamp(48px,8vw,88px) var(--pad); display:grid; grid-template-columns:0.85fr 1fr; gap:clamp(28px,5vw,64px); align-items:center; }
+.bio-photo{ aspect-ratio:4/5; border-radius:4px; background:
+    radial-gradient(circle at 60% 30%, #3a322a 0%, #1c1712 65%, #100d0a 100%); border:1px solid var(--line); position:relative; overflow:hidden; }
+.bio-photo img{ width:100%; height:100%; object-fit:cover; }
+.bio-photo .tag{ position:absolute; bottom:12px; left:12px; font-size:.62rem; letter-spacing:.06em; text-transform:uppercase; color:rgba(243,239,230,.6); }
+.bio-photo svg{ position:absolute; inset:0; margin:auto; width:34%; opacity:.28; }
+.bio-text p{ font-size:1.12rem; line-height:1.75; color:var(--ink); margin:0 0 26px; max-width:46ch; }
+.bio-text a{ text-decoration:none; font-size:.92rem; border-bottom:1px solid var(--ink); padding-bottom:3px; }
+@media(max-width:680px){ .bio{ grid-template-columns:1fr; } }
 
-.topbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 24px 40px;
-  border-bottom: 1px solid var(--line);
-}
+/* concerts */
+.concerts-wrap{ padding:0 var(--pad) clamp(48px,8vw,88px); }
+.concerts-wrap h2{ font-family:var(--font-display); font-weight:500; font-size:clamp(2rem,4vw,2.9rem); margin:0 0 30px; }
+.concerts-wrap .note{ font-size:.82rem; color:var(--sub); margin:0 0 30px; }
+.clist{ border-top:1px solid var(--line); }
+.crow{ display:grid; grid-template-columns:minmax(150px,auto) 1fr 28px 1fr auto; align-items:center; gap:16px; padding:22px 0; border-bottom:1px solid var(--line); }
+.crow .date{ display:block; font-weight:800; font-size:.95rem; letter-spacing:.02em; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.crow .title{ font-size:1.02rem; }
+.crow .tname{ display:block; }
+.crow .performers{ display:block; font-size:.86rem; line-height:1.45; color:var(--sub); margin-top:4px; }
+.crow .plus{ color:var(--wood); font-size:1.1rem; text-align:center; }
+.crow .venue{ font-size:.94rem; color:var(--sub); }
+.crow .tix{ text-decoration:none; font-size:.82rem; letter-spacing:.05em; text-transform:uppercase; white-space:nowrap; border-bottom:1px solid var(--ink); padding-bottom:3px; }
+@media(max-width:760px){ .crow{ grid-template-columns:1fr; gap:4px; padding:18px 0; } .crow .plus{ display:none; } .crow .tix{ justify-self:start; margin-top:6px; } }
 
-.topbar .mono {
-  font-family: var(--font-serif);
-  font-size: 20px;
-  font-weight: 600;
-  text-decoration: none;
-  color: var(--text);
-}
+/* video / teaching */
+.band{ padding:clamp(44px,7vw,72px) var(--pad); border-top:1px solid var(--line); }
+.band h2{ font-family:var(--font-display); font-weight:500; font-size:2rem; margin:0 0 22px; }
+.band .note{ font-size:.82rem; color:var(--sub); margin:-14px 0 24px; }
+.video-card{ max-width:720px; margin-inline:auto; }
+.video-thumb{ appearance:none; padding:0; width:100%; display:block; cursor:pointer; color:inherit; font:inherit;
+    position:relative; aspect-ratio:16/9; border-radius:4px; overflow:hidden; border:1px solid var(--line); background:
+    radial-gradient(circle at 68% 32%, #3a322a 0%, #1c1712 62%, #100d0a 100%); }
+.video-thumb img{ width:100%; height:100%; object-fit:cover; }
+.video-thumb .play{ position:absolute; inset:0; margin:auto; width:64px; height:64px; border-radius:50%; background:rgba(243,239,230,.92); display:flex; align-items:center; justify-content:center; transition:background .15s; }
+.video-thumb .play svg{ width:20px; height:20px; fill:#141005; margin-left:3px; }
+.video-thumb:hover .play, .video-thumb:focus-visible .play{ background:var(--wood); }
+/* replaces .video-thumb once play is pressed */
+.video-player{ position:relative; aspect-ratio:16/9; border-radius:4px; overflow:hidden; border:1px solid var(--line); background:#000; }
+.video-player iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+.video-caption{ display:flex; justify-content:space-between; align-items:baseline; gap:12px; padding-top:14px; flex-wrap:wrap; }
+.video-caption .vt{ font-size:1.02rem; font-weight:700; }
+.video-caption .vl{ font-size:.82rem; letter-spacing:.05em; text-transform:uppercase; border-bottom:1px solid var(--ink); padding-bottom:2px; white-space:nowrap; }
+.band .prose{ max-width:60ch; font-size:1.05rem; line-height:1.7; }
 
-.menu {
-  display: flex;
-  gap: 32px;
-  align-items: center;
-}
-
-.menu a {
-  text-decoration: none;
-  color: var(--text);
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  font-weight: 600;
-}
-
-.langs button {
-  background: none;
-  border: none;
-  font-size: 12px;
-  cursor: pointer;
-  margin-left: 8px;
-  color: var(--text-muted);
-}
-
-.langs button[aria-pressed="true"] {
-  color: var(--text);
-  font-weight: bold;
-}
-
-/* ==========================================================================
-   HERO SECTION
-   ========================================================================== */
-
-.hero {
-  padding: 120px 40px;
-  min-height: 70vh;
-  display: flex;
-  align-items: flex-end;
-}
-
-.hero-inner .eyebrow {
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--text-muted);
-  margin-bottom: 16px;
-}
-
-.hero-inner h1 {
-  font-family: var(--font-serif);
-  font-size: 80px;
-  line-height: 0.95;
-  font-weight: 400;
-  margin-bottom: 40px;
-}
-
-.cta {
-  display: inline-block;
-  font-size: 13px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--text);
-  text-decoration: none;
-  transition: opacity 0.2s ease;
-}
-
-.cta:hover {
-  opacity: 0.6;
-}
-
-/* ==========================================================================
-   BIOGRAPHY SECTION
-   ========================================================================== */
-
-.bio {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  padding: 80px 40px;
-  border-top: 1px solid var(--line);
-}
-
-.bio-photo {
-  background: #EAE6DF;
-  min-height: 400px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.bio-text p {
-  font-size: 17px;
-  margin-bottom: 32px;
-  color: var(--text);
-}
-
-.bio-text a {
-  font-size: 13px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--text);
-  text-decoration: none;
-  transition: opacity 0.2s ease;
-}
-
-.bio-text a:hover {
-  opacity: 0.6;
-}
-
-/* ==========================================================================
-   CONCERTS SECTION (TABULAR ROW LIST)
-   ========================================================================== */
-
-.concerts-wrap {
-  padding: 80px 40px;
-  border-top: 1px solid var(--line);
-}
-
-.concerts-wrap h2 {
-  font-family: var(--font-serif);
-  font-size: 36px;
-  font-weight: 400;
-  margin-bottom: 40px;
-}
-
-.clist {
-  display: flex;
-  flex-direction: column;
-}
-
-.crow {
-  display: grid;
-  grid-template-columns: 2fr 4fr 1fr 3fr 2fr;
-  align-items: center;
-  padding: 24px 0;
-  border-bottom: 1px solid var(--line);
-}
-
-.crow .date {
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-}
-
-.crow .title .tname {
-  display: block;
-  font-family: var(--font-serif);
-  font-size: 20px;
-  font-style: italic;
-}
-
-.crow .title .performers {
-  font-size: 13px;
-  color: var(--text-muted);
-}
-
-.crow .venue {
-  font-size: 14px;
-  color: var(--text-muted);
-}
-
-.tix {
-  font-size: 13px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--text);
-  text-decoration: none;
-  transition: opacity 0.2s ease;
-}
-
-.tix:hover {
-  opacity: 0.6;
-}
-
-/* ==========================================================================
-   VIDEO, TEACHING & FOOTER
-   ========================================================================== */
-
-.band {
-  padding: 80px 40px;
-  border-top: 1px solid var(--line);
-}
-
-.band h2 {
-  font-family: var(--font-serif);
-  font-size: 36px;
-  font-weight: 400;
-  margin-bottom: 32px;
-}
-
-.video-thumb {
-  width: 100%;
-  position: relative;
-  border: none;
-  cursor: pointer;
-}
-
-.video-thumb img {
-  width: 100%;
-  display: block;
-}
-
-.video-caption .vl {
-  font-size: 13px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--text);
-  text-decoration: none;
-  transition: opacity 0.2s ease;
-}
-
-.video-caption .vl:hover {
-  opacity: 0.6;
-}
-
-.foot {
-  padding: 60px 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 1px solid var(--line);
-  font-size: 14px;
-}
-
-.foot a {
-  color: var(--text);
-  text-decoration: none;
-  font-weight: 600;
-}
+.foot{ background:var(--black); color:#e9e3d5; padding:26px var(--pad); display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; align-items:center; font-size:.82rem; }
+.foot a{ color:var(--wood); text-decoration:none; font-weight:700; }
