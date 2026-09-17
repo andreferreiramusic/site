@@ -78,6 +78,16 @@ img{ max-width:100%; display:block; }
    pinned to the bottom of the FIRST screenful rather than the bottom of the
    photo — otherwise it would open below the fold. Falls back to the hero's own
    bottom when the photo is the shorter of the two. */
+/* Phones: a 3:2 landscape frame is only about 260px tall at 390px wide, which
+   wastes the screen and pulls the next section up into view. Drop the ratio and
+   give it most of the viewport instead — `cover` then scales the photo by
+   height and trims the sides, so it reads as a portrait crop and nothing is
+   lost off the top. svh rather than vh so mobile browser chrome doesn't make
+   the hero taller than the visible area. */
+@media(max-width:767px){
+  .hero{ aspect-ratio:auto; min-height:82vh; min-height:82svh; }
+}
+
 .hero-inner{ position:absolute; left:0; right:0; top:0; height:min(88vh,100%);
   display:flex; flex-direction:column; justify-content:flex-end; align-items:flex-start;
   padding:0 var(--pad) clamp(30px,6vw,56px); color:#f7f3ea; }
