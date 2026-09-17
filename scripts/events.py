@@ -1,19 +1,13 @@
 #!/usr/bin/env python3
-"""Render the upcoming concert rows into index.html from data/events.csv.
+"""Reads data/events.csv and renders concert rows as HTML.
 
-Run by .github/workflows/deploy.yml before the Pages artifact is uploaded, so
-the dates ship as real markup that search engines can read, rather than being
-fetched in the visitor's browser. Nothing is committed back: the generated rows
-exist only in the deployed artifact, so index.html in git keeps whatever rows
-were last written there as a fallback.
-
-data/events.csv is the full history — past events stay in the file, they are
-just not rendered. Only the next LIMIT upcoming ones reach the home page, and
-which ones those are is decided at build time, which is why the workflow also
-rebuilds on a daily schedule: events drop off by themselves as they are played.
+A library, not a script — scripts/build.py calls it while assembling the site.
+The CSV is the full history: parse() returns every row it can read, and
+split() divides them into upcoming and past against today's date, so the home
+page can show the next few while the dates page also carries the archive.
 
 Columns (header row, case-insensitive, any order; only `date` is required):
-  date       2026-10-18            ISO yyyy-mm-dd. Past events are skipped.
+  date       2026-10-18            ISO yyyy-mm-dd.
                                    Several nights that are NOT consecutive go
                                    in this one cell separated by ; or , —
                                    "2026-10-16; 2026-10-18" shows as "16 & 18
@@ -31,29 +25,15 @@ Columns (header row, case-insensitive, any order; only `date` is required):
   country    AT                    optional; venue/city/country are joined with
                                    commas, so any of them may be blank
   tickets    https://...           optional, the link is omitted when blank
-
-Failure is deliberately soft: if the CSV is missing or malformed the script
-warns and leaves index.html alone, so a bad edit costs slightly stale rows
-rather than a failed deploy.
 """
 
 import csv
 import datetime as dt
 import html
 import io
-import os
-import re
 import sys
 
 EVENTS_CSV = "data/events.csv"  # override with the EVENTS_CSV env var
-LIMIT = 4  # how many upcoming events the home page shows
-
-# Shown when the CSV is readable but everything in it has been played. Keeping
-# the previous rows would leave finished concerts sitting under "Upcoming".
-EMPTY_STATE = (
-    '      <p class="note" data-i18n="concerts.none">'
-    'Sem concertos anunciados de momento.</p>'
-)
 
 MONTHS = {
     "pt": "JAN FEV MAR ABR MAI JUN JUL AGO SET OUT NOV DEZ".split(),
@@ -61,10 +41,6 @@ MONTHS = {
     "de": "JAN FEB MÄR APR MAI JUN JUL AUG SEP OKT NOV DEZ".split(),
 }
 LANGS = ("pt", "en", "de")
-BLOCK = re.compile(
-    r"(<!-- concerts:start.*?-->\n)(.*?)(\s*<!-- concerts:end -->)",
-    re.DOTALL,
-)
 
 
 def warn(msg):
@@ -83,8 +59,8 @@ def read_date(value, where):
 
 
 def parse(text):
+    """Every readable row, sorted earliest first. No date filtering here."""
     rows = []
-    today = dt.date.today()
     for raw in csv.DictReader(io.StringIO(text)):
         row = {(k or "").strip().lower(): (v or "").strip() for k, v in raw.items()}
         if not row.get("date"):
@@ -111,21 +87,32 @@ def parse(text):
                 else:
                     days = [days[0], end]
 
-        if kind == "range":
-            # A consecutive run stays listed, in full, until its last day is
-            # past — it reads as one engagement spanning those days.
-            if days[-1] < today:
-                continue
-        else:
-            # Separate nights are separate performances, so the ones already
-            # played drop off individually.
-            days = [d for d in days if d >= today]
-            if not days:
-                continue
-
         rows.append((days[0], kind, days, row))
     rows.sort(key=lambda t: (t[0], t[2][-1]))
     return rows
+
+
+def split(rows, today=None):
+    """Divide into (upcoming, past).
+
+    A consecutive run counts as upcoming until its final day, and keeps its
+    whole span on show — it reads as one engagement spanning those days.
+    Separate nights are separate performances, so an upcoming row drops the
+    ones already played and only becomes past once every night is behind it.
+    """
+    today = today or dt.date.today()
+    upcoming, past = [], []
+    for start, kind, days, row in rows:
+        if days[-1] < today:
+            past.append((start, kind, days, row))
+        elif kind == "range":
+            upcoming.append((start, kind, days, row))
+        else:
+            future = [d for d in days if d >= today]
+            upcoming.append((future[0], kind, future, row))
+    upcoming.sort(key=lambda t: (t[0], t[2][-1]))
+    past.sort(key=lambda t: t[2][-1], reverse=True)  # most recent first
+    return upcoming, past
 
 
 def join_parts(parts):
@@ -177,7 +164,7 @@ def safe_url(value):
     return value if value.lower().startswith(("http://", "https://")) else ""
 
 
-def render(rows, indent="      "):
+def render(rows, indent="      ", tickets=True):
     this_year = dt.date.today().year
     out = ['%s<div class="clist">' % indent]
     for _, kind, days, row in rows:
@@ -220,50 +207,12 @@ def render(rows, indent="      "):
             p for p in (row.get("venue", ""), row.get("city", ""), row.get("country", "")) if p
         )
         out.append('%s    <div class="venue">%s</div>' % (indent, html.escape(place)))
-        tickets = safe_url(row.get("tickets", ""))
-        if tickets:
+        href = safe_url(row.get("tickets", "")) if tickets else ""
+        if href:
             out.append(
                 '%s    <a class="tix" href="%s" target="_blank" rel="noopener" '
-                'data-i18n="concerts.tickets">Bilhetes →</a>' % (indent, html.escape(tickets, quote=True))
+                'data-i18n="concerts.tickets">Bilhetes →</a>' % (indent, html.escape(href, quote=True))
             )
         out.append("%s  </div>" % indent)
     out.append("%s</div>" % indent)
     return "\n".join(out)
-
-
-def main():
-    path = os.environ.get("EVENTS_CSV", "").strip() or EVENTS_CSV
-
-    try:
-        text = io.open(path, encoding="utf-8-sig").read()
-    except OSError as exc:
-        warn("could not read %s (%s); keeping the existing concert rows" % (path, exc))
-        return 0
-
-    try:
-        upcoming = parse(text)
-    except Exception as exc:
-        warn("could not parse %s (%s); keeping the existing concert rows" % (path, exc))
-        return 0
-
-    page = io.open("index.html", encoding="utf-8").read()
-    if not BLOCK.search(page):
-        warn("concerts:start/end markers missing from index.html; nothing written")
-        return 0
-
-    shown = upcoming[:LIMIT]
-    block = render(shown) if shown else EMPTY_STATE
-    page = BLOCK.sub(lambda m: m.group(1) + block + m.group(3), page, count=1)
-    io.open("index.html", "w", encoding="utf-8").write(page)
-    if shown:
-        print(
-            "Wrote %d of %d upcoming event(s) from %s into index.html."
-            % (len(shown), len(upcoming), path)
-        )
-    else:
-        print("Nothing upcoming in %s; wrote the empty state." % path)
-    return 0
-
-
-if __name__ == "__main__":
-    sys.exit(main())
