@@ -134,19 +134,32 @@
 
   var burger = document.getElementById('burgerBtn'), menu = document.getElementById('menu');
   if(burger){
-    burger.addEventListener('click', function(){
-      var open = menu.classList.toggle('open');
+    function isOpen(){ return menu.classList.contains('open'); }
+    function setOpen(open){
+      menu.classList.toggle('open', open);
       burger.setAttribute('aria-expanded', open ? 'true':'false');
+    }
+
+    burger.addEventListener('click', function(){ setOpen(!isOpen()); });
+
+    // Tapping the page dismisses the menu. Without this the only way out is to
+    // find the burger again, which is awkward once the menu covers the corner.
+    // The burger itself is excluded so its own click isn't undone here first.
+    document.addEventListener('click', function(e){
+      if(isOpen() && !menu.contains(e.target) && !burger.contains(e.target)) setOpen(false);
     });
+
+    document.addEventListener('keydown', function(e){
+      if(isOpen() && (e.key === 'Escape' || e.key === 'Esc')){
+        setOpen(false);
+        burger.focus();
+      }
+    });
+
     // Widening past the breakpoint flattens the menu into the bar via CSS, but
     // .open would linger and leave it unexpectedly open on the way back down.
     var wide = window.matchMedia('(min-width:768px)');
-    var reset = function(e){
-      if(e.matches){
-        menu.classList.remove('open');
-        burger.setAttribute('aria-expanded', 'false');
-      }
-    };
+    var reset = function(e){ if(e.matches) setOpen(false); };
     if(wide.addEventListener) wide.addEventListener('change', reset);
     else if(wide.addListener) wide.addListener(reset);  // older Safari
   }
