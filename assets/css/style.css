@@ -135,7 +135,7 @@ img{ max-width:100%; display:block; }
 .clist{ border-top:1px solid var(--line); }
 /* Year markers in the archive. */
 .cyear{ font-family:var(--font-heading); font-weight:700; font-size:1.35rem; letter-spacing:.06em;
-  color:var(--ink); margin:0; padding:clamp(44px,5vw,72px) 0 14px; border-bottom:1px solid var(--line); }
+  color:var(--ink); margin:0; padding:clamp(56px,7.5vw,112px) 0 14px; border-bottom:1px solid var(--line); }
 .cyear:first-child{ padding-top:16px; }
 .crow{ display:grid; grid-template-columns:minmax(190px,0.62fr) 1fr auto; align-items:center; gap:16px; padding:22px 0; border-bottom:1px solid var(--line); }
 .crow .date{ display:block; font-weight:800; font-size:.95rem; letter-spacing:.02em; font-variant-numeric:tabular-nums; white-space:nowrap; }
@@ -207,6 +207,9 @@ radial-gradient(circle at 68% 32%, #3a322a 0%, #1c1712 62%, #100d0a 100%); }
 .concerts-wrap.past{ border-top:1px solid var(--line); padding-top:clamp(44px,7vw,72px); }
 /* The archive never renders ticket links (build.py passes tickets=False), so
    it drops that third track and splits the full width evenly instead. */
+/* No rule under the heading — the first year heading below it already carries
+   one, and two lines 30px apart read as a mistake. */
+.concerts-wrap.past .clist{ border-top:0; }
 .concerts-wrap.past .crow{ padding:15px 0; grid-template-columns:1fr 1fr; }
 .concerts-wrap.past .crow .date, .concerts-wrap.past .crow .tname{ color:var(--sub); }
 .concerts-wrap.past .crow .performers{ font-size:.82rem; }

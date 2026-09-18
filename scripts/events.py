@@ -41,6 +41,10 @@ MONTHS = {
     "de": "JAN FEB MÄR APR MAI JUN JUL AUG SEP OKT NOV DEZ".split(),
 }
 LANGS = ("pt", "en", "de")
+# Prefix before the performer names. The names themselves never translate, so
+# the whole string is carried inline per language rather than via a dictionary
+# key — the same data-pt/en/de mechanism the dates and titles already use.
+WITH = {"pt": "com", "en": "with", "de": "mit"}
 
 
 def warn(msg):
@@ -216,9 +220,10 @@ def render(rows, indent="      ", tickets=True, group_years=False):
             % (indent, attrs(titles), html.escape(titles["pt"]))
         )
         if performers:
+            withs = {l: "%s %s" % (WITH[l], performers) for l in LANGS}
             out.append(
-                '%s      <span class="performers">%s</span>'
-                % (indent, html.escape(performers))
+                '%s      <span class="performers" %s>%s</span>'
+                % (indent, attrs(withs), html.escape(withs["pt"]))
             )
         out.append("%s    </div>" % indent)
         href = safe_url(row.get("tickets", "")) if tickets else ""

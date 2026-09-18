@@ -15,7 +15,7 @@
       'home.about.d':'Biografia, formação e as salas e festivais onde tem atuado.',
       'home.guitar.d':'Repertório, instrumentos e projetos em torno da guitarra clássica.',
       'home.lute.d':'Alaúde, teorba e outros instrumentos históricos de corda dedilhada.',
-      'home.dates.h':'Próximos eventos','home.dates.all':'Todas as datas →',
+      'home.dates.h':'Próximos','home.dates.all':'Todas as datas →',
       'bio.body':
         '<p>André Ferreira é um guitarrista e alaudista português radicado em Viena. Músico versátil, com uma sólida formação tanto na performance histórica como na moderna, o seu tocar reflete um envolvimento profundo com as possibilidades expressivas das cordas dedilhadas.</p>' +
         '<p>Atua regularmente como solista, músico de câmara e instrumentista de orquestra, colaborando com agrupamentos como o Concentus Musicus Wien e o Bach Consort Wien. As suas atuações levaram-no a importantes salas e festivais por toda a Europa, incluindo o Wiener Musikverein, o Wiener Konzerthaus, o Palau de la Música Catalana, o Auditorio Nacional de Madrid, a Kölner Philharmonie e o Brucknerhaus Linz.</p>' +
@@ -25,7 +25,7 @@
       'teaching.body':'André leciona instrumentos históricos de alaúde no Departamento de Música Antiga da mdw — Universidade de Música e Artes Cénicas de Viena, e dá masterclasses por toda a Europa.',
       'guitar.body':'<p><em>[Por preencher]</em> Esta página vai reunir o trabalho de André com a guitarra clássica: repertório, instrumentos, gravações e projetos de câmara.</p>',
       'lute.body':'<p><em>[Por preencher]</em> Esta página vai reunir o trabalho de André com o alaúde, a teorba e outros instrumentos históricos de corda dedilhada.</p>',
-      'dates.upcoming':'Próximos eventos','dates.past':'Eventos anteriores',
+      'dates.upcoming':'Próximos','dates.past':'Anteriores',
       'dates.past.none':'Ainda sem eventos anteriores.',
       'concerts.tickets':'Bilhetes →','concerts.none':'Sem concertos anunciados de momento.',
       'contact.body':'<p>Para reservas de concertos, masterclasses e pedidos de imprensa, escreva por email — as mensagens são respondidas em português, inglês ou alemão.</p>',
@@ -41,7 +41,7 @@
       'home.about.d':'Biography, training, and the halls and festivals he has played.',
       'home.guitar.d':'Repertoire, instruments and projects on the classical guitar.',
       'home.lute.d':'Lute, theorbo and other historical plucked string instruments.',
-      'home.dates.h':'Upcoming events','home.dates.all':'All dates →',
+      'home.dates.h':'Upcoming','home.dates.all':'All dates →',
       'bio.body':
         '<p>André Ferreira is a Portuguese guitarist and lutenist based in Vienna. A versatile musician with a strong foundation in both historical and modern performance, his playing reflects a deep engagement with the expressive possibilities of plucked strings.</p>' +
         '<p>He appears regularly as a soloist, chamber musician, and orchestral player, collaborating with ensembles such as Concentus Musicus Wien and Bach Consort Wien. His performances have taken him to major venues and festivals across Europe, including the Wiener Musikverein, Wiener Konzerthaus, Palau de la Música Catalana, Auditorio Nacional de Madrid, Kölner Philharmonie, and Brucknerhaus Linz.</p>' +
@@ -51,7 +51,7 @@
       'teaching.body':'André teaches historical lute instruments at the Early Music Department of mdw — University of Music and Performing Arts Vienna, and gives masterclasses across Europe.',
       'guitar.body':'<p><em>[To be written]</em> This page will gather André’s work on the classical guitar: repertoire, instruments, recordings and chamber projects.</p>',
       'lute.body':'<p><em>[To be written]</em> This page will gather André’s work on the lute, theorbo and other historical plucked string instruments.</p>',
-      'dates.upcoming':'Upcoming events','dates.past':'Past events',
+      'dates.upcoming':'Upcoming','dates.past':'Past',
       'dates.past.none':'No past events listed yet.',
       'concerts.tickets':'Tickets →','concerts.none':'No concerts announced at the moment.',
       'contact.body':'<p>For concert bookings, masterclasses and press enquiries, please write by email — messages are answered in Portuguese, English or German.</p>',
@@ -67,7 +67,7 @@
       'home.about.d':'Biografie, Ausbildung und die Säle und Festivals, in denen er gespielt hat.',
       'home.guitar.d':'Repertoire, Instrumente und Projekte rund um die klassische Gitarre.',
       'home.lute.d':'Laute, Theorbe und weitere historische Zupfinstrumente.',
-      'home.dates.h':'Kommende Veranstaltungen','home.dates.all':'Alle Termine →',
+      'home.dates.h':'Kommende','home.dates.all':'Alle Termine →',
       'bio.body':
         '<p>André Ferreira ist ein portugiesischer Gitarrist und Lautenist mit Sitz in Wien. Als vielseitiger Musiker mit einem soliden Fundament in historischer wie moderner Aufführungspraxis zeugt sein Spiel von einer tiefen Auseinandersetzung mit den Ausdrucksmöglichkeiten der Zupfinstrumente.</p>' +
         '<p>Er tritt regelmäßig als Solist, Kammermusiker und Orchestermusiker auf und arbeitet mit Ensembles wie dem Concentus Musicus Wien und dem Bach Consort Wien zusammen. Seine Auftritte führten ihn in bedeutende Säle und zu Festivals in ganz Europa, darunter der Wiener Musikverein, das Wiener Konzerthaus, der Palau de la Música Catalana, das Auditorio Nacional de Madrid, die Kölner Philharmonie und das Brucknerhaus Linz.</p>' +
@@ -77,7 +77,7 @@
       'teaching.body':'André unterrichtet historische Lauteninstrumente am Institut für Alte Musik der mdw — Universität für Musik und darstellende Kunst Wien, und gibt Meisterkurse in ganz Europa.',
       'guitar.body':'<p><em>[Noch zu schreiben]</em> Diese Seite wird Andrés Arbeit an der klassischen Gitarre versammeln: Repertoire, Instrumente, Aufnahmen und Kammermusikprojekte.</p>',
       'lute.body':'<p><em>[Noch zu schreiben]</em> Diese Seite wird Andrés Arbeit an Laute, Theorbe und weiteren historischen Zupfinstrumenten versammeln.</p>',
-      'dates.upcoming':'Kommende Veranstaltungen','dates.past':'Vergangene Veranstaltungen',
+      'dates.upcoming':'Kommende','dates.past':'Vergangene',
       'dates.past.none':'Noch keine vergangenen Veranstaltungen gelistet.',
       'concerts.tickets':'Tickets →','concerts.none':'Zurzeit keine Konzerte angekündigt.',
       'contact.body':'<p>Für Konzertbuchungen, Meisterkurse und Presseanfragen bitte per E-Mail schreiben — Nachrichten werden auf Portugiesisch, Englisch oder Deutsch beantwortet.</p>',
