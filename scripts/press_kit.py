@@ -715,12 +715,14 @@ KIT_META = {
 }
 
 
-def render_link(zip_path, size, count, indent="      "):
+def render_link(zip_path, size, count, indent="        "):
     """The download link for the contact page, generated rather than typed:
     the size and the photo count are read off the kit that was just built, and
     a build that produced no kit leaves nothing to click.
 
-    {{base}} is filled in per page by build.py, the same as the shared parts.
+    {{base}} is filled in per page by build.py, the same as the shared parts;
+    the default indent matches where the block sits on the contact page, in
+    the column under the email address.
     The size line carries its own wording per language (data-pt/en/de) rather
     than a dictionary key, because the numbers in it are only known here."""
     lines = []

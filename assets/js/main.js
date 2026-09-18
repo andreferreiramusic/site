@@ -58,9 +58,9 @@
       'dates.upcoming':'Kommende','dates.past':'Vergangene',
       'dates.past.none':'Noch keine vergangenen Veranstaltungen gelistet.',
       'concerts.tickets':'Tickets →','concerts.none':'Zurzeit keine Konzerte angekündigt.',
-      'press.h':'Pressemappe',
+      'press.h':'Press kit',
       'press.d':'Biografie auf Portugiesisch, Englisch und Deutsch sowie Fotos in hoher Auflösung, bereit für Programmhefte und Presse.',
-      'press.cta':'Pressemappe herunterladen ↓',
+      'press.cta':'Press kit herunterladen ↓',
       'contact.email':'E-Mail',
       'video.play':'Video abspielen','video.link':'Auf YouTube ansehen →'
     }
