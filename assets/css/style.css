@@ -133,12 +133,12 @@ img{ max-width:100%; display:block; }
 .concerts-wrap h2{ font-family:var(--font-heading); font-weight:600; font-size:clamp(1.5rem,2.6vw,2rem); letter-spacing:.01em; margin:0 0 30px; }
 .concerts-wrap .note{ font-size:.82rem; color:var(--sub); margin:0 0 30px; }
 .clist{ border-top:1px solid var(--line); }
-.crow{ display:grid; grid-template-columns:minmax(150px,auto) 1fr 1fr auto; align-items:center; gap:16px; padding:22px 0; border-bottom:1px solid var(--line); }
+.crow{ display:grid; grid-template-columns:minmax(190px,0.62fr) 1fr auto; align-items:center; gap:16px; padding:22px 0; border-bottom:1px solid var(--line); }
 .crow .date{ display:block; font-weight:800; font-size:.95rem; letter-spacing:.02em; font-variant-numeric:tabular-nums; white-space:nowrap; }
 .crow .title{ font-size:1.02rem; }
 .crow .tname{ display:block; font-family:var(--font-heading); font-weight:600; letter-spacing:.005em; }
 .crow .performers{ display:block; font-size:.86rem; line-height:1.45; color:var(--sub); margin-top:4px; }
-.crow .venue{ font-size:.94rem; color:var(--sub); }
+.crow .venue{ margin-top:7px; font-size:.88rem; line-height:1.45; color:var(--sub); }
 .crow .tix{ text-decoration:none; font-size:.82rem; letter-spacing:.05em; text-transform:uppercase; white-space:nowrap; border-bottom:1px solid var(--ink); padding-bottom:3px; }
 @media(max-width:760px){ .crow{ grid-template-columns:1fr; gap:4px; padding:18px 0; } .crow .tix{ justify-self:start; margin-top:6px; } }
 

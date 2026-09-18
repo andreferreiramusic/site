@@ -185,10 +185,19 @@ def render(rows, indent="      ", tickets=True):
             span = ' data-end="%s"' % days[-1].isoformat()
         elif kind == "list":
             span = ' data-dates="%s"' % " ".join(d.isoformat() for d in days)
+        # Date and place share the first column, place on the line below.
+        # Any of venue/city/country may be blank — a recording session has none.
+        place = ", ".join(
+            p for p in (row.get("venue", ""), row.get("city", ""), row.get("country", "")) if p
+        )
+        out.append('%s    <div class="when">' % indent)
         out.append(
-            '%s    <time class="date" datetime="%s"%s %s>%s</time>'
+            '%s      <time class="date" datetime="%s"%s %s>%s</time>'
             % (indent, days[0].isoformat(), span, attrs(dates), html.escape(dates["pt"]))
         )
+        if place:
+            out.append('%s      <div class="venue">%s</div>' % (indent, html.escape(place)))
+        out.append("%s    </div>" % indent)
         performers = row.get("performers", "")
         out.append('%s    <div class="title">' % indent)
         out.append(
@@ -201,11 +210,6 @@ def render(rows, indent="      ", tickets=True):
                 % (indent, html.escape(performers))
             )
         out.append("%s    </div>" % indent)
-        # Any of venue/city/country may be blank — a recording session has none.
-        place = ", ".join(
-            p for p in (row.get("venue", ""), row.get("city", ""), row.get("country", "")) if p
-        )
-        out.append('%s    <div class="venue">%s</div>' % (indent, html.escape(place)))
         href = safe_url(row.get("tickets", "")) if tickets else ""
         if href:
             out.append(
