@@ -54,7 +54,11 @@
       <img src="assets/img/bio.jpg" alt="André Ferreira a tocar alaúde" loading="lazy">
     </div>
     <div class="intro-body">
-      <p class="intro-text" data-i18n="home.about">André Ferreira é um guitarrista e alaudista português radicado em Viena, atuando por toda a Europa como solista, músico de câmara e instrumentista de orquestra.</p>
+      <div class="intro-text" data-i18n="home.about">
+      <!-- text:home.about:start -->
+      <p>André Ferreira é um guitarrista e alaudista português radicado em Viena, atuando por toda a Europa como solista, músico de câmara e instrumentista de orquestra.</p>
+      <!-- text:home.about:end -->
+    </div>
       <div class="intro-links">
         <a class="ilink" href="pages/about.html">
           <span class="ilabel" data-i18n="nav.about">Sobre</span>
@@ -146,6 +150,9 @@
     </ul>
   </footer>
 
+  <!-- Page texts, generated from content/<lang>/*.md. Loaded first so
+       main.js can merge it into its own dictionary. -->
+  <script src="assets/js/content.js"></script>
   <script src="assets/js/main.js"></script>
 <!-- footer:end -->
 </body>

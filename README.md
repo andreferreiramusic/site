@@ -16,6 +16,7 @@ pages/contact.html
 templates/parts.html          shared head / header / footer, defined once
 data/events.csv               every concert, past and upcoming
 data/videos.csv               one video per page (page, video_id, caption)
+content/pt|en|de/*.md         the page texts, one Markdown file per language
 scripts/build.py              writes the shared parts, concerts and videos into the pages
 scripts/events.py             reads the CSV (library used by build.py)
 assets/css/style.css          all styles (black / cream-text / light-wood palette)
@@ -142,6 +143,43 @@ current year, so the list stays uncluttered but nothing distant is ambiguous:
 | Two years out | `04 JUN 2028` |
 | All in one later year | `29 JAN & 02 FEV 2027` |
 | Straddling new year | `28 DEZ – 02 JAN 2027` |
+
+## Editing the page texts
+
+Every block of prose lives in a Markdown file, one per language:
+
+```
+content/pt/home-intro.md      the short bio on the home page
+content/pt/about.md           the biography on the About page
+content/pt/teaching.md        the Teaching paragraph on About
+content/pt/guitar.md          the Guitar page text
+content/pt/lute.md            the Lute page text
+content/pt/contact.md         the intro on the Contact page
+content/en/…  content/de/…    the same six files per language
+```
+
+Edit the file, run `python3 scripts/build.py`, commit. The build does two things
+with them: it writes the Portuguese copy into the HTML (so the page reads
+correctly before any JavaScript runs, and for search engines), and it compiles
+all three languages into `assets/js/content.js`, which the language toggle uses.
+
+Both of those are generated — never edit `assets/js/content.js` or the text
+inside a page's `<!-- text:…:start -->` markers by hand.
+
+### What the Markdown supports
+
+Blank line between paragraphs, plus:
+
+| Markdown | Result |
+|---|---|
+| `**bold**` | **bold** |
+| `*italic*` | *italic* |
+| `[label](https://example.com)` | a link — external ones get `target="_blank"` automatically |
+
+That is the whole list. It is a small converter inside `build.py` rather than a
+library, so the build keeps working with nothing installed beyond Python.
+Anything else (headings, lists, images) is ignored, and raw HTML in a `.md` file
+is escaped rather than passed through.
 
 ## Videos
 
