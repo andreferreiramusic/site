@@ -99,7 +99,7 @@ img{ max-width:100%; display:block; }
 /* 7vw rather than 9vw: the cap is then reached at ~1417px instead of ~1102px,
    so the name starts scaling down as soon as the window leaves a full
    desktop width rather than holding its maximum well into laptop sizes. */
-.hero h1{ font-family:var(--font-display); font-weight:400; font-size:clamp(3rem,7vw,6.2rem); line-height:.94; letter-spacing:.02em; text-transform:uppercase; margin:0 0 20px; text-wrap:balance; }
+.hero h1{ font-family:'Marcellus',Georgia,serif; font-weight:400; font-size:clamp(3rem,9vw,6.2rem); line-height:.94; letter-spacing:.02em; text-transform:uppercase; margin:0 0 20px; text-wrap:balance; }
 .hero .cta{ display:inline-flex; align-items:center; gap:8px; text-decoration:none; font-size:0.9rem; letter-spacing:.03em; padding-bottom:4px; }
 
 /* bio */
