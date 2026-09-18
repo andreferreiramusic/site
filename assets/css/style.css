@@ -133,6 +133,10 @@ img{ max-width:100%; display:block; }
 .concerts-wrap h2{ font-family:var(--font-heading); font-weight:600; font-size:clamp(1.5rem,2.6vw,2rem); letter-spacing:.01em; margin:0 0 30px; }
 .concerts-wrap .note{ font-size:.82rem; color:var(--sub); margin:0 0 30px; }
 .clist{ border-top:1px solid var(--line); }
+/* Year markers in the archive. */
+.cyear{ font-family:var(--font-heading); font-weight:700; font-size:1.35rem; letter-spacing:.06em;
+  color:var(--ink); margin:0; padding:clamp(44px,5vw,72px) 0 14px; border-bottom:1px solid var(--line); }
+.cyear:first-child{ padding-top:16px; }
 .crow{ display:grid; grid-template-columns:minmax(190px,0.62fr) 1fr auto; align-items:center; gap:16px; padding:22px 0; border-bottom:1px solid var(--line); }
 .crow .date{ display:block; font-weight:800; font-size:.95rem; letter-spacing:.02em; font-variant-numeric:tabular-nums; white-space:nowrap; }
 .crow .title{ font-size:1.02rem; }
@@ -201,7 +205,9 @@ radial-gradient(circle at 68% 32%, #3a322a 0%, #1c1712 62%, #100d0a 100%); }
 
 /* dates page: the archive reads quieter than the upcoming list */
 .concerts-wrap.past{ border-top:1px solid var(--line); padding-top:clamp(44px,7vw,72px); }
-.concerts-wrap.past .crow{ padding:15px 0; }
+/* The archive never renders ticket links (build.py passes tickets=False), so
+   it drops that third track and splits the full width evenly instead. */
+.concerts-wrap.past .crow{ padding:15px 0; grid-template-columns:1fr 1fr; }
 .concerts-wrap.past .crow .date, .concerts-wrap.past .crow .tname{ color:var(--sub); }
 .concerts-wrap.past .crow .performers{ font-size:.82rem; }
 

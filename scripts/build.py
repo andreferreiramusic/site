@@ -23,7 +23,8 @@ Markers, all optional per page:
     footer      the <footer> and the script tag
     events:next        the next HOME_LIMIT upcoming events
     events:upcoming    every upcoming event
-    events:past        the archive, newest first, without ticket links
+    events:past        the archive, newest first, grouped by year,
+                       without ticket links
 
 Paths are relative rather than root-relative because the site is served from
 a project subpath (…github.io/site/), where /assets/… would 404. In the shared
@@ -118,7 +119,7 @@ def main():
             "events:next": events.render(upcoming[:HOME_LIMIT]) if upcoming else EMPTY,
             "events:upcoming": events.render(upcoming) if upcoming else EMPTY,
             # Past ticket links point at closed sales, so they are dropped.
-            "events:past": events.render(past, tickets=False) if past else EMPTY_PAST,
+            "events:past": events.render(past, tickets=False, group_years=True) if past else EMPTY_PAST,
         }
 
     for key, path, _i18n_key, _label in NAV:

@@ -164,10 +164,21 @@ def safe_url(value):
     return value if value.lower().startswith(("http://", "https://")) else ""
 
 
-def render(rows, indent="      ", tickets=True):
+def render(rows, indent="      ", tickets=True, group_years=False):
+    """group_years inserts a heading whenever the year changes. Rows must
+    already be ordered, which split() guarantees — the archive comes back
+    newest first, so the headings count backwards."""
     this_year = dt.date.today().year
     out = ['%s<div class="clist">' % indent]
+    seen_year = None
     for _, kind, days, row in rows:
+        if group_years:
+            # Grouped on the last day, the same key the archive is sorted by,
+            # so a run that straddles new year files under the year it ended.
+            year = days[-1].year
+            if year != seen_year:
+                out.append('%s  <h3 class="cyear">%d</h3>' % (indent, year))
+                seen_year = year
         titles = {"pt": row.get("title", "")}
         titles["en"] = row.get("title_en") or titles["pt"]
         titles["de"] = row.get("title_de") or titles["pt"]
