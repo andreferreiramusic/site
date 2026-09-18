@@ -201,7 +201,7 @@ def render(rows, indent="      ", tickets=True):
                 % (indent, html.escape(performers))
             )
         out.append("%s    </div>" % indent)
-        out.append('%s    <div class="plus">+</div>' % indent)
+        #out.append('%s    <div class="plus">+</div>' % indent)
         # Any of venue/city/country may be blank — a recording session has none.
         place = ", ".join(
             p for p in (row.get("venue", ""), row.get("city", ""), row.get("country", "")) if p

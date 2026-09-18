@@ -100,7 +100,7 @@ img{ max-width:100%; display:block; }
    so the name starts scaling down as soon as the window leaves a full
    desktop width rather than holding its maximum well into laptop sizes. */
 .hero h1{ font-family:var(--font-display); font-weight:400; font-size:clamp(3rem,7vw,6.2rem); line-height:.94; letter-spacing:.02em; text-transform:uppercase; margin:0 0 20px; text-wrap:balance; }
-.hero .cta{ display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:#f7f3ea; font-size:1.1rem; letter-spacing:.03em; border-bottom:1px solid rgba(247,243,234,.6); padding-bottom:4px; }
+.hero .cta{ display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:#f7f3ea; font-size:0.9rem; letter-spacing:.03em; border-bottom:1px solid rgba(247,243,234,.6); padding-bottom:4px; }
 
 /* bio */
 /* photo beside a block of text — about / guitar / lute / contact.
@@ -194,7 +194,11 @@ radial-gradient(circle at 68% 32%, #3a322a 0%, #1c1712 62%, #100d0a 100%); }
   font-size:.82rem; letter-spacing:.06em; text-transform:uppercase;
   border-bottom:1px solid var(--wood); padding-bottom:4px; }
 .cta:hover, .cta:focus-visible{ color:var(--wood); }
-.cta-block{ margin-top:34px; }
+/* Pushed right so it lines up with the ticket links above it. display:flex
+   (not the inline-flex it inherits from .cta) makes it block-level, which
+   is what lets the auto left margin do the pushing; fit-content keeps the
+   underline hugging the text rather than spanning the row. */
+.cta-block{ display:flex; width:fit-content; margin:34px 0 0 auto; }
 
 /* dates page: the archive reads quieter than the upcoming list */
 .concerts-wrap.past{ border-top:1px solid var(--line); padding-top:clamp(44px,7vw,72px); }
