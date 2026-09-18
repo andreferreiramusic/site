@@ -66,7 +66,7 @@
     }
   };
 
-  // Prose lives in content/<lang>/*.md and is compiled into content.js by
+  // Prose lives in content/<text>/<lang>.md and is compiled into content.js by
   // scripts/build.py; merge it over the UI strings above.
   if(window.__content){
     for(var lang in window.__content){

@@ -72,7 +72,7 @@ one-line description, and is optional. Blank line between paragraphs;
 `**bold**`, `*italic*` and `[label](url)` work, the same as the site's own
 Markdown.
 
-The text is independent of `content/<lang>/about.md`, which is what the About
+The text is independent of `content/about/<lang>.md`, which is what the About
 page shows. They start out as the same words — a press bio and a website bio
 usually want to diverge, and this way they can.
 

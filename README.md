@@ -16,7 +16,7 @@ pages/contact.html
 templates/parts.html          shared head / header / footer, defined once
 data/events.csv               every concert, past and upcoming
 data/videos.csv               one video per page (page, video_id, caption)
-content/pt|en|de/*.md         the page texts, one Markdown file per language
+content/<text>/<lang>.md      the page texts, one folder per block of prose
 press_kit/bios.md             the three press bios; the photos sit beside it
 scripts/build.py              writes the shared parts, concerts and videos into the pages
 scripts/events.py             reads the CSV (library used by build.py)
@@ -151,14 +151,30 @@ current year, so the list stays uncluttered but nothing distant is ambiguous:
 Every block of prose lives in a Markdown file, one per language:
 
 ```
-content/pt/home-intro.md      the short bio on the home page
-content/pt/about.md           the biography on the About page
-content/pt/teaching.md        the Teaching paragraph on About
-content/pt/guitar.md          the Guitar page text
-content/pt/lute.md            the Lute page text
-content/pt/contact.md         the intro on the Contact page
-content/en/…  content/de/…    the same six files per language
+content/home-intro/     the short bio on the home page
+content/about/          the biography on the About page
+content/teaching/       the Teaching paragraph on About
+content/guitar/         the Guitar page text
+content/lute/           the Lute page text
+content/contact/        the intro on the Contact page
 ```
+
+Each of those folders holds one file per language — `pt.md`, `en.md`, `de.md`:
+
+```
+content/about/pt.md
+content/about/en.md
+content/about/de.md
+```
+
+Grouping by text rather than by language keeps a paragraph and its
+translations side by side, which is how they are actually edited: change the
+wording and you want the other two open. A translation nobody has written yet
+shows up as a gap in the folder you are already in, and the build says so.
+
+The languages come from the filenames, so nothing lists them — a fourth means
+dropping `fr.md` into each folder, and adding the UI strings to
+`assets/js/main.js` plus a button in `templates/parts.html`.
 
 Edit the file, run `python3 scripts/build.py`, commit. The build does two things
 with them: it writes the Portuguese copy into the HTML (so the page reads
