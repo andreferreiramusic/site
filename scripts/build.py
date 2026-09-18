@@ -25,6 +25,8 @@ Markers, all optional per page:
     events:upcoming    every upcoming event
     events:past        the archive, newest first, grouped by year,
                        without ticket links
+    video              the page's video from data/videos.csv, matched on the
+                       page key (about, guitar, lute, dates, contact, home)
 
 Paths are relative rather than root-relative because the site is served from
 a project subpath (…github.io/site/), where /assets/… would 404. In the shared
@@ -32,6 +34,8 @@ parts {{base}} resolves per page; inside a page's own content just write the
 real relative path.
 """
 
+import csv
+import html
 import io
 import os
 import re
@@ -41,6 +45,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import events  # noqa: E402
 
 HOME_LIMIT = 4  # upcoming events shown on the home page
+VIDEOS_CSV = "data/videos.csv"  # override with the VIDEOS_CSV env var
 
 # key, file, i18n key, Portuguese fallback shown before main.js runs
 NAV = [
@@ -90,6 +95,64 @@ def inject(text, name, payload):
     return pat.sub(lambda m: m.group(1) + payload + "\n" + m.group(3), text, count=1), True
 
 
+# A YouTube id is 11 characters of this alphabet. Validated because it is
+# interpolated straight into a URL and an iframe src.
+VIDEO_ID = re.compile(r"[A-Za-z0-9_-]{8,16}$")
+
+
+def video_id(value):
+    """Accept a bare id or any of the usual YouTube URL shapes."""
+    value = value.strip()
+    m = re.search(r"(?:youtu\.be/|v=|/embed/|/shorts/)([A-Za-z0-9_-]{8,16})", value)
+    if m:
+        return m.group(1)
+    return value if VIDEO_ID.match(value) else ""
+
+
+def load_videos():
+    """{page key: {video_id, caption}} from data/videos.csv, or None if unreadable."""
+    path = os.environ.get("VIDEOS_CSV", "").strip() or VIDEOS_CSV
+    try:
+        text = io.open(path, encoding="utf-8-sig").read()
+    except OSError as exc:
+        events.warn("could not read %s (%s); video blocks left as they are" % (path, exc))
+        return None
+    out = {}
+    for raw in csv.DictReader(io.StringIO(text)):
+        row = {(k or "").strip().lower(): (v or "").strip() for k, v in raw.items()}
+        page = row.get("page", "").lower()
+        vid = video_id(row.get("video_id", ""))
+        if not page:
+            continue
+        if not vid:
+            events.warn("%s: %r is not a usable YouTube id, skipping the %s video"
+                        % (path, row.get("video_id", ""), page))
+            continue
+        out[page] = {"id": vid, "caption": row.get("caption", "")}
+    return out
+
+
+def render_video(video, indent="  "):
+    """Poster only; main.js swaps in the iframe on click."""
+    vid = html.escape(video["id"], quote=True)
+    return "\n".join([
+        '%s<section class="band">' % indent,
+        '%s  <div class="video-card">' % indent,
+        '%s    <!-- Poster only. main.js swaps in the YouTube iframe on click, so the' % indent,
+        "%s         player's scripts load for people who actually press play. -->" % indent,
+        '%s    <button class="video-thumb" id="videoBtn" data-video-id="%s"' % (indent, vid),
+        '%s            data-i18n-aria="video.play" aria-label="Reproduzir vídeo">' % indent,
+        '%s      <img src="https://i.ytimg.com/vi/%s/maxresdefault.jpg" alt="" loading="lazy">' % (indent, vid),
+        '%s      <span class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>' % indent,
+        '%s    </button>' % indent,
+        '%s    <div class="video-caption">' % indent,
+        '%s      <span class="vt">%s</span>' % (indent, html.escape(video["caption"])),
+        '%s    </div>' % indent,
+        '%s  </div>' % indent,
+        '%s</section>' % indent,
+    ])
+
+
 def load_events():
     path = os.environ.get("EVENTS_CSV", "").strip() or events.EVENTS_CSV
     try:
@@ -112,6 +175,7 @@ def main():
         return 1
 
     split = load_events()
+    videos = load_videos()
     blocks = {}
     if split is not None:
         upcoming, past = split
@@ -148,6 +212,14 @@ def main():
             page, ok = inject(page, name, payload)
             if ok:
                 filled.append(name)
+        if videos is not None:
+            # A page with the marker but no CSV row gets an empty block rather
+            # than a stale video left over from a previous build.
+            vid = videos.get(key)
+            body = render_video(vid) if vid else ""
+            page, ok = inject(page, "video", body)
+            if ok:
+                filled.append("video" if vid else "video (none)")
 
         io.open(path, "w", encoding="utf-8").write(page)
         print("  %-22s %s" % (path, ", ".join(filled) or "no markers"))

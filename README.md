@@ -15,7 +15,8 @@ pages/dates.html
 pages/contact.html
 templates/parts.html          shared head / header / footer, defined once
 data/events.csv               every concert, past and upcoming
-scripts/build.py              writes the shared parts + concert rows into the pages
+data/videos.csv               one video per page (page, video_id, caption)
+scripts/build.py              writes the shared parts, concerts and videos into the pages
 scripts/events.py             reads the CSV (library used by build.py)
 assets/css/style.css          all styles (black / cream-text / light-wood palette)
 assets/js/main.js             language toggle (PT/EN/DE) + menu + video player
@@ -141,6 +142,27 @@ current year, so the list stays uncluttered but nothing distant is ambiguous:
 | Two years out | `04 JUN 2028` |
 | All in one later year | `29 JAN & 02 FEV 2027` |
 | Straddling new year | `28 DEZ – 02 JAN 2027` |
+
+## Videos
+
+`data/videos.csv` holds one row per page that should show a video:
+
+| page | video_id | caption |
+|---|---|---|
+| `guitar` | `KjQrODARBj0` | J. K. Mertz — "An die Entfernte" |
+| `lute` | `8HuC4jDdDU4` | J. S. Bach — Violin Sonata No. 3, BWV 1005: Largo |
+
+- `page` is the page key — `home`, `about`, `guitar`, `lute`, `dates`, `contact`.
+  The page must contain the `<!-- video:start -->` / `<!-- video:end -->`
+  markers for the video to land anywhere; add them where you want it to appear.
+- `video_id` takes either the bare id or a pasted YouTube URL (`youtu.be/…`,
+  `watch?v=…`, `/embed/…`, `/shorts/…`) — the build extracts the id either way.
+- `caption` shows under the player. Wrap it in double quotes if it contains a
+  comma, as the Bach row does.
+
+Remove a row and that page's video block builds empty; the markers stay, so you
+can add it back later. Only the poster image loads on page view — the YouTube
+player is fetched only when someone actually presses play.
 
 ### If the CSV breaks
 

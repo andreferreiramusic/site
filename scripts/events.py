@@ -49,7 +49,7 @@ WITH = {"pt": "com", "en": "with", "de": "mit"}
 
 def warn(msg):
     """Surface on the Actions run summary without failing the job."""
-    print("::warning title=build_concerts::%s" % msg)
+    print("::warning title=site-build::%s" % msg)
 
 
 def read_date(value, where):
@@ -119,16 +119,23 @@ def split(rows, today=None):
     return upcoming, past
 
 
-def date_label(kind, days, lang, this_year):
+def date_label(kind, days, lang, this_year, show_year=True):
     """Year is shown only when it isn't the current one, so the common case
     stays short ("07 NOV") while anything further out is unambiguous
     ("04 JUN 2028"). When every date in a row shares that year it is written
     once at the end ("29 JAN & 02 FEV 2027"); when a row straddles new year
-    each side carries its own ("28 DEZ - 02 JAN 2027")."""
+    each side carries its own ("28 DEZ - 02 JAN 2027").
+
+    show_year=False drops it entirely — used by the archive, where a year
+    heading already stands above each group and repeating it on every row
+    would just be noise."""
     months = MONTHS[lang]
     years = {d.year for d in days}
 
-    if len(years) == 1:
+    if not show_year:
+        suffix = ""
+        yr = lambda d: ""
+    elif len(years) == 1:
         # One year for the whole row: state it once, at the end, or not at all.
         suffix = "" if days[0].year == this_year else " %d" % days[0].year
         yr = lambda d: ""
@@ -189,7 +196,9 @@ def render(rows, indent="      ", tickets=True, group_years=False):
         titles = {"pt": row.get("title", "")}
         titles["en"] = row.get("title_en") or titles["pt"]
         titles["de"] = row.get("title_de") or titles["pt"]
-        dates = {l: date_label(kind, days, l, this_year) for l in LANGS}
+        # Grouped by year means a heading carries it, so the rows don't.
+        dates = {l: date_label(kind, days, l, this_year, not group_years)
+                 for l in LANGS}
 
         def attrs(values):
             return " ".join('data-%s="%s"' % (l, html.escape(values[l], quote=True)) for l in LANGS)
