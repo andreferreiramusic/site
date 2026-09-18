@@ -281,7 +281,38 @@ def exif_orientation(tiff):
     return 1
 
 
-def cover_matrix(box, iw, ih, orientation):
+_JPEGS = {}
+
+
+def read_jpeg(path):
+    """(data, info, orientation) for a JPEG, or (b"", None, 1) for anything
+    else. Memoised because the cover photo is wanted three times over — for
+    the banner, for its thumbnail, and for the pixel size in its caption."""
+    if path not in _JPEGS:
+        data = io.open(path, "rb").read() \
+            if path.lower().endswith(JPEG_EXT) else b""
+        info = jpeg_info(data) if data else None
+        _JPEGS[path] = (data, info, jpeg_orientation(data) if info else 1)
+    return _JPEGS[path]
+
+
+def display_size(path):
+    """The photo's pixel size the way up it is meant to be seen, or None."""
+    _data, info, orientation = read_jpeg(path)
+    if not info:
+        return None
+    w, h = info[0], info[1]
+    return (h, w) if orientation in (5, 6, 7, 8) else (w, h)
+
+
+def cover_matrix(box, iw, ih, orientation, anchor=0.5):
+    """Place an image to fill `box` and crop the overflow — object-fit: cover,
+    written as a PDF matrix. Rotated originals are turned back upright here,
+    which is why width and height swap for the quarter turns.
+
+    `anchor` decides which part of the overflow survives, as object-position
+    does: 0.5 crops evenly, 1 keeps the top of the picture. A portrait in a
+    wide band wants 1 — centred, the crop takes the head off."""
     """Place an image to fill `box` and crop the overflow — object-fit: cover,
     written as a PDF matrix. Rotated originals are turned back upright here,
     which is why width and height swap for the quarter turns."""
@@ -290,7 +321,7 @@ def cover_matrix(box, iw, ih, orientation):
         iw, ih = ih, iw
     scale = max(bw / float(iw), bh / float(ih))
     dw, dh = iw * scale, ih * scale
-    ox, oy = bx + (bw - dw) / 2.0, by + (bh - dh) / 2.0
+    ox, oy = bx + (bw - dw) / 2.0, by + (bh - dh) * anchor
     if orientation in (3, 4):                   # upside down
         return (-dw, 0, 0, -dh, ox + dw, oy + dh)
     if orientation in (5, 6):                   # a quarter turn clockwise
@@ -367,7 +398,12 @@ def parse_bios(text):
 PAGE_W, PAGE_H = 595.28, 841.89      # A4: this kit goes to European programmers
 MARGIN = 62.0
 COL_W = PAGE_W - 2 * MARGIN
-BANNER_H = 188.0
+# Deep enough that a portrait keeps the face at a sensible size, and cropped
+# from the top rather than the middle (see banner) so the head stays in frame.
+BANNER_H = 292.0
+# A thumbnail is never taller than this, so a tall portrait can't push a row
+# of the contact sheet onto a page of its own.
+THUMB_H = 186.0
 
 # The site is cream on black; paper is the other way about. The accent is the
 # same light wood, darkened until it still reads when printed on white.
@@ -421,32 +457,55 @@ class Doc(object):
             ops.append(b"0 Tc")
         ops.append(b"ET")
 
-    def line(self, words, size, leading, color, style, tracking):
-        if self.y - leading < MARGIN:
-            self.new_page()
-        self.y -= leading
-        self.draw(words, size, self.y, color, style, tracking)
-
-    def para(self, text, size=10.4, style="", color=INK, leading=None,
-             before=0.0, after=0.0, tracking=0.0, width=COL_W):
-        leading = leading or size * 1.5
-        self.y -= before
+    def wrap(self, text, size, style, tracking, width):
+        """The paragraph as a list of lines, each a list of (word, style)."""
         words = []
         for chunk, chunk_style in runs(text):
             words += [(w, chunk_style) for w in chunk.split()]
-        line, used = [], 0.0
+        lines, line, used = [], [], 0.0
         space = text_width(" ", size, style, tracking)
         for word, word_style in words:
             w = text_width(word, size, word_style or style, tracking)
             if line and used + space + w > width:
-                self.line(line, size, leading, color, style, tracking)
+                lines.append(line)
                 line, used = [], 0.0
             if line:
                 used += space
             line.append((word, word_style))
             used += w
         if line:
-            self.line(line, size, leading, color, style, tracking)
+            lines.append(line)
+        return lines
+
+    def para(self, text, size=10.4, style="", color=INK, leading=None,
+             before=0.0, after=0.0, tracking=0.0, width=COL_W):
+        """Set a paragraph, breaking pages as it needs to.
+
+        No paragraph leaves a single line on its own: if the break would
+        strand one, the line above goes with it, and if fewer than two lines
+        fit here the whole paragraph moves to the next page. Two is the
+        typesetter's usual minimum, and it is the difference between a bio
+        that reads as a block and one with a stray line at the top of a page."""
+        leading = leading or size * 1.5
+        self.y -= before
+        lines = self.wrap(text, size, style, tracking, width)
+        placed = 0
+        while placed < len(lines):
+            left = len(lines) - placed
+            take = min(int((self.y - MARGIN) / leading), left)
+            if take < left:                   # the paragraph breaks here
+                take = min(take, left - 2)    # …carrying at least two over
+                if take < 2:                  # …and leaving at least two
+                    take = 0
+            if take < 1:
+                self.new_page()
+                continue
+            for line in lines[placed:placed + take]:
+                self.y -= leading
+                self.draw(line, size, self.y, color, style, tracking)
+            placed += take
+            if placed < len(lines):
+                self.new_page()
         self.y -= after
 
     def rule(self, before=0.0, after=0.0, color=RULE):
@@ -457,39 +516,36 @@ class Doc(object):
         self.y -= after
 
     def banner(self, path, height=BANNER_H):
-        """A photo across the top of the first page, cropped to fill."""
-        if not self.place_image(path, (MARGIN, self.y - height, COL_W, height)):
+        """A photo across the top of the first page, filling the width and
+        cropped from the top: a standing portrait is much taller than this
+        band, and an even crop would take the head off."""
+        box = (MARGIN, self.y - height, COL_W, height)
+        if not self.place_image(path, box, anchor=1.0):
             return False
         self.y -= height
         return True
 
-    def place_image(self, path, box):
+    def place_image(self, path, box, anchor=0.5):
         """Draw a JPEG into `box`, cropped to fill it. False if this file is
         one a PDF reader can't be handed directly — the caller decides what to
         put there instead, and the photo travels in the zip either way."""
         if path in self.skipped:
             return False
-        data, name = None, self.placed.get(path)
+        name = self.placed.get(path) or self.image_object(path)
         if name is None:
-            data = io.open(path, "rb").read() \
-                if path.lower().endswith(JPEG_EXT) else b""
-            name = self.image_object(path, data)
-            if name is None:
-                return False
-        if data is None:
-            data = io.open(path, "rb").read()
-        iw, ih = jpeg_info(data)[:2]
-        m = cover_matrix(box, iw, ih, jpeg_orientation(data))
+            return False
+        _data, info, orientation = read_jpeg(path)
+        m = cover_matrix(box, info[0], info[1], orientation, anchor)
         self.ops.append(b"q %s %s %s %s re W n %s cm /%s Do Q"
                         % (num(box[0]), num(box[1]), num(box[2]), num(box[3]),
                            b" ".join(num(v) for v in m), name))
         return True
 
-    def image_object(self, path, data):
+    def image_object(self, path):
         """The JPEG goes into the file exactly as it is: DCTDecode is the
         reader's own decoder, so nothing here has to understand the pixels.
         None for a file that can't go in — the reason is warned about once."""
-        info = jpeg_info(data) if data else None
+        data, info, _orientation = read_jpeg(path)
         if not info:
             reason = "is not a JPEG" if not data else "is not readable as a JPEG"
         elif info[3]:
@@ -524,23 +580,39 @@ class Doc(object):
                         % (rgb(RULE, stroke=True), num(box[0]), num(box[1]),
                            num(box[2]), num(box[3])))
 
-    def contact_sheet(self, paths, cols=3, gap=14.0):
+    def contact_sheet(self, paths, cols=3, gap=14.0, tallest=THUMB_H):
         """Thumbnails with their filenames, so a programmer can pick the shot
-        they want by name without unpacking the zip first."""
+        they want by name without unpacking the zip first.
+
+        Nothing is cropped here: each photo is scaled down whole, so what is
+        on the sheet is the frame that is in the zip — a portrait shows as a
+        portrait, a landscape as a landscape. Tops line up across a row and
+        the captions sit below the tallest of them, which keeps the grid
+        legible even when the shapes differ."""
         cell = (COL_W - gap * (cols - 1)) / cols
         for start in range(0, len(paths), cols):
             row = paths[start:start + cols]
-            self.room(cell + 34)
+            sizes = []
+            for path in row:
+                wh = display_size(path)
+                if not wh:
+                    # Nothing to measure; the frame stands in at 4:3.
+                    sizes.append((cell, cell * 0.75))
+                    continue
+                scale = min(cell / float(wh[0]), tallest / float(wh[1]))
+                sizes.append((wh[0] * scale, wh[1] * scale))
+            row_h = max(h for _w, h in sizes)
+            self.room(row_h + 34)
             top = self.y
-            for i, path in enumerate(row):
+            for i, (path, (dw, dh)) in enumerate(zip(row, sizes)):
                 x = MARGIN + i * (cell + gap)
-                box = (x, top - cell, cell, cell)
+                box = (x, top - dh, dw, dh)
                 if not self.place_image(path, box):
                     self.frame(box)
                 for j, text in enumerate(photo_caption(path)):
                     self.draw([(ellipsize(text, 8.2, cell), "")], 8.2,
-                              top - cell - 11 - j * 10, SUB, x=x)
-            self.y = top - cell - 21 - 18
+                              top - row_h - 11 - j * 10, SUB, x=x)
+            self.y = top - row_h - 21 - 18
 
     def footer(self, text):
         """Written once the flow is done, so it lands on every page including
@@ -630,14 +702,9 @@ def photo_caption(path):
     """Filename, then the pixel size — the two things someone choosing a shot
     for a printed programme actually needs."""
     lines = [os.path.basename(path)]
-    if path.lower().endswith(JPEG_EXT):
-        data = io.open(path, "rb").read()
-        info = jpeg_info(data)
-        if info:
-            w, h = info[0], info[1]
-            if jpeg_orientation(data) in (5, 6, 7, 8):
-                w, h = h, w
-            lines.append("%d × %d px" % (w, h))
+    wh = display_size(path)
+    if wh:
+        lines.append("%d × %d px" % wh)
     return lines
 
 
