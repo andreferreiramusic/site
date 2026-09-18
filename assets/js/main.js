@@ -30,8 +30,7 @@
       'concerts.tickets':'Bilhetes →','concerts.none':'Sem concertos anunciados de momento.',
       'contact.body':'<p>Para reservas de concertos, masterclasses e pedidos de imprensa, escreva por email — as mensagens são respondidas em português, inglês ou alemão.</p>',
       'contact.email':'Email','contact.youtube':'YouTube','contact.based':'Base','contact.city':'Viena, Áustria',
-      'video.play':'Reproduzir vídeo','video.link':'Ver no YouTube →',
-      'foot.text':'Reservas e contacto'
+      'video.play':'Reproduzir vídeo','video.link':'Ver no YouTube →'
     },
     en: {
       'nav.home':'Home','nav.about':'About','nav.guitar':'Guitar','nav.lute':'Lute',
@@ -56,8 +55,7 @@
       'concerts.tickets':'Tickets →','concerts.none':'No concerts announced at the moment.',
       'contact.body':'<p>For concert bookings, masterclasses and press enquiries, please write by email — messages are answered in Portuguese, English or German.</p>',
       'contact.email':'Email','contact.youtube':'YouTube','contact.based':'Based in','contact.city':'Vienna, Austria',
-      'video.play':'Play video','video.link':'Watch on YouTube →',
-      'foot.text':'Booking & contact'
+      'video.play':'Play video','video.link':'Watch on YouTube →'
     },
     de: {
       'nav.home':'Start','nav.about':'Über','nav.guitar':'Gitarre','nav.lute':'Laute',
@@ -82,8 +80,7 @@
       'concerts.tickets':'Tickets →','concerts.none':'Zurzeit keine Konzerte angekündigt.',
       'contact.body':'<p>Für Konzertbuchungen, Meisterkurse und Presseanfragen bitte per E-Mail schreiben — Nachrichten werden auf Portugiesisch, Englisch oder Deutsch beantwortet.</p>',
       'contact.email':'E-Mail','contact.youtube':'YouTube','contact.based':'Basis','contact.city':'Wien, Österreich',
-      'video.play':'Video abspielen','video.link':'Auf YouTube ansehen →',
-      'foot.text':'Buchung & Kontakt'
+      'video.play':'Video abspielen','video.link':'Auf YouTube ansehen →'
     }
   };
 

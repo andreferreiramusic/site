@@ -118,6 +118,13 @@ img{ max-width:100%; display:block; }
 /* Tablet: keep the two columns, but the text column runs tall at this width,
    which left the photo looking small and stranded mid-paragraph. Widen its
    share and align both to the top so they start on the same line. */
+/* Hold the text back from the right edge by the same measure as the page
+   gutter, so the column breathes instead of running to the boundary. Only from
+   1024px up — in the tablet band the two columns are already tight and taking
+   another 128px out would leave a very narrow measure. */
+@media(min-width:1024px){
+  .split-body{ padding-right:var(--pad); }
+}
 @media(min-width:768px) and (max-width:1023px){
   .split, .intro{ grid-template-columns:0.95fr 1fr; align-items:start; }
   /* Wider gutters mean less room for the bar; tighten it instead of dropping
@@ -225,9 +232,8 @@ radial-gradient(circle at 68% 32%, #3a322a 0%, #1c1712 62%, #100d0a 100%); }
 .contact-list .clabel{ flex:0 0 96px; font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--sub); }
 .contact-list a{ text-decoration:none; border-bottom:1px solid var(--wood); padding-bottom:2px; }
 
-.foot{ background:var(--black); color:#e9e3d5; padding:26px var(--pad); display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; align-items:center; font-size:.82rem; }
-.foot-mail{ color:var(--wood); text-decoration:none; font-weight:700; }
-.social{ list-style:none; display:flex; align-items:center; gap:18px; margin:0; padding:0; }
+.foot{ background:var(--black); color:#e9e3d5; padding:26px var(--pad); display:flex; flex-wrap:wrap; gap:12px; justify-content:center; align-items:center; font-size:.82rem; }
+.social{ list-style:none; display:flex; align-items:center; gap:32px; margin:0; padding:0; }
 .social a{ display:block; color:#e9e3d5; opacity:.75; }
 .social a:hover, .social a:focus-visible{ opacity:1; color:var(--wood); }
-.social svg{ width:19px; height:19px; fill:currentColor; display:block; }
+.social svg{ width:24px; height:24px; fill:currentColor; display:block; }

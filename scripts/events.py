@@ -119,12 +119,6 @@ def split(rows, today=None):
     return upcoming, past
 
 
-def join_parts(parts):
-    if len(parts) == 1:
-        return parts[0]
-    return ", ".join(parts[:-1]) + " & " + parts[-1]
-
-
 def date_label(kind, days, lang, this_year):
     """Year is shown only when it isn't the current one, so the common case
     stays short ("07 NOV") while anything further out is unambiguous
@@ -153,12 +147,21 @@ def date_label(kind, days, lang, this_year):
             label = "%02d–%02d %s" % (start.day, end.day, months[start.month - 1])
         else:
             label = "%s – %s" % (day(start), day(end))
-    elif len({(d.year, d.month) for d in days}) == 1:
-        label = "%s %s" % (
-            join_parts(["%02d" % d.day for d in days]), months[days[0].month - 1],
-        )
     else:
-        label = join_parts([day(d) for d in days])
+        # State each month once and list its days against it, so a set of
+        # nights reads "26, 27, 29 OUT, 03 NOV" rather than repeating OUT.
+        groups = []
+        for d in days:
+            key = (d.year, d.month)
+            if groups and groups[-1][0] == key:
+                groups[-1][1].append(d)
+            else:
+                groups.append((key, [d]))
+        label = ", ".join(
+            "%s %s%s" % (", ".join("%02d" % d.day for d in ds),
+                         months[mm - 1], yr(ds[0]))
+            for (_yy, mm), ds in groups
+        )
 
     return label + suffix
 
