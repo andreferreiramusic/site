@@ -1,14 +1,9 @@
 ---
-# The details printed in the PDF header. A blank value is simply left out,
-# so `website:` stays empty until andreferreiramusic.com actually points here.
 name: André Ferreira
 email: contacto@andreferreiramusic.com
 website:
 youtube: @andrealmeidaferreira
-# Which photo goes across the top of the PDF. Must be a baseline JPEG sitting
-# in this folder; blank or missing means the first photo, alphabetically.
 photo:
-# Optional line under the photo list on the last page.
 credit:
 ---
 

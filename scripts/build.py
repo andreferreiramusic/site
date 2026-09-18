@@ -27,8 +27,8 @@ Markers, all optional per page:
                        without ticket links
     video              the page's video from data/videos.csv, matched on the
                        page key (about, guitar, lute, dates, contact, home)
-    presskit    the download link for the kit scripts/press_kit.py builds
-                from press_kit/bios.md and the photos beside it
+    presskit           the download link for the kit that scripts/press_kit.py
+                       builds from press_kit/bios.md and the photos beside it
     text:<i18n key>    prose compiled from content/<lang>/*.md — the Portuguese
                        copy is written into the page, and all three languages
                        are compiled into assets/js/content.js

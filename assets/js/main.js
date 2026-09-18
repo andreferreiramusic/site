@@ -23,7 +23,7 @@
       'press.h':'Press kit',
       'press.d':'Biografia em português, inglês e alemão e fotografias em alta resolução, prontas a usar em programas e imprensa.',
       'press.cta':'Descarregar press kit ↓',
-      'contact.email':'Email','contact.youtube':'YouTube','contact.based':'Base','contact.city':'Viena, Áustria',
+      'contact.email':'Email',
       'video.play':'Reproduzir vídeo','video.link':'Ver no YouTube →'
     },
     en: {
@@ -42,7 +42,7 @@
       'press.h':'Press kit',
       'press.d':'Biography in Portuguese, English and German, plus high-resolution photographs, ready for programmes and press.',
       'press.cta':'Download press kit ↓',
-      'contact.email':'Email','contact.youtube':'YouTube','contact.based':'Based in','contact.city':'Vienna, Austria',
+      'contact.email':'Email',
       'video.play':'Play video','video.link':'Watch on YouTube →'
     },
     de: {
@@ -61,7 +61,7 @@
       'press.h':'Pressemappe',
       'press.d':'Biografie auf Portugiesisch, Englisch und Deutsch sowie Fotos in hoher Auflösung, bereit für Programmhefte und Presse.',
       'press.cta':'Pressemappe herunterladen ↓',
-      'contact.email':'E-Mail','contact.youtube':'YouTube','contact.based':'Basis','contact.city':'Wien, Österreich',
+      'contact.email':'E-Mail',
       'video.play':'Video abspielen','video.link':'Auf YouTube ansehen →'
     }
   };

@@ -4,3 +4,5 @@
 # it, on every deploy — the sources are committed, the output isn't.
 press_kit/*.pdf
 press_kit/*.zip
+# …and the folder left behind by double-clicking the zip to check it.
+press_kit/*-press-kit/
