@@ -17,8 +17,10 @@ templates/parts.html          shared head / header / footer, defined once
 data/events.csv               every concert, past and upcoming
 data/videos.csv               one video per page (page, video_id, caption)
 content/pt|en|de/*.md         the page texts, one Markdown file per language
+press_kit/bios.md             the three press bios; the photos sit beside it
 scripts/build.py              writes the shared parts, concerts and videos into the pages
 scripts/events.py             reads the CSV (library used by build.py)
+scripts/press_kit.py          builds the press-kit PDF and zip (library too)
 assets/css/style.css          all styles (black / cream-text / light-wood palette)
 assets/js/main.js             language toggle (PT/EN/DE) + menu + video player
 assets/img/                   photos (see assets/img/README.md)
@@ -213,6 +215,31 @@ skipped with a warning naming the offending row, and the rest still build.
 
 See `assets/img/README.md` for expected filenames and exactly which lines in
 `index.html` / `style.css` to change (marked with HTML comments).
+
+## The press kit
+
+The contact page offers concert programmers a single download: a PDF with the
+biography in all three languages and a contact sheet of the photographs, zipped
+together with the photos themselves at full size.
+
+```
+press_kit/bios.md      the three bios — front matter, then `# pt`, `# en`, `# de`
+press_kit/*.jpg        the photos; drop them in, name them in the order you want
+```
+
+Edit either, run `python3 scripts/build.py`, commit. The PDF, the zip, and the
+size printed under the download link are all generated from what is in that
+folder — nothing about the kit is typed into a page by hand, which is what
+stops the link promising "3 photographs" once there are five. The deploy
+rebuilds it too, so committing a photo is enough on its own.
+
+`press_kit/README.md` has the details: what the front matter holds, why the
+photos should be baseline JPEGs, and how to choose the one on the cover.
+
+The PDF is written by `scripts/press_kit.py` directly, without a PDF library —
+the deploy runs bare `python3` with nothing installed, and this keeps it that
+way. It sets the bios in Helvetica, one of the 14 faces every reader carries,
+so no font is embedded either.
 
 ## Languages
 

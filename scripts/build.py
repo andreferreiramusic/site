@@ -27,6 +27,8 @@ Markers, all optional per page:
                        without ticket links
     video              the page's video from data/videos.csv, matched on the
                        page key (about, guitar, lute, dates, contact, home)
+    presskit    the download link for the kit scripts/press_kit.py builds
+                from press_kit/bios.md and the photos beside it
     text:<i18n key>    prose compiled from content/<lang>/*.md — the Portuguese
                        copy is written into the page, and all three languages
                        are compiled into assets/js/content.js
@@ -47,6 +49,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import events  # noqa: E402
+import press_kit  # noqa: E402
 
 HOME_LIMIT = 4  # upcoming events shown on the home page
 VIDEOS_CSV = "data/videos.csv"  # override with the VIDEOS_CSV env var
@@ -245,6 +248,19 @@ def load_events():
         return None
 
 
+def load_press_kit():
+    """The PDF and zip, rebuilt from press_kit/. Wrapped like the CSV readers:
+    a press kit that won't build is a warning on the Actions run, not a failed
+    deploy — the rest of the site is unaffected and the marker simply stays
+    empty, so the contact page offers no link to a file that isn't there."""
+    try:
+        return press_kit.build()
+    except Exception as exc:
+        events.warn("could not build the press kit (%s); "
+                    "the download link is left out" % exc)
+        return None
+
+
 def main():
     part = parts()
     missing = [k for k in ("head", "header-open", "header-close", "footer") if k not in part]
@@ -254,19 +270,25 @@ def main():
 
     split = load_events()
     videos = load_videos()
+    kit = load_press_kit()
     content = load_content()
     if content:
         write_content_js(content)
         print("  %-22s %d languages x %d texts" % (CONTENT_JS, len(content), len(TEXTS)))
     blocks = {}
+    if kit is not None:
+        zip_path, size, pages, photos = kit
+        blocks["presskit"] = press_kit.render_link(zip_path, size, photos)
+        print("  %-22s %d page(s), %d photo(s), %s"
+              % (zip_path, pages, photos, press_kit.human(size)))
     if split is not None:
         upcoming, past = split
-        blocks = {
+        blocks.update({
             "events:next": events.render(upcoming[:HOME_LIMIT]) if upcoming else EMPTY,
             "events:upcoming": events.render(upcoming) if upcoming else EMPTY,
             # Past ticket links point at closed sales, so they are dropped.
             "events:past": events.render(past, tickets=False, group_years=True) if past else EMPTY_PAST,
-        }
+        })
 
     for key, path, _i18n_key, _label in NAV:
         if not os.path.exists(path):
@@ -291,7 +313,7 @@ def main():
         if ok:
             filled.append("footer")
         for name, payload in blocks.items():
-            page, ok = inject(page, name, payload)
+            page, ok = inject(page, name, payload.replace("{{base}}", base))
             if ok:
                 filled.append(name)
         if content and "pt" in content:

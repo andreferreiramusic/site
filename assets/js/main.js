@@ -20,6 +20,9 @@
       'dates.upcoming':'Próximos','dates.past':'Anteriores',
       'dates.past.none':'Ainda sem eventos anteriores.',
       'concerts.tickets':'Bilhetes →','concerts.none':'Sem concertos anunciados de momento.',
+      'press.h':'Press kit',
+      'press.d':'Biografia em português, inglês e alemão e fotografias em alta resolução, prontas a usar em programas e imprensa.',
+      'press.cta':'Descarregar press kit ↓',
       'contact.email':'Email','contact.youtube':'YouTube','contact.based':'Base','contact.city':'Viena, Áustria',
       'video.play':'Reproduzir vídeo','video.link':'Ver no YouTube →'
     },
@@ -36,6 +39,9 @@
       'dates.upcoming':'Upcoming','dates.past':'Past',
       'dates.past.none':'No past events listed yet.',
       'concerts.tickets':'Tickets →','concerts.none':'No concerts announced at the moment.',
+      'press.h':'Press kit',
+      'press.d':'Biography in Portuguese, English and German, plus high-resolution photographs, ready for programmes and press.',
+      'press.cta':'Download press kit ↓',
       'contact.email':'Email','contact.youtube':'YouTube','contact.based':'Based in','contact.city':'Vienna, Austria',
       'video.play':'Play video','video.link':'Watch on YouTube →'
     },
@@ -52,6 +58,9 @@
       'dates.upcoming':'Kommende','dates.past':'Vergangene',
       'dates.past.none':'Noch keine vergangenen Veranstaltungen gelistet.',
       'concerts.tickets':'Tickets →','concerts.none':'Zurzeit keine Konzerte angekündigt.',
+      'press.h':'Pressemappe',
+      'press.d':'Biografie auf Portugiesisch, Englisch und Deutsch sowie Fotos in hoher Auflösung, bereit für Programmhefte und Presse.',
+      'press.cta':'Pressemappe herunterladen ↓',
       'contact.email':'E-Mail','contact.youtube':'YouTube','contact.based':'Basis','contact.city':'Wien, Österreich',
       'video.play':'Video abspielen','video.link':'Auf YouTube ansehen →'
     }

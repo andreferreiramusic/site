@@ -1,1 +1,6 @@
 .DS_Store
+
+# Built by scripts/press_kit.py from press_kit/bios.md and the photos beside
+# it, on every deploy — the sources are committed, the output isn't.
+press_kit/*.pdf
+press_kit/*.zip
