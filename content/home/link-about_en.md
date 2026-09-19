@@ -1,1 +1,1 @@
-Repertoire, projects & collaborations
+Artistic profile, teaching, collaborations, venues and festivals
