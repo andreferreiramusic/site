@@ -1,11 +1,9 @@
-André Ferreira is a Portuguese guitarist and lutenist based in Vienna. A versatile musician with a strong foundation in both historical and modern performance, his playing reflects a deep engagement with the expressive possibilities of plucked strings.
+André Ferreira is a Portuguese guitarist and lutenist based in Vienna. His artistic work develops between classical guitar and historical plucked-string instruments, with a particular interest in the relationship between repertoire, instrument and musical practice.
 
-He appears regularly as a soloist, chamber musician, and orchestral player, collaborating with ensembles such as Concentus Musicus Wien and Bach Consort Wien. His performances have taken him to major venues and festivals across Europe, including the Wiener Musikverein, Wiener Konzerthaus, Palau de la Música Catalana, Auditorio Nacional de Madrid, Kölner Philharmonie, and Brucknerhaus Linz.
+As a performer, he appears as a soloist, chamber musician and in collaboration with orchestras and ensembles specialising in early music. His interest in historical repertoire has led him to deepen his practice of the lute and other plucked-string instruments, incorporating different instruments and repertoires into his work.
 
-André’s musical formation spans the European traditions of both the guitar and early plucked instruments. He studied with Margarita Escarpa, Tilman Hoppstock, Paolo Pegoraro, Ricardo Gallén, and David Bergmüller, earning master’s degrees in Guitar and Lute Performance, as well as a bachelor’s degree in Music Pedagogy.
+André Ferreira regularly collaborates with ensembles such as Concentus Musicus Wien and Bach Consort Wien, performing at major European venues and festivals including the Wiener Musikverein, Wiener Konzerthaus, Theater an der Wien, Kölner Philharmonie, Brucknerhaus Linz, Palau de la Música Catalana and Auditorio Nacional de Música de Madrid.
 
-Since 2023, he has been a member of the faculty at the University of Music and Performing Arts Vienna, where he teaches both instruments.
-
-André teaches historical lute instruments at the Early Music Department of mdw — University of Music and Performing Arts Vienna, and gives masterclasses across Europe.
+Alongside his artistic work, André teaches guitar and lute at the Universität für Musik und darstellende Kunst Wien (mdw).
 
 [Faculty profile at mdw →](https://mdw.ac.at/altemusik/en/faculty/andre-ferreira-inst-17/)
