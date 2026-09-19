@@ -29,7 +29,7 @@ Markers, all optional per page:
                        page key (about, guitar, lute, dates, contact, home)
     presskit           the download link for the kit that scripts/press_kit.py
                        builds from press_kit/bios.md and the photos beside it
-    text:<i18n key>    prose compiled from content/<text>/<lang>.md — the Portuguese
+    text:<i18n key>    text compiled from content/<page>/<block>_<lang>.md — the Portuguese
                        copy is written into the page, and all three languages
                        are compiled into assets/js/content.js
 
@@ -53,33 +53,74 @@ import press_kit  # noqa: E402
 
 HOME_LIMIT = 4  # upcoming events shown on the home page
 VIDEOS_CSV = "data/videos.csv"  # override with the VIDEOS_CSV env var
-CONTENT_DIR = "content"         # content/<text>/<lang>.md
+CONTENT_DIR = "content"         # content/<page>/<block>_<lang>.md
 CONTENT_JS = "assets/js/content.js"
 
-# Folder under content/ -> the i18n key the site uses for that text.
-TEXTS = {
-    "home-intro": "home.about",
-    "about": "bio.body",
-    "teaching": "teaching.body",
-    "guitar": "guitar.body",
-    "lute": "lute.body",
-    "contact": "contact.body",
-}
+# Every word of the site that changes with the language, and nothing else
+# does: content/<page>/<block>_<lang>.md -> the i18n key the markup asks for.
+#
+# PROSE is wrapped in a <p> per paragraph and lands inside a .prose block.
+# LABEL goes in exactly as written, because it lands inside an <a>, an <h2> or
+# an aria-label, where a <p> would break the markup. That is the only
+# difference between the two, and it is why the kind is declared here rather
+# than guessed from the file's length.
+#
+# site/ holds what isn't a page's own: the menu, and the wording the concert
+# rows and the video poster are generated with.
+PROSE, LABEL = "prose", "label"
+TEXTS = [
+    # folder     file               i18n key            kind
+    ("home",    "main",             "home.about",       PROSE),
+    ("home",    "hero-eyebrow",     "hero.eyebrow",     LABEL),
+    ("home",    "hero-cta",         "hero.cta",         LABEL),
+    ("home",    "dates-heading",    "home.dates.h",     LABEL),
+    ("home",    "dates-all",        "home.dates.all",   LABEL),
+    ("home",    "link-about",       "home.about.d",     LABEL),
+    ("home",    "link-guitar",      "home.guitar.d",    LABEL),
+    ("home",    "link-lute",        "home.lute.d",      LABEL),
+    ("about",   "main",             "bio.body",         PROSE),
+    ("about",   "teaching",         "teaching.body",    PROSE),
+    ("about",   "teaching-heading", "about.teaching.h", LABEL),
+    ("about",   "teaching-link",    "teaching.link",    LABEL),
+    ("guitar",  "main",             "guitar.body",      PROSE),
+    ("lute",    "main",             "lute.body",        PROSE),
+    ("dates",   "upcoming-heading", "dates.upcoming",   LABEL),
+    ("dates",   "past-heading",     "dates.past",       LABEL),
+    ("dates",   "past-none",        "dates.past.none",  LABEL),
+    ("contact", "main",             "contact.body",     PROSE),
+    ("contact", "email-label",      "contact.email",    LABEL),
+    ("contact", "press-heading",    "press.h",          LABEL),
+    ("contact", "press-body",       "press.d",          LABEL),
+    ("contact", "press-cta",        "press.cta",        LABEL),
+    ("site",    "nav-home",         "nav.home",         LABEL),
+    ("site",    "nav-about",        "nav.about",        LABEL),
+    ("site",    "nav-guitar",       "nav.guitar",       LABEL),
+    ("site",    "nav-lute",         "nav.lute",         LABEL),
+    ("site",    "nav-dates",        "nav.dates",        LABEL),
+    ("site",    "nav-contact",      "nav.contact",      LABEL),
+    ("site",    "tickets",          "concerts.tickets", LABEL),
+    ("site",    "concerts-none",    "concerts.none",    LABEL),
+    ("site",    "video-play",       "video.play",       LABEL),
+]
+KINDS = {key: kind for _folder, _stem, key, kind in TEXTS}
 
-# key, file, i18n key, Portuguese fallback shown before main.js runs
+# page key, file, the i18n key its menu entry uses. The wording itself lives
+# in content/site/nav-<page>_<lang>.md like everything else.
 NAV = [
-    ("home",    "index.html",           "nav.home",    "Início"),
-    ("about",   "pages/about.html",     "nav.about",   "Sobre"),
-    ("guitar",  "pages/guitar.html",    "nav.guitar",  "Guitarra"),
-    ("lute",    "pages/lute.html",      "nav.lute",    "Alaúde"),
-    ("dates",   "pages/dates.html",     "nav.dates",   "Datas"),
-    ("contact", "pages/contact.html",   "nav.contact", "Contacto"),
+    ("home",    "index.html",           "nav.home"),
+    ("about",   "pages/about.html",     "nav.about"),
+    ("guitar",  "pages/guitar.html",    "nav.guitar"),
+    ("lute",    "pages/lute.html",      "nav.lute"),
+    ("dates",   "pages/dates.html",     "nav.dates"),
+    ("contact", "pages/contact.html",   "nav.contact"),
 ]
 
-EMPTY = ('      <p class="note" data-i18n="concerts.none">'
-         'Sem concertos anunciados de momento.</p>')
-EMPTY_PAST = ('      <p class="note" data-i18n="dates.past.none">'
-              'Ainda sem atuações em arquivo.</p>')
+
+def note(pt, key, indent="      "):
+    """The line shown where a concert list is empty. Generated rather than
+    kept as a constant so its wording lives in content/ with everything
+    else."""
+    return '%s<p class="note" data-i18n="%s">%s</p>' % (indent, key, pt.get(key, ""))
 
 
 def parts():
@@ -90,13 +131,15 @@ def parts():
     return {chunks[i]: chunks[i + 1].strip("\n") for i in range(1, len(chunks) - 1, 2)}
 
 
-def nav_links(current_key, base, indent="      "):
+def nav_links(current_key, base, pt, indent="      "):
+    """`pt` is the Portuguese text map: the menu ships readable before any
+    JavaScript runs, and for crawlers, exactly as the page prose does."""
     out = []
-    for key, path, i18n_key, label in NAV:
+    for key, path, i18n_key in NAV:
         href = base + path
         current = ' aria-current="page"' if key == current_key else ""
         out.append('%s<a href="%s"%s data-i18n="%s">%s</a>'
-                   % (indent, href, current, i18n_key, label))
+                   % (indent, href, current, i18n_key, pt.get(i18n_key, "")))
     return "\n".join(out)
 
 
@@ -112,6 +155,29 @@ def inject(text, name, payload):
     if not pat.search(text):
         return text, False
     return pat.sub(lambda m: m.group(1) + payload + "\n" + m.group(3), text, count=1), True
+
+
+# An element carrying data-i18n whose content is plain text: <a …>Datas</a>,
+# <h2 …>Press kit</h2>. Anything holding markup (a <br>, a marker comment)
+# fails the [^<>]* and is left alone, which is what keeps the prose blocks —
+# they have their own markers — out of this.
+LABEL_TEXT = re.compile(r'(data-i18n="([\w.]+)"[^<>]*>)([^<>]*)(</)')
+
+
+def fill_labels(text, pt):
+    """Rewrite the Portuguese of every label in the page.
+
+    Prose has start/end markers; a label is a word or two inside an anchor or
+    a heading, where a marker comment would mean a line break in a spot where
+    whitespace shows. Keying off the attribute instead leaves the markup as
+    someone would write it by hand, and still means content/site/nav-dates_pt.md
+    is the only place the menu's wording lives."""
+    def swap(m):
+        key = m.group(2)
+        if KINDS.get(key) != LABEL or key not in pt:
+            return m.group(0)
+        return m.group(1) + pt[key] + m.group(4)
+    return LABEL_TEXT.sub(swap, text)
 
 
 # A YouTube id is 11 characters of this alphabet. Validated because it is
@@ -151,8 +217,10 @@ def load_videos():
     return out
 
 
-def render_video(video, indent="  "):
-    """Poster only; main.js swaps in the iframe on click."""
+def render_video(video, play_label, indent="  "):
+    """Poster only; main.js swaps in the iframe on click. `play_label` is the
+    Portuguese from content/site/video-play_pt.md — it is an attribute, so the
+    label pass can't reach it and it is written in here instead."""
     vid = html.escape(video["id"], quote=True)
     return "\n".join([
         '%s<section class="band">' % indent,
@@ -160,7 +228,8 @@ def render_video(video, indent="  "):
         '%s    <!-- Poster only. main.js swaps in the YouTube iframe on click, so the' % indent,
         "%s         player's scripts load for people who actually press play. -->" % indent,
         '%s    <button class="video-thumb" id="videoBtn" data-video-id="%s"' % (indent, vid),
-        '%s            data-i18n-aria="video.play" aria-label="Reproduzir vídeo">' % indent,
+        '%s            data-i18n-aria="video.play" aria-label="%s">'
+        % (indent, html.escape(play_label, quote=True)),
         '%s      <img src="https://i.ytimg.com/vi/%s/maxresdefault.jpg" alt="" loading="lazy">' % (indent, vid),
         '%s      <span class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>' % indent,
         '%s    </button>' % indent,
@@ -203,40 +272,45 @@ def md_to_html(text):
     return "".join("<p>%s</p>" % md_inline(" ".join(p.split("\n"))) for p in paras)
 
 
+def md_label(text):
+    """A label goes in as one line of inline HTML: no <p>, because it lands
+    inside an <a>, an <h2> or an aria-label. Line breaks in the file are just
+    wrapping and collapse to spaces."""
+    return md_inline(" ".join(text.split()))
+
+
 def load_content():
-    """{lang: {i18n key: html}} from content/<text>/<lang>.md, or None if the
-    directory is absent.
+    """{lang: {i18n key: html}} from content/<page>/<block>_<lang>.md, or None
+    if the directory is absent.
 
-    Grouped by text rather than by language so a paragraph and its
-    translations sit in one folder: changing the wording means opening three
-    files side by side, and a translation nobody has written yet is a gap in
-    a folder you are already looking at.
-
-    Which languages exist is read off the filenames, so adding a fourth is a
-    matter of dropping <lang>.md into each folder — nothing here lists them."""
+    Every translatable word on the site is one of these files — the prose and
+    the one-word labels alike — so a text is changed in one place and nothing
+    is edited in JavaScript. Which languages exist is read off the filenames,
+    so a fourth means dropping <block>_fr.md beside the others.
+    """
     root = os.environ.get("CONTENT_DIR", "").strip() or CONTENT_DIR
     if not os.path.isdir(root):
         events.warn("no %s directory; page texts left as they are" % root)
         return None
     found, langs = {}, set()
-    for stem in TEXTS:
-        d = os.path.join(root, stem)
-        if not os.path.isdir(d):
-            events.warn("no %s directory; %s left as it is" % (d, TEXTS[stem]))
-            continue
-        found[stem] = {name[:-3].lower(): os.path.join(d, name)
-                       for name in sorted(os.listdir(d))
-                       if name.endswith(".md") and not name.startswith(".")}
-        langs |= set(found[stem])
-    out = {lang: {} for lang in sorted(langs)}
-    for stem, key in sorted(TEXTS.items()):
-        for lang in sorted(langs):
-            path = found.get(stem, {}).get(lang)
-            if not path:
-                events.warn("missing %s/%s/%s.md — %s will fall back to "
-                            "another language" % (root, stem, lang, key))
+    for folder, stem, key, _kind in TEXTS:
+        d = os.path.join(root, folder)
+        for name in sorted(os.listdir(d)) if os.path.isdir(d) else []:
+            if not name.startswith(stem + "_") or not name.endswith(".md"):
                 continue
-            out[lang][key] = md_to_html(io.open(path, encoding="utf-8").read())
+            lang = name[len(stem) + 1:-3].lower()
+            found[(key, lang)] = os.path.join(d, name)
+            langs.add(lang)
+    out = {lang: {} for lang in sorted(langs)}
+    for folder, stem, key, kind in TEXTS:
+        for lang in sorted(langs):
+            path = found.get((key, lang))
+            if not path:
+                events.warn("missing %s/%s/%s_%s.md — %s falls back to another "
+                            "language" % (root, folder, stem, lang, key))
+                continue
+            text = io.open(path, encoding="utf-8").read()
+            out[lang][key] = md_to_html(text) if kind == PROSE else md_label(text)
     return out
 
 
@@ -244,7 +318,7 @@ def write_content_js(content):
     """One small file the pages load before main.js, which merges it in."""
     body = json.dumps(content, ensure_ascii=False, indent=1, sort_keys=True)
     io.open(CONTENT_JS, "w", encoding="utf-8").write(
-        "// GENERATED by scripts/build.py from %s/<text>/<lang>.md — do not edit.\n"
+        "// GENERATED by scripts/build.py from %s/<page>/<block>_<lang>.md — do not edit.\n"
         "// Edit the Markdown and run the build; main.js merges this into its\n"
         "// own dictionary of UI strings.\n"
         "window.__content = %s;\n" % (CONTENT_DIR, body))
@@ -284,13 +358,18 @@ def main():
         events.warn("templates/parts.html is missing part(s): %s" % ", ".join(missing))
         return 1
 
-    split = load_events()
-    videos = load_videos()
-    kit = load_press_kit()
     content = load_content()
+    # Portuguese is what gets written into the HTML: the site reads correctly
+    # before any JavaScript runs, and for crawlers. Everything below that
+    # needs a word of it — the menu, the empty-list notes, the ticket links —
+    # takes it from here rather than carrying a copy.
+    pt = (content or {}).get("pt", {})
     if content:
         write_content_js(content)
         print("  %-22s %d languages x %d texts" % (CONTENT_JS, len(content), len(TEXTS)))
+    split = load_events()
+    videos = load_videos()
+    kit = load_press_kit()
     blocks = {}
     if kit is not None:
         zip_path, size, pages, photos = kit
@@ -299,14 +378,17 @@ def main():
               % (zip_path, pages, photos, press_kit.human(size)))
     if split is not None:
         upcoming, past = split
+        tix = pt.get("concerts.tickets", "")
+        none_now = note(pt, "concerts.none")
         blocks.update({
-            "events:next": events.render(upcoming[:HOME_LIMIT]) if upcoming else EMPTY,
-            "events:upcoming": events.render(upcoming) if upcoming else EMPTY,
+            "events:next": events.render(upcoming[:HOME_LIMIT], tickets_label=tix) if upcoming else none_now,
+            "events:upcoming": events.render(upcoming, tickets_label=tix) if upcoming else none_now,
             # Past ticket links point at closed sales, so they are dropped.
-            "events:past": events.render(past, tickets=False, group_years=True) if past else EMPTY_PAST,
+            "events:past": (events.render(past, tickets=False, group_years=True)
+                            if past else note(pt, "dates.past.none")),
         })
 
-    for key, path, _i18n_key, _label in NAV:
+    for key, path, _i18n_key in NAV:
         if not os.path.exists(path):
             events.warn("%s is listed in NAV but does not exist" % path)
             continue
@@ -319,7 +401,7 @@ def main():
             filled.append("head")
         nav = "\n".join([
             part["header-open"].replace("{{base}}", base),
-            nav_links(key, base),
+            nav_links(key, base, pt),
             part["header-close"].replace("{{base}}", base),
         ])
         page, ok = inject(page, "nav", nav)
@@ -332,22 +414,23 @@ def main():
             page, ok = inject(page, name, payload.replace("{{base}}", base))
             if ok:
                 filled.append(name)
-        if content and "pt" in content:
-            # The Portuguese copy is baked into the HTML so the page reads
-            # correctly before any JavaScript runs, and for crawlers.
-            for text_key, body_html in sorted(content["pt"].items()):
-                page, ok = inject(page, "text:" + text_key, "      " + body_html)
-                if ok:
-                    filled.append(text_key)
+        for text_key, body_html in sorted(pt.items()):
+            if KINDS.get(text_key) != PROSE:
+                continue
+            page, ok = inject(page, "text:" + text_key, "      " + body_html)
+            if ok:
+                filled.append(text_key)
         if videos is not None:
             # A page with the marker but no CSV row gets an empty block rather
             # than a stale video left over from a previous build.
             vid = videos.get(key)
-            body = render_video(vid) if vid else ""
+            body = render_video(vid, pt.get("video.play", "")) if vid else ""
             page, ok = inject(page, "video", body)
             if ok:
                 filled.append("video" if vid else "video (none)")
 
+        if pt:
+            page = fill_labels(page, pt)
         io.open(path, "w", encoding="utf-8").write(page)
         print("  %-22s %s" % (path, ", ".join(filled) or "no markers"))
 

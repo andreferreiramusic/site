@@ -16,7 +16,7 @@ pages/contact.html
 templates/parts.html          shared head / header / footer, defined once
 data/events.csv               every concert, past and upcoming
 data/videos.csv               one video per page (page, video_id, caption)
-content/<text>/<lang>.md      the page texts, one folder per block of prose
+content/<page>/<block>_<lang>.md   every translatable word, one file each
 press_kit/bios.md             the three press bios; the photos sit beside it
 scripts/build.py              writes the shared parts, concerts and videos into the pages
 scripts/events.py             reads the CSV (library used by build.py)
@@ -146,43 +146,67 @@ current year, so the list stays uncluttered but nothing distant is ambiguous:
 | All in one later year | `29 JAN & 02 FEV 2027` |
 | Straddling new year | `28 DEZ – 02 JAN 2027` |
 
-## Editing the page texts
+## Editing the texts
 
-Every block of prose lives in a Markdown file, one per language:
+**Every word on the site that changes with the language is a Markdown file
+under `content/`** — the biography and the word "Tickets" alike. Nothing is
+written in JavaScript, and nothing is typed into a page twice.
 
-```
-content/home-intro/     the short bio on the home page
-content/about/          the biography on the About page
-content/teaching/       the Teaching paragraph on About
-content/guitar/         the Guitar page text
-content/lute/           the Lute page text
-content/contact/        the intro on the Contact page
-```
-
-Each of those folders holds one file per language — `pt.md`, `en.md`, `de.md`:
+One folder per page, one file per text, named `<block>_<lang>.md`:
 
 ```
-content/about/pt.md
-content/about/en.md
-content/about/de.md
+content/home/     main_pt.md  main_en.md  main_de.md     the intro paragraph
+                  hero-eyebrow_*.md    under the big name
+                  hero-cta_*.md        the button down to the concerts
+                  dates-heading_*.md   dates-all_*.md
+                  link-about_*.md  link-guitar_*.md  link-lute_*.md
+content/about/    main_*.md            the biography
+                  teaching_*.md        the Teaching paragraph
+                  teaching-heading_*.md  teaching-link_*.md
+content/guitar/   main_*.md
+content/lute/     main_*.md
+content/dates/    upcoming-heading_*.md  past-heading_*.md  past-none_*.md
+content/contact/  main_*.md            the intro
+                  email-label_*.md
+                  press-heading_*.md  press-body_*.md  press-cta_*.md
+content/site/     nav-home_*.md … nav-contact_*.md   the menu
+                  tickets_*.md  concerts-none_*.md   the concert lists
+                  video-play_*.md                    the player's aria-label
 ```
 
-Grouping by text rather than by language keeps a paragraph and its
-translations side by side, which is how they are actually edited: change the
-wording and you want the other two open. A translation nobody has written yet
-shows up as a gap in the folder you are already in, and the build says so.
+`main_` is the page's own prose; the rest are the labels around it. `site/`
+holds what belongs to no single page — the menu, and the wording the concert
+rows and video poster are generated with.
 
-The languages come from the filenames, so nothing lists them — a fourth means
-dropping `fr.md` into each folder, and adding the UI strings to
-`assets/js/main.js` plus a button in `templates/parts.html`.
+Grouping by page rather than by language puts a text and its translations in
+one folder: change the wording and the other two are already open in front of
+you, and a translation nobody has written yet is a visible gap.
 
-Edit the file, run `python3 scripts/build.py`, commit. The build does two things
-with them: it writes the Portuguese copy into the HTML (so the page reads
-correctly before any JavaScript runs, and for search engines), and it compiles
-all three languages into `assets/js/content.js`, which the language toggle uses.
+Edit a file, run `python3 scripts/build.py`, commit. The build writes the
+Portuguese into the HTML — so every page reads correctly before any JavaScript
+runs, and for search engines — and compiles all three languages into
+`assets/js/content.js`, which the language toggle uses. One edit, both places.
 
-Both of those are generated — never edit `assets/js/content.js` or the text
-inside a page's `<!-- text:…:start -->` markers by hand.
+Both are generated: never edit `assets/js/content.js`, the text inside a page's
+`<!-- text:…:start -->` markers, or the words inside an element carrying
+`data-i18n` — the build overwrites all three.
+
+Which languages exist is read off the filenames. A fourth is `fr.md` beside
+each of the others plus a button in `templates/parts.html`; `scripts/build.py`
+lists no languages anywhere.
+
+### Adding a new text
+
+Add the file, then one row to the `TEXTS` table at the top of
+`scripts/build.py`:
+
+```python
+    ("contact", "phone-label",  "contact.phone",  LABEL),
+```
+
+…and reference it from the markup with `data-i18n="contact.phone"`. `PROSE`
+wraps each paragraph in a `<p>` for a `.prose` block; `LABEL` goes in as it is,
+for text inside a link, a heading or an `aria-label`.
 
 ### What the Markdown supports
 
@@ -259,9 +283,10 @@ so no font is embedded either.
 
 ## Languages
 
-Every translated string lives in the `i18n` dictionaries at the top of
-`assets/js/main.js` (`pt` / `en` / `de` objects). Edit the wording there;
-`data-i18n="key"` attributes in the HTML pick it up automatically.
+Every translated string lives in `content/` (see **Editing the texts**) and is
+compiled into `assets/js/content.js`. `data-i18n="key"` attributes in the HTML
+pick it up; the toggle swaps the whole page without reloading, and remembers
+the choice in `localStorage`.
 
 Concert rows are the exception: their wording comes from the sheet, so each row
 carries its own `data-pt` / `data-en` / `data-de` attributes instead of a

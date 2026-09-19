@@ -2,72 +2,18 @@
 // Loaded by every page; each block guards for elements that page may not have.
 //
 // Two translation styles live side by side: data-i18n="key" pulls from the
-// dictionaries below, while data-pt/en/de carry a row's own wording inline —
-// used by the concert rows, which scripts/events.py generates from
-// data/events.csv and so can't have dictionary keys known ahead of time.
+// dictionary compiled out of content/, while data-pt/en/de carry a row's own
+// wording inline — used by the concert rows, which scripts/events.py
+// generates from data/events.csv and so can't have keys known ahead of time.
 (function(){
-  var i18n = {
-    pt: {
-      'nav.home':'Início','nav.about':'Sobre','nav.guitar':'Guitarra','nav.lute':'Alaúde',
-      'nav.dates':'Datas','nav.contact':'Contacto','nav.video':'Vídeo',
-      'hero.eyebrow':'Guitarrista & Alaudista · Viena','hero.cta':'Próximos concertos ↓',
-      'home.about.d':'Biografia, formação e as salas e festivais onde tem atuado.',
-      'home.guitar.d':'Repertório, instrumentos e projetos em torno da guitarra clássica.',
-      'home.lute.d':'Alaúde, teorba e outros instrumentos históricos de corda dedilhada.',
-      'home.dates.h':'Próximos','home.dates.all':'Todas as datas →',
-      'about.teaching.h':'Ensino',
-      'teaching.link':'Perfil na mdw →',
-      'dates.upcoming':'Próximos','dates.past':'Anteriores',
-      'dates.past.none':'Ainda sem eventos anteriores.',
-      'concerts.tickets':'Bilhetes →','concerts.none':'Sem concertos anunciados de momento.',
-      'press.h':'Press kit',
-      'press.d':'Biografia em português, inglês e alemão e fotografias em alta resolução, prontas a usar em programas e imprensa.',
-      'press.cta':'Descarregar press kit ↓',
-      'contact.email':'Email',
-      'video.play':'Reproduzir vídeo','video.link':'Ver no YouTube →'
-    },
-    en: {
-      'nav.home':'Home','nav.about':'About','nav.guitar':'Guitar','nav.lute':'Lute',
-      'nav.dates':'Dates','nav.contact':'Contact','nav.video':'Video',
-      'hero.eyebrow':'Guitarist & Lutenist · Vienna','hero.cta':'Upcoming concerts ↓',
-      'home.about.d':'Biography, training, and the halls and festivals he has played.',
-      'home.guitar.d':'Repertoire, instruments and projects on the classical guitar.',
-      'home.lute.d':'Lute, theorbo and other historical plucked string instruments.',
-      'home.dates.h':'Upcoming','home.dates.all':'All dates →',
-      'about.teaching.h':'Teaching',
-      'teaching.link':'Faculty profile at mdw →',
-      'dates.upcoming':'Upcoming','dates.past':'Past',
-      'dates.past.none':'No past events listed yet.',
-      'concerts.tickets':'Tickets →','concerts.none':'No concerts announced at the moment.',
-      'press.h':'Press kit',
-      'press.d':'Biography in Portuguese, English and German, plus high-resolution photographs, ready for programmes and press.',
-      'press.cta':'Download press kit ↓',
-      'contact.email':'Email',
-      'video.play':'Play video','video.link':'Watch on YouTube →'
-    },
-    de: {
-      'nav.home':'Start','nav.about':'Über','nav.guitar':'Gitarre','nav.lute':'Laute',
-      'nav.dates':'Termine','nav.contact':'Kontakt','nav.video':'Video',
-      'hero.eyebrow':'Gitarrist & Lautenist · Wien','hero.cta':'Kommende Konzerte ↓',
-      'home.about.d':'Biografie, Ausbildung und die Säle und Festivals, in denen er gespielt hat.',
-      'home.guitar.d':'Repertoire, Instrumente und Projekte rund um die klassische Gitarre.',
-      'home.lute.d':'Laute, Theorbe und weitere historische Zupfinstrumente.',
-      'home.dates.h':'Kommende','home.dates.all':'Alle Termine →',
-      'about.teaching.h':'Lehre',
-      'teaching.link':'Profil an der mdw →',
-      'dates.upcoming':'Kommende','dates.past':'Vergangene',
-      'dates.past.none':'Noch keine vergangenen Veranstaltungen gelistet.',
-      'concerts.tickets':'Tickets →','concerts.none':'Zurzeit keine Konzerte angekündigt.',
-      'press.h':'Press kit',
-      'press.d':'Biografie auf Portugiesisch, Englisch und Deutsch sowie Fotos in hoher Auflösung, bereit für Programmhefte und Presse.',
-      'press.cta':'Press kit herunterladen ↓',
-      'contact.email':'E-Mail',
-      'video.play':'Video abspielen','video.link':'Auf YouTube ansehen →'
-    }
-  };
+  // Every translated word lives in content/<page>/<block>_<lang>.md and is
+  // compiled into content.js by scripts/build.py, which loads first. Nothing
+  // is spelled out in here: a text is edited in Markdown, the build is run,
+  // and both the copy baked into the HTML and this dictionary follow.
+  var i18n = {};
 
-  // Prose lives in content/<text>/<lang>.md and is compiled into content.js by
-  // scripts/build.py; merge it over the UI strings above.
+  // content.js is generated from content/ and holds every language the site
+  // has; which languages exist is whatever it carries.
   if(window.__content){
     for(var lang in window.__content){
       if(!i18n[lang]) i18n[lang] = {};

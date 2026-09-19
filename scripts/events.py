@@ -178,8 +178,13 @@ def safe_url(value):
     return value if value.lower().startswith(("http://", "https://")) else ""
 
 
-def render(rows, indent="      ", tickets=True, group_years=False):
-    """group_years inserts a heading whenever the year changes. Rows must
+def render(rows, indent="      ", tickets=True, group_years=False,
+           tickets_label="Bilhetes →"):
+    """`tickets_label` is the Portuguese on the ticket link, which build.py
+    passes in from content/site/tickets_pt.md — every other language comes
+    from the dictionary at runtime, keyed by the data-i18n attribute.
+
+    group_years inserts a heading whenever the year changes. Rows must
     already be ordered, which split() guarantees — the archive comes back
     newest first, so the headings count backwards."""
     this_year = dt.date.today().year
@@ -242,7 +247,8 @@ def render(rows, indent="      ", tickets=True, group_years=False):
         if href:
             out.append(
                 '%s    <a class="tix" href="%s" target="_blank" rel="noopener" '
-                'data-i18n="concerts.tickets">Bilhetes →</a>' % (indent, html.escape(href, quote=True))
+                'data-i18n="concerts.tickets">%s</a>'
+                % (indent, html.escape(href, quote=True), html.escape(tickets_label))
             )
         out.append("%s  </div>" % indent)
     out.append("%s</div>" % indent)
