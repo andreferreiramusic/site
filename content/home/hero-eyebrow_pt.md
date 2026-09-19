@@ -1,1 +1,1 @@
-Guitarrista & Alaudista · Viena
+Guitarra & Alaúde · Viena
