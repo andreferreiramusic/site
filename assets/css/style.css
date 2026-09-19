@@ -109,12 +109,22 @@ img{ max-width:100%; display:block; }
   gap:clamp(28px,5vw,64px); align-items:center; }
 .split-photo{ aspect-ratio:2/3; overflow:hidden; background:#131010; }
 .split-photo img{ width:100%; height:100%; object-fit:cover; }
+/* Guitar mirrors the split — words left, photo right — so two pages in a row
+   don't open with the same picture-then-text rhythm. The mirroring is done
+   with grid placement rather than by reordering the markup, so the photo
+   stays first in the source: stacked on a phone it still leads, as it does on
+   every other page. The column ratio flips with it, keeping the text on the
+   wider side. */
+.split.reverse{ grid-template-columns:1fr 0.72fr; }
+.split.reverse .split-photo{ grid-column:2; grid-row:1; }
+.split.reverse .split-body{ grid-column:1; grid-row:1; }
 /* No max-width: the column itself is the measure, and the page's 1/8 gutter
    is the only thing holding the text off the right edge. */
 .bio-body p{ font-size:1.12rem; line-height:1.75; color:var(--ink); margin:0 0 26px; }
 .bio-body p:last-child{ margin-bottom:0; }
 @media(max-width:767px){
-  .split{ grid-template-columns:1fr; }
+  .split, .split.reverse{ grid-template-columns:1fr; }
+  .split.reverse .split-photo, .split.reverse .split-body{ grid-column:auto; grid-row:auto; }
   .split-photo{ max-width:340px; }
 }
 /* Tablet: keep the two columns, but the text column runs tall at this width,
@@ -122,6 +132,7 @@ img{ max-width:100%; display:block; }
    share and align both to the top so they start on the same line. */
 @media(min-width:768px) and (max-width:1023px){
   .split, .intro{ grid-template-columns:0.95fr 1fr; align-items:start; }
+  .split.reverse{ grid-template-columns:1fr 0.95fr; }
   /* Wider gutters mean less room for the bar; tighten it instead of dropping
      back to a burger at a width where the full nav still reads fine. */
   .menu{ gap:clamp(10px,1.4vw,18px); }
@@ -168,6 +179,23 @@ radial-gradient(circle at 68% 32%, #3a322a 0%, #1c1712 62%, #100d0a 100%); }
 .video-caption .vl{ text-decoration:none; font-size:.82rem; letter-spacing:.05em; text-transform:uppercase; border-bottom:1px solid var(--ink); padding-bottom:3px; white-space:nowrap; }
 .prose{ max-width:60ch; font-size:1.05rem; line-height:1.7; }
 .split .prose{ max-width:none; }
+
+/* Headings written in the Markdown (## in content/) land inside a text block
+   with no class to hang a rule on. The site's heading face, sized to sit
+   under the page's own <h1> rather than compete with it; ### drops to the
+   small wood eyebrow the section labels use elsewhere. */
+.bio-body h2, .prose h2, .intro-text h2{
+  font-family:var(--font-heading); font-weight:600; font-size:1.3rem;
+  letter-spacing:.01em; line-height:1.3; margin:38px 0 14px;
+}
+.bio-body h3, .prose h3, .intro-text h3,
+.bio-body h4, .prose h4, .intro-text h4{
+  font-family:var(--font-heading); font-weight:600; font-size:.88rem;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--wood);
+  margin:32px 0 10px;
+}
+/* A text that opens on a heading shouldn't push itself down the column. */
+.bio-body > :first-child, .prose > :first-child, .intro-text > :first-child{ margin-top:0; }
 
 /* page header — every page but home opens with one */
 .page-head{ padding:clamp(40px,7vw,72px) var(--pad) clamp(18px,3vw,28px); }

@@ -212,14 +212,21 @@ Blank line between paragraphs, plus:
 
 | Markdown | Result |
 |---|---|
+| `## Heading` | an `<h2>`; `###` an `<h3>`, and so on down to `######` |
 | `**bold**` | **bold** |
 | `*italic*` | *italic* |
 | `[label](https://example.com)` | a link — external ones get `target="_blank"` automatically |
 
 That is the whole list. It is a small converter inside `build.py` rather than a
 library, so the build keeps working with nothing installed beyond Python.
-Anything else (headings, lists, images) is ignored, and raw HTML in a `.md` file
-is escaped rather than passed through.
+Anything else (lists, images, tables, block quotes) is not markup here and
+comes through as the literal characters you typed, and raw HTML in a `.md`
+file is escaped rather than passed through.
+
+A heading goes on its own line and needs no blank line after it. Keep to `##`
+and below: each page already opens with its own `<h1>`, and the build warns if
+a text adds a second one. Headings only apply to the prose files — a label is
+one line by definition, so a `#` in one stays a `#`.
 
 ## Videos
 

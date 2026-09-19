@@ -273,12 +273,44 @@ def md_inline(text):
     return text
 
 
-def md_to_html(text):
-    """Just enough Markdown for prose: blank-line paragraphs, **bold**,
-    *italic* and [links](url). A real parser would mean a pip dependency in
-    CI for six short files, which is not a trade worth making."""
-    paras = [p.strip() for p in re.split(r"\n\s*\n", text.strip()) if p.strip()]
-    return "".join("<p>%s</p>" % md_inline(" ".join(p.split("\n"))) for p in paras)
+MD_HEADING = re.compile(r"^(#{1,6})\s+(.+?)\s*#*$")
+
+
+def md_to_html(text, where=""):
+    """Just enough Markdown for prose: blank-line paragraphs, ## headings,
+    **bold**, *italic* and [links](url). A real parser would mean a pip
+    dependency in CI for a handful of short files, which is not a trade worth
+    making.
+
+    A heading is its own line, and the hashes give the level as they do
+    everywhere else — ## is an <h2>. It need not be surrounded by blank
+    lines: the line below one starts the paragraph under it, which is how
+    people write headings without thinking about it."""
+    out, para = [], []
+
+    def flush():
+        if para:
+            out.append("<p>%s</p>" % md_inline(" ".join(para)))
+            del para[:]
+
+    for block in re.split(r"\n\s*\n", text.strip()):
+        for line in block.strip().split("\n"):
+            line = line.strip()
+            m = MD_HEADING.match(line)
+            if not m:
+                if line:
+                    para.append(line)
+                continue
+            flush()
+            level = len(m.group(1))
+            if level == 1:
+                # Every page already opens with its own <h1>; a second one
+                # muddles the outline for search engines and screen readers.
+                events.warn("%s: a # heading makes a second <h1> on the page — "
+                            "## is the one to use inside a text" % (where or "content"))
+            out.append("<h%d>%s</h%d>" % (level, md_inline(m.group(2)), level))
+        flush()
+    return "".join(out)
 
 
 def md_label(text):
@@ -319,7 +351,8 @@ def load_content():
                             "language" % (root, folder, stem, lang, key))
                 continue
             text = io.open(path, encoding="utf-8").read()
-            out[lang][key] = md_to_html(text) if kind == PROSE else md_label(text)
+            out[lang][key] = (md_to_html(text, path) if kind == PROSE
+                              else md_label(text))
     return out
 
 
