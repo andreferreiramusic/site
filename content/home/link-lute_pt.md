@@ -1,1 +1,1 @@
-Alaúde e tiorba, repertório e projetos.
+Alaúde e tiorba, repertório e projetos
