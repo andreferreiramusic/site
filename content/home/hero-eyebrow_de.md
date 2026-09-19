@@ -1,1 +1,1 @@
-Gitarrist & Lautenist · Wien
+Gitarre & Laute · Wien
