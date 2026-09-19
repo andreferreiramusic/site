@@ -1,1 +1,1 @@
-Für Konzertbuchungen, Meisterkurse und Presseanfragen bitte per E-Mail schreiben.
+Für Konzerte, Meisterkurse und weitere berufliche Anliegen gerne per E-Mail.
