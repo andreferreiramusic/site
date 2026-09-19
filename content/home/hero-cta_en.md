@@ -1,1 +1,1 @@
-Upcoming concerts ↓
+Upcoming ↓
