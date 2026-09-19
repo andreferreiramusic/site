@@ -1,1 +1,1 @@
-Para reservas de concertos, masterclasses e pedidos de imprensa, escreva por email.
+Para informações, concertos, masterclasses e outros assuntos profissionais, entre em contacto por email.
