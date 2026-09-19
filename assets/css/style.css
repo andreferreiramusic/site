@@ -284,5 +284,14 @@ a[href^="mailto:"]:hover, a[href^="mailto:"]:focus-visible,
 .video-caption .vl[target="_blank"]:hover, .video-caption .vl[target="_blank"]:focus-visible,
 .contact-list a[target="_blank"]:hover, .contact-list a[target="_blank"]:focus-visible,
 .contact-list a[href^="mailto:"]:hover, .contact-list a[href^="mailto:"]:focus-visible{ color:var(--wood); }
+/* Links inside the running text come from the Markdown — [label](url) in
+   content/ — so they carry no class to hang a rule on. Same underline as
+   every other text link; the colour rules above already tell a link that
+   leaves the site from one that doesn't. */
+.bio-body a, .prose a, .intro-text a{
+  text-decoration:none;
+  border-bottom:1px solid currentColor;
+}
+
 /* the footer icons keep their own scheme — no underline on a glyph */
 .social a{ border-bottom:0; }

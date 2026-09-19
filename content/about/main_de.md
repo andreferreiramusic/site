@@ -5,3 +5,7 @@ Er tritt regelmäßig als Solist, Kammermusiker und Orchestermusiker auf und arb
 Andrés musikalische Ausbildung umspannt die europäischen Traditionen sowohl der Gitarre als auch der historischen Zupfinstrumente. Er studierte bei Margarita Escarpa, Tilman Hoppstock, Paolo Pegoraro, Ricardo Gallén und David Bergmüller und schloss Masterstudien in Gitarre und Laute sowie ein Bachelorstudium in Musikpädagogik ab.
 
 Seit 2023 gehört er dem Lehrkörper der Universität für Musik und darstellende Kunst Wien an, wo er beide Instrumente unterrichtet.
+
+André unterrichtet historische Lauteninstrumente am Institut für Alte Musik der mdw — Universität für Musik und darstellende Kunst Wien, und gibt Meisterkurse in ganz Europa.
+
+[Profil an der mdw →](https://mdw.ac.at/altemusik/en/faculty/andre-ferreira-inst-17/)

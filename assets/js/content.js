@@ -3,8 +3,7 @@
 // own dictionary of UI strings.
 window.__content = {
  "de": {
-  "about.teaching.h": "Lehre",
-  "bio.body": "<p>André Ferreira ist ein portugiesischer Gitarrist und Lautenist mit Sitz in Wien. Als vielseitiger Musiker mit einem soliden Fundament in historischer wie moderner Aufführungspraxis zeugt sein Spiel von einer tiefen Auseinandersetzung mit den Ausdrucksmöglichkeiten der Zupfinstrumente.</p><p>Er tritt regelmäßig als Solist, Kammermusiker und Orchestermusiker auf und arbeitet mit Ensembles wie dem Concentus Musicus Wien und dem Bach Consort Wien zusammen. Seine Auftritte führten ihn in bedeutende Säle und zu Festivals in ganz Europa, darunter der Wiener Musikverein, das Wiener Konzerthaus, der Palau de la Música Catalana, das Auditorio Nacional de Madrid, die Kölner Philharmonie und das Brucknerhaus Linz.</p><p>Andrés musikalische Ausbildung umspannt die europäischen Traditionen sowohl der Gitarre als auch der historischen Zupfinstrumente. Er studierte bei Margarita Escarpa, Tilman Hoppstock, Paolo Pegoraro, Ricardo Gallén und David Bergmüller und schloss Masterstudien in Gitarre und Laute sowie ein Bachelorstudium in Musikpädagogik ab.</p><p>Seit 2023 gehört er dem Lehrkörper der Universität für Musik und darstellende Kunst Wien an, wo er beide Instrumente unterrichtet.</p>",
+  "bio.body": "<p>André Ferreira ist ein portugiesischer Gitarrist und Lautenist mit Sitz in Wien. Als vielseitiger Musiker mit einem soliden Fundament in historischer wie moderner Aufführungspraxis zeugt sein Spiel von einer tiefen Auseinandersetzung mit den Ausdrucksmöglichkeiten der Zupfinstrumente.</p><p>Er tritt regelmäßig als Solist, Kammermusiker und Orchestermusiker auf und arbeitet mit Ensembles wie dem Concentus Musicus Wien und dem Bach Consort Wien zusammen. Seine Auftritte führten ihn in bedeutende Säle und zu Festivals in ganz Europa, darunter der Wiener Musikverein, das Wiener Konzerthaus, der Palau de la Música Catalana, das Auditorio Nacional de Madrid, die Kölner Philharmonie und das Brucknerhaus Linz.</p><p>Andrés musikalische Ausbildung umspannt die europäischen Traditionen sowohl der Gitarre als auch der historischen Zupfinstrumente. Er studierte bei Margarita Escarpa, Tilman Hoppstock, Paolo Pegoraro, Ricardo Gallén und David Bergmüller und schloss Masterstudien in Gitarre und Laute sowie ein Bachelorstudium in Musikpädagogik ab.</p><p>Seit 2023 gehört er dem Lehrkörper der Universität für Musik und darstellende Kunst Wien an, wo er beide Instrumente unterrichtet.</p><p>André unterrichtet historische Lauteninstrumente am Institut für Alte Musik der mdw — Universität für Musik und darstellende Kunst Wien, und gibt Meisterkurse in ganz Europa.</p><p><a href=\"https://mdw.ac.at/altemusik/en/faculty/andre-ferreira-inst-17/\" target=\"_blank\" rel=\"noopener\">Profil an der mdw →</a></p>",
   "concerts.none": "Zurzeit keine Konzerte angekündigt.",
   "concerts.tickets": "Tickets →",
   "contact.body": "<p>Für Konzertbuchungen, Meisterkurse und Presseanfragen bitte per E-Mail schreiben.</p>",
@@ -31,13 +30,10 @@ window.__content = {
   "press.cta": "Press kit herunterladen ↓",
   "press.d": "Biografie auf Portugiesisch, Englisch und Deutsch sowie Fotos in hoher Auflösung, bereit für Programmhefte und Presse.",
   "press.h": "Press kit",
-  "teaching.body": "<p>André unterrichtet historische Lauteninstrumente am Institut für Alte Musik der mdw — Universität für Musik und darstellende Kunst Wien, und gibt Meisterkurse in ganz Europa.</p>",
-  "teaching.link": "Profil an der mdw →",
   "video.play": "Video abspielen"
  },
  "en": {
-  "about.teaching.h": "Teaching",
-  "bio.body": "<p>André Ferreira is a Portuguese guitarist and lutenist based in Vienna. A versatile musician with a strong foundation in both historical and modern performance, his playing reflects a deep engagement with the expressive possibilities of plucked strings.</p><p>He appears regularly as a soloist, chamber musician, and orchestral player, collaborating with ensembles such as Concentus Musicus Wien and Bach Consort Wien. His performances have taken him to major venues and festivals across Europe, including the Wiener Musikverein, Wiener Konzerthaus, Palau de la Música Catalana, Auditorio Nacional de Madrid, Kölner Philharmonie, and Brucknerhaus Linz.</p><p>André’s musical formation spans the European traditions of both the guitar and early plucked instruments. He studied with Margarita Escarpa, Tilman Hoppstock, Paolo Pegoraro, Ricardo Gallén, and David Bergmüller, earning master’s degrees in Guitar and Lute Performance, as well as a bachelor’s degree in Music Pedagogy.</p><p>Since 2023, he has been a member of the faculty at the University of Music and Performing Arts Vienna, where he teaches both instruments.</p>",
+  "bio.body": "<p>André Ferreira is a Portuguese guitarist and lutenist based in Vienna. A versatile musician with a strong foundation in both historical and modern performance, his playing reflects a deep engagement with the expressive possibilities of plucked strings.</p><p>He appears regularly as a soloist, chamber musician, and orchestral player, collaborating with ensembles such as Concentus Musicus Wien and Bach Consort Wien. His performances have taken him to major venues and festivals across Europe, including the Wiener Musikverein, Wiener Konzerthaus, Palau de la Música Catalana, Auditorio Nacional de Madrid, Kölner Philharmonie, and Brucknerhaus Linz.</p><p>André’s musical formation spans the European traditions of both the guitar and early plucked instruments. He studied with Margarita Escarpa, Tilman Hoppstock, Paolo Pegoraro, Ricardo Gallén, and David Bergmüller, earning master’s degrees in Guitar and Lute Performance, as well as a bachelor’s degree in Music Pedagogy.</p><p>Since 2023, he has been a member of the faculty at the University of Music and Performing Arts Vienna, where he teaches both instruments.</p><p>André teaches historical lute instruments at the Early Music Department of mdw — University of Music and Performing Arts Vienna, and gives masterclasses across Europe.</p><p><a href=\"https://mdw.ac.at/altemusik/en/faculty/andre-ferreira-inst-17/\" target=\"_blank\" rel=\"noopener\">Faculty profile at mdw →</a></p>",
   "concerts.none": "No concerts announced at the moment.",
   "concerts.tickets": "Tickets →",
   "contact.body": "<p>For concert bookings, masterclasses and press enquiries, please write by email.</p>",
@@ -64,13 +60,10 @@ window.__content = {
   "press.cta": "Download press kit ↓",
   "press.d": "Biography in Portuguese, English and German, plus high-resolution photographs, ready for programmes and press.",
   "press.h": "Press kit",
-  "teaching.body": "<p>André teaches historical lute instruments at the Early Music Department of mdw — University of Music and Performing Arts Vienna, and gives masterclasses across Europe.</p>",
-  "teaching.link": "Faculty profile at mdw →",
   "video.play": "Play video"
  },
  "pt": {
-  "about.teaching.h": "Ensino",
-  "bio.body": "<p>André Ferreira é um guitarrista e alaudista português radicado em Viena. Músico versátil, com uma sólida formação tanto na performance histórica como na moderna, o seu tocar reflete um envolvimento profundo com as possibilidades expressivas das cordas dedilhadas.</p><p>Atua regularmente como solista, músico de câmara e instrumentista de orquestra, colaborando com agrupamentos como o Concentus Musicus Wien e o Bach Consort Wien. As suas atuações levaram-no a importantes salas e festivais por toda a Europa, incluindo o Wiener Musikverein, o Wiener Konzerthaus, o Palau de la Música Catalana, o Auditorio Nacional de Madrid, a Kölner Philharmonie e o Brucknerhaus Linz.</p><p>A formação musical de André abrange as tradições europeias da guitarra e dos instrumentos antigos de corda dedilhada. Estudou com Margarita Escarpa, Tilman Hoppstock, Paolo Pegoraro, Ricardo Gallén e David Bergmüller, tendo concluído mestrados em Guitarra e em Alaúde, bem como uma licenciatura em Pedagogia Musical.</p><p>Desde 2023, integra o corpo docente da Universidade de Música e Artes Cénicas de Viena, onde leciona ambos os instrumentos.</p>",
+  "bio.body": "<p>André Ferreira é guitarrista e alaudista português, com base em Viena. A sua atividade artística desenvolve-se entre a guitarra clássica e os instrumentos históricos de corda dedilhada, com um interesse particular pelas relações entre repertório, instrumento e prática musical.</p><p>Como intérprete, apresenta-se a solo, em música de câmara e em colaboração com orquestras e agrupamentos especializados em música antiga. O interesse pelo repertório histórico levou-o a aprofundar a prática do alaúde e de outros instrumentos de corda dedilhada, integrando diferentes instrumentos e repertórios no seu percurso.</p><p>Atualmente, André Ferreira colabora regularmente com agrupamentos como o Concentus Musicus Wien e o Bach Consort Wien, apresentando-se em importantes salas e festivais europeus, entre os quais o Wiener Musikverein, Wiener Konzerthaus, Theater an der Wien, Kölner Philharmonie, Brucknerhaus Linz, Palau de la Música Catalana e Auditorio Nacional de Música de Madrid.</p><p>Paralelamente à sua atividade artística, André leciona guitarra e alaúde na Universität für Musik und darstellende Kunst Wien (mdw).</p><p><a href=\"https://mdw.ac.at/altemusik/en/faculty/andre-ferreira-inst-17/\" target=\"_blank\" rel=\"noopener\">Perfil na mdw →</a></p>",
   "concerts.none": "Sem concertos anunciados de momento.",
   "concerts.tickets": "Bilhetes →",
   "contact.body": "<p>Para reservas de concertos, masterclasses e pedidos de imprensa, escreva por email.</p>",
@@ -78,16 +71,16 @@ window.__content = {
   "dates.past": "Anteriores",
   "dates.past.none": "Ainda sem eventos anteriores.",
   "dates.upcoming": "Próximos",
-  "guitar.body": "<p><em>[Por preencher]</em> Esta página vai reunir o trabalho de André com a guitarra clássica: repertório, instrumentos, gravações e projetos de câmara.</p>",
+  "guitar.body": "<p>A guitarra ocupa um lugar central no percurso artístico de André Ferreira, abrangendo o repertório clássico e romântico, a música de câmara e a prática historicamente informada. O seu trabalho percorre diferentes períodos e tradições do instrumento, com atenção às características de cada repertório e ao contexto em que foi criado.</p><p>Entre os seus projetos atuais encontra-se a exploração do repertório vienense do final do século XVIII e início do século XIX, com particular interesse pela música de Franz Schubert e pela relação entre a guitarra e a tradição do Lied. Este interesse pelo universo do Lied tem-se refletido em projetos recentes como Winterreise, de Schubert, apresentado no Brucknerhaus Linz com Michael Schade e Christoph Hammer, e uma Soirée no Wiener Konzerthaus com Julian Prégardien, dedicada a Lieder de Schubert.</p><p>A atividade de André Ferreira como guitarrista estende-se, contudo, a diferentes períodos, repertórios e formações, tanto a solo como em música de câmara e em colaboração com outros músicos.</p>",
   "hero.cta": "Próximos concertos ↓",
-  "hero.eyebrow": "Guitarrista &amp; Alaudista · Viena",
-  "home.about": "<p>André Ferreira é um guitarrista e alaudista português radicado em Viena, atuando por toda a Europa como solista, músico de câmara e instrumentista de orquestra.</p>",
-  "home.about.d": "Biografia, formação e as salas e festivais onde tem atuado.",
+  "hero.eyebrow": "Guitarra &amp; Alaúde · Viena",
+  "home.about": "<p>André Ferreira é guitarrista e alaudista português, com base em Viena. Dedica-se à guitarra clássica e aos instrumentos históricos de corda dedilhada, apresentando-se a solo, em música de câmara e com agrupamentos especializados em música antiga.</p>",
+  "home.about.d": "Percurso artístico, ensino, colaborações, salas e festivais.",
   "home.dates.all": "Todas as datas →",
   "home.dates.h": "Próximos",
-  "home.guitar.d": "Repertório, instrumentos e projetos em torno da guitarra clássica.",
-  "home.lute.d": "Alaúde, teorba e outros instrumentos históricos de corda dedilhada.",
-  "lute.body": "<p><em>[Por preencher]</em> Esta página vai reunir o trabalho de André com o alaúde, a teorba e outros instrumentos históricos de corda dedilhada.</p>",
+  "home.guitar.d": "Repertório, projetos e colaborações.",
+  "home.lute.d": "Alaúde e tiorba, repertório e projetos.",
+  "lute.body": "<p>André Ferreira dedica parte da sua atividade artística ao alaúde e à tiorba, no âmbito da música antiga. A sua prática estende-se do repertório a solo à música de câmara e ao trabalho como instrumentista de contínuo.</p><p>Atualmente, apresenta o programa a solo Musica Humana, dedicado à música de J. Dowland, A. Piccinini e G. G. Kapsberger. Desenvolve também uma atividade regular com agrupamentos como Concentus Musicus Wien e Bach Consort Wien em concertos, produções de ópera e projetos de música de câmara.</p><p>A sua atividade inclui regulares apresentações em importantes salas e festivais, entre os quais o Wiener Musikverein, Theater an der Wien e Internationale Barocktage Stift Melk.</p>",
   "nav.about": "Sobre",
   "nav.contact": "Contacto",
   "nav.dates": "Datas",
@@ -97,8 +90,6 @@ window.__content = {
   "press.cta": "Descarregar press kit ↓",
   "press.d": "Biografia em português, inglês e alemão e fotografias em alta resolução, prontas a usar em programas e imprensa.",
   "press.h": "Press kit",
-  "teaching.body": "<p>André leciona instrumentos históricos de alaúde no Departamento de Música Antiga da mdw — Universidade de Música e Artes Cénicas de Viena, e dá masterclasses por toda a Europa.</p>",
-  "teaching.link": "Perfil na mdw →",
   "video.play": "Reproduzir vídeo"
  }
 };

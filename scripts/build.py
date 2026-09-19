@@ -78,10 +78,7 @@ TEXTS = [
     ("home",    "link-about",       "home.about.d",     LABEL),
     ("home",    "link-guitar",      "home.guitar.d",    LABEL),
     ("home",    "link-lute",        "home.lute.d",      LABEL),
-    ("about",   "main",             "bio.body",         PROSE),
-    ("about",   "teaching",         "teaching.body",    PROSE),
-    ("about",   "teaching-heading", "about.teaching.h", LABEL),
-    ("about",   "teaching-link",    "teaching.link",    LABEL),
+    ("about",   "main",             "bio.body",         PROSE),  # teaching included
     ("guitar",  "main",             "guitar.body",      PROSE),
     ("lute",    "main",             "lute.body",        PROSE),
     ("dates",   "upcoming-heading", "dates.upcoming",   LABEL),

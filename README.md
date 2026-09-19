@@ -160,9 +160,7 @@ content/home/     main_pt.md  main_en.md  main_de.md     the intro paragraph
                   hero-cta_*.md        the button down to the concerts
                   dates-heading_*.md   dates-all_*.md
                   link-about_*.md  link-guitar_*.md  link-lute_*.md
-content/about/    main_*.md            the biography
-                  teaching_*.md        the Teaching paragraph
-                  teaching-heading_*.md  teaching-link_*.md
+content/about/    main_*.md            the biography, teaching and mdw link included
 content/guitar/   main_*.md
 content/lute/     main_*.md
 content/dates/    upcoming-heading_*.md  past-heading_*.md  past-none_*.md
