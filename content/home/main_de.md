@@ -1,1 +1,1 @@
-André Ferreira ist ein portugiesischer Gitarrist und Lautenist mit Sitz in Wien und tritt in ganz Europa als Solist, Kammermusiker und Orchestermusiker auf.
+André Ferreira ist ein portugiesischer Gitarrist und Lautenist mit Sitz in Wien. Im Mittelpunkt seiner künstlerischen Arbeit stehen die klassische Gitarre und historische Zupfinstrumente. Er tritt solistisch, kammermusikalisch sowie mit auf Alte Musik spezialisierten Ensembles auf.
