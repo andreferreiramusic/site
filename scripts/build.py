@@ -157,14 +157,18 @@ def inject(text, name, payload):
     return pat.sub(lambda m: m.group(1) + payload + "\n" + m.group(3), text, count=1), True
 
 
-# An element carrying data-i18n whose content is plain text: <a …>Datas</a>,
-# <h2 …>Press kit</h2>. Anything holding markup (a <br>, a marker comment)
-# fails the [^<>]* and is left alone, which is what keeps the prose blocks —
-# they have their own markers — out of this.
-LABEL_TEXT = re.compile(r'(data-i18n="([\w.]+)"[^<>]*>)([^<>]*)(</)')
+# An element carrying data-i18n, with its own closing tag. The tag name is
+# captured so the match ends at that tag and not at the first </…> inside it:
+# a label is allowed to contain markup, because **bold** and [links](url) work
+# here the same as in the prose.
+#
+# The content may not cross a line, which is what keeps the prose blocks out —
+# they hold their marker comments on lines of their own and have their own
+# mechanism. Labels are one line by nature.
+LABEL_TEXT = re.compile(r'(<(\w+)\b[^<>]*\sdata-i18n="([\w.]+)"[^<>]*>)([^\n]*?)(</\2>)')
 
 
-def fill_labels(text, pt):
+def fill_labels(text, pt, where=""):
     """Rewrite the Portuguese of every label in the page.
 
     Prose has start/end markers; a label is a word or two inside an anchor or
@@ -173,10 +177,18 @@ def fill_labels(text, pt):
     someone would write it by hand, and still means content/site/nav-dates_pt.md
     is the only place the menu's wording lives."""
     def swap(m):
-        key = m.group(2)
+        tag, key = m.group(2).lower(), m.group(3)
         if KINDS.get(key) != LABEL or key not in pt:
             return m.group(0)
-        return m.group(1) + pt[key] + m.group(4)
+        body = pt[key]
+        if tag == "a" and "<a " in body:
+            # An <a> inside an <a> is not markup any browser will keep; the
+            # label is already inside a link, so it needs no link of its own.
+            events.warn("%s: %s sits inside a link, so the [markdown](link) in "
+                        "it would nest one anchor in another — use plain text"
+                        % (where or "page", key))
+            return m.group(0)
+        return m.group(1) + body + m.group(5)
     return LABEL_TEXT.sub(swap, text)
 
 
@@ -430,7 +442,7 @@ def main():
                 filled.append("video" if vid else "video (none)")
 
         if pt:
-            page = fill_labels(page, pt)
+            page = fill_labels(page, pt, path)
         io.open(path, "w", encoding="utf-8").write(page)
         print("  %-22s %s" % (path, ", ".join(filled) or "no markers"))
 
