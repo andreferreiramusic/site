@@ -1,15 +1,13 @@
 ---
 name: André Ferreira
-email: contacto@andreferreiramusic.com
-website:
-youtube: @andrealmeidaferreira
-photo:
-credit:
+email: info@andreferreiramusic.com
+website: andreferreiramusic.com
+photo credit: Victoria Nazarova
 ---
 
 # pt
 
-> Guitarrista & Alaudista · Viena
+> Guitarra & Alaúde · Viena
 
 André Ferreira é um guitarrista e alaudista português radicado em Viena. Músico versátil, com uma sólida formação tanto na performance histórica como na moderna, o seu tocar reflete um envolvimento profundo com as possibilidades expressivas das cordas dedilhadas.
 
@@ -21,7 +19,7 @@ Desde 2023, integra o corpo docente da Universidade de Música e Artes Cénicas 
 
 # en
 
-> Guitarist & Lutenist · Vienna
+> Guitar & Lute · Vienna
 
 André Ferreira is a Portuguese guitarist and lutenist based in Vienna. A versatile musician with a strong foundation in both historical and modern performance, his playing reflects a deep engagement with the expressive possibilities of plucked strings.
 
@@ -33,7 +31,7 @@ Since 2023, he has been a member of the faculty at the University of Music and P
 
 # de
 
-> Gitarrist & Lautenist · Wien
+> Gitarre & Laute · Wien
 
 André Ferreira ist ein portugiesischer Gitarrist und Lautenist mit Sitz in Wien. Als vielseitiger Musiker mit einem soliden Fundament in historischer wie moderner Aufführungspraxis zeugt sein Spiel von einer tiefen Auseinandersetzung mit den Ausdrucksmöglichkeiten der Zupfinstrumente.
 
