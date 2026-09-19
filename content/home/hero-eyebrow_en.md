@@ -1,1 +1,1 @@
-Guitarist & Lutenist · Vienna
+Guitar & Lute · Vienna
