@@ -1,7 +1,5 @@
-André Ferreira é um guitarrista e alaudista português radicado em Viena. Músico versátil, com uma sólida formação tanto na performance histórica como na moderna, o seu tocar reflete um envolvimento profundo com as possibilidades expressivas das cordas dedilhadas.
+André Ferreira é guitarrista e alaudista português, com base em Viena. A sua atividade artística desenvolve-se entre a guitarra clássica e os instrumentos históricos de corda dedilhada, com um interesse particular pelas relações entre repertório, instrumento e prática musical.
 
-Atua regularmente como solista, músico de câmara e instrumentista de orquestra, colaborando com agrupamentos como o Concentus Musicus Wien e o Bach Consort Wien. As suas atuações levaram-no a importantes salas e festivais por toda a Europa, incluindo o Wiener Musikverein, o Wiener Konzerthaus, o Palau de la Música Catalana, o Auditorio Nacional de Madrid, a Kölner Philharmonie e o Brucknerhaus Linz.
+Como intérprete, apresenta-se a solo, em música de câmara e em colaboração com orquestras e agrupamentos especializados em música antiga. O interesse pelo repertório histórico levou-o a aprofundar a prática do alaúde e de outros instrumentos de corda dedilhada, integrando diferentes instrumentos e repertórios no seu percurso.
 
-A formação musical de André abrange as tradições europeias da guitarra e dos instrumentos antigos de corda dedilhada. Estudou com Margarita Escarpa, Tilman Hoppstock, Paolo Pegoraro, Ricardo Gallén e David Bergmüller, tendo concluído mestrados em Guitarra e em Alaúde, bem como uma licenciatura em Pedagogia Musical.
-
-Desde 2023, integra o corpo docente da Universidade de Música e Artes Cénicas de Viena, onde leciona ambos os instrumentos.
+Atualmente, André Ferreira colabora regularmente com agrupamentos como o Concentus Musicus Wien e o Bach Consort Wien, apresentando-se em importantes salas e festivais europeus, entre os quais o Wiener Musikverein, Wiener Konzerthaus, Theater an der Wien, Kölner Philharmonie, Brucknerhaus Linz, Palau de la Música Catalana e Auditorio Nacional de Música de Madrid.
