@@ -50,7 +50,7 @@ JPEG_EXT = (".jpg", ".jpeg")
 LABELS = {"pt": "Biografia", "en": "Biography", "de": "Biographie"}
 # The photo list is one block for every reader, so its heading carries all
 # three languages rather than picking one.
-PHOTOS_HEADING = "Fotografias · Photographs · Fotos"
+PHOTOS_HEADING = "Fotografias · Photos · Fotos"
 PHOTOS_NOTE = {
     "pt": "Incluídas neste dossier, em alta resolução, para uso em programas e imprensa.",
     "en": "Included in this kit at full resolution, free to use for programmes and press.",
