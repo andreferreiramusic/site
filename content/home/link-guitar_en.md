@@ -1,1 +1,1 @@
-Repertoire, instruments and projects on the classical guitar.
+Repertoire, projects and collaborations
