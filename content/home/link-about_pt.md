@@ -1,1 +1,1 @@
-Biografia, formação e as salas e festivais onde tem atuado.
+Percurso artístico, ensino, principais colaborações, salas e festivais.
