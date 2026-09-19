@@ -1,1 +1,1 @@
-Laute, Theorbe und weitere historische Zupfinstrumente.
+Laute und Theorbe, Repertoire und Projekte
