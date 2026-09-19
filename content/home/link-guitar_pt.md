@@ -1,1 +1,1 @@
-Repertório, projetos e colaborações.
+Repertório, projetos e colaborações
