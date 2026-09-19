@@ -1,1 +1,1 @@
-Repertório, instrumentos e projetos em torno da guitarra clássica.
+Repertório, projetos e colaborações.
