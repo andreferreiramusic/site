@@ -8,13 +8,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Fonts: connect early and load without blocking render. Only the weights
      the CSS actually uses are requested — Cormorant is the hero name alone
-     (400), Montserrat the headings (600/700), Nunito the body (400) plus
-     600/700/800 for the eyebrow, concert dates and video caption. -->
+     (400), Montserrat the headings (600/700) plus 400 for the navbar name,
+     Nunito the body (400) plus 600/700/800 for the eyebrow, concert dates
+     and video caption. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400&family=Montserrat:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400&family=Montserrat:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400&family=Montserrat:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap"></noscript>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400&family=Montserrat:wght@400;600;700&family=Nunito:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400&family=Montserrat:wght@400;600;700&family=Nunito:wght@400;600;700;800&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400&family=Montserrat:wght@400;600;700&family=Nunito:wght@400;600;700;800&display=swap"></noscript>
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="../assets/img/favicon-192.png">
 <!-- iOS ignores transparency here and composites onto black, so this one
@@ -27,8 +28,11 @@
 
 <!-- nav:start -->
   <header class="topbar">
-    <a class="mono" href="../index.html">
-      <img src="../assets/img/logo-128.jpg" alt="André Ferreira — início">
+    <a class="brand" href="../index.html">
+      <span class="mono">
+        <img src="../assets/img/logo-128.jpg" alt="">
+      </span>
+      <span class="brand-name">ANDRÉ FERREIRA</span>
     </a>
     <button class="burger" id="burgerBtn" aria-label="Menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -60,7 +64,7 @@
     <div class="split-body">
       <div class="bio-body" data-i18n="bio.body">
       <!-- text:bio.body:start -->
-      <p>André Ferreira é guitarrista e alaudista português, com base em Viena. A sua atividade artística desenvolve-se entre a guitarra clássica e os instrumentos históricos de corda dedilhada, com um interesse particular pelas relações entre repertório, instrumento e prática musical.</p><p>Como intérprete, apresenta-se a solo, em música de câmara e em colaboração com orquestras e agrupamentos especializados em música antiga. O interesse pelo repertório histórico levou-o a aprofundar a prática do alaúde e de outros instrumentos de corda dedilhada, integrando diferentes instrumentos e repertórios no seu percurso.</p><p>Atualmente, André Ferreira colabora regularmente com agrupamentos como o Concentus Musicus Wien e o Bach Consort Wien, apresentando-se em importantes salas e festivais europeus, entre os quais o Wiener Musikverein, Wiener Konzerthaus, Theater an der Wien, Kölner Philharmonie, Brucknerhaus Linz, Palau de la Música Catalana e Auditorio Nacional de Música de Madrid.</p><p>Paralelamente à sua atividade artística, André leciona guitarra e alaúde na Universität für Musik und darstellende Kunst Wien (mdw).</p><p><a href="https://mdw.ac.at/altemusik/en/faculty/andre-ferreira-inst-17/" target="_blank" rel="noopener">Perfil na mdw →</a></p>
+      <p>A atividade artística de André Ferreira desenvolve-se entre a guitarra clássica e os instrumentos históricos de corda dedilhada, com um interesse particular pelas relações entre repertório, instrumento e prática musical.</p><p>Como intérprete, apresenta-se a solo, em música de câmara e em colaboração com orquestras e agrupamentos especializados em música antiga. O interesse pelo repertório histórico levou-o a aprofundar a prática do alaúde e de outros instrumentos de corda dedilhada, integrando diferentes instrumentos e repertórios no seu percurso.</p><p>Atualmente, André Ferreira colabora regularmente com agrupamentos como o Concentus Musicus Wien e o Bach Consort Wien, apresentando-se em importantes salas e festivais europeus, entre os quais o Wiener Musikverein, Wiener Konzerthaus, Theater an der Wien, Kölner Philharmonie, Brucknerhaus Linz, Palau de la Música Catalana e Auditorio Nacional de Música de Madrid.</p><p>Paralelamente à sua atividade artística, André leciona guitarra e alaúde na Universität für Musik und darstellende Kunst Wien (mdw).</p><p><a href="https://mdw.ac.at/altemusik/en/faculty/andre-ferreira-inst-17/" target="_blank" rel="noopener">Perfil na mdw →</a></p>
       <!-- text:bio.body:end -->
       </div>
     </div>

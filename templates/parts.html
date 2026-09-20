@@ -8,13 +8,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Fonts: connect early and load without blocking render. Only the weights
      the CSS actually uses are requested — Cormorant is the hero name alone
-     (400), Montserrat the headings (600/700), Nunito the body (400) plus
-     600/700/800 for the eyebrow, concert dates and video caption. -->
+     (400), Montserrat the headings (600/700) plus 400 for the navbar name,
+     Nunito the body (400) plus 600/700/800 for the eyebrow, concert dates
+     and video caption. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400&family=Montserrat:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400&family=Montserrat:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400&family=Montserrat:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap"></noscript>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400&family=Montserrat:wght@400;600;700&family=Nunito:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400&family=Montserrat:wght@400;600;700&family=Nunito:wght@400;600;700;800&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400&family=Montserrat:wght@400;600;700&family=Nunito:wght@400;600;700;800&display=swap"></noscript>
 <link rel="icon" type="image/png" sizes="32x32" href="{{base}}assets/img/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="{{base}}assets/img/favicon-192.png">
 <!-- iOS ignores transparency here and composites onto black, so this one
@@ -24,8 +25,11 @@
 
 <!-- part:header-open -->
   <header class="topbar">
-    <a class="mono" href="{{base}}index.html">
-      <img src="{{base}}assets/img/logo-128.jpg" alt="André Ferreira — início">
+    <a class="brand" href="{{base}}index.html">
+      <span class="mono">
+        <img src="{{base}}assets/img/logo-128.jpg" alt="">
+      </span>
+      <span class="brand-name">ANDRÉ FERREIRA</span>
     </a>
     <button class="burger" id="burgerBtn" aria-label="Menu" aria-expanded="false">
       <span></span><span></span><span></span>

@@ -34,6 +34,11 @@ img{ max-width:100%; display:block; }
    without it content appears to dissolve into the bar as you scroll. */
 .topbar{ background:var(--black); color:#f2ede2; display:flex; align-items:center; justify-content:space-between;
   padding:16px var(--pad); gap:clamp(14px,2vw,32px); position:sticky; top:0; z-index:10; border-bottom:1px solid var(--line); }
+/* Logo and name are one link home. The name is the link's accessible text,
+   so the image beside it is decorative (alt=""). */
+.brand{ display:flex; align-items:center; gap:11px; flex:0 0 auto; text-decoration:none; color:inherit; }
+.brand-name{ font-family:var(--font-heading); font-weight:400; font-size:.9rem;
+  text-transform:uppercase; letter-spacing:.07em; white-space:nowrap; }
 /* The circle is CSS, not a pre-masked file — the source stays a plain square. */
 .mono{ width:36px; height:36px; border-radius:50%; overflow:hidden; display:block;
   flex:0 0 auto; text-decoration:none; background:#131010; }
@@ -139,6 +144,8 @@ img{ max-width:100%; display:block; }
   .menu a{ font-size:.78rem; letter-spacing:.03em; }
   .menu .langs{ padding-left:12px; }
   .menu .langs button{ font-size:.66rem; padding:3px 7px; }
+  .brand{ gap:9px; }
+  .brand-name{ font-size:.8rem; letter-spacing:.05em; }
 }
 
 /* concerts */
@@ -156,6 +163,10 @@ img{ max-width:100%; display:block; }
 .crow .tname{ display:block; font-family:var(--font-heading); font-weight:600; letter-spacing:.005em; }
 .crow .performers{ display:block; font-size:.86rem; line-height:1.45; color:var(--sub); margin-top:4px; }
 .crow .venue{ margin-top:7px; font-size:.88rem; line-height:1.45; color:var(--sub); }
+/* Upcoming lists — the home page's next dates and the archive page's top
+   section — lift the venue to the brighter wood; the past archive keeps it
+   muted. */
+.concerts-wrap:not(.past) .crow .venue{ color:var(--wood); }
 .crow .tix{ text-decoration:none; font-size:.82rem; letter-spacing:.05em; text-transform:uppercase; white-space:nowrap; border-bottom:1px solid var(--ink); padding-bottom:3px; }
 @media(max-width:760px){ .crow{ grid-template-columns:1fr; gap:4px; padding:18px 0; } .crow .tix{ justify-self:start; margin-top:6px; } }
 
