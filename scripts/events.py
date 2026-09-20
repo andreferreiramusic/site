@@ -63,9 +63,31 @@ def read_date(value, where):
 
 
 def parse(text):
-    """Every readable row, sorted earliest first. No date filtering here."""
+    """Every readable row, sorted earliest first. No date filtering here.
+
+    Sorting happens here rather than being left to the sheet: the CSV is
+    hand-edited and new concerts get appended wherever there is room, so file
+    order means nothing. Every caller gets date order whatever the file looks
+    like, and split() keeps it that way.
+
+    skipinitialspace because `, "Bach Consort Wien, Rubén Dubrovsky"` is the
+    easy typo to make — a quote only opens a field when it is the very first
+    character, so that stray space turns one quoted cell into three and shifts
+    every column after it."""
     rows = []
-    for raw in csv.DictReader(io.StringIO(text)):
+    # A row with more cells than the header puts the surplus under the None
+    # key as a list. One such row used to raise and take the whole list with
+    # it — build.py caught that and left every page's concerts as they were,
+    # so a single typo silently froze the dates rather than announcing itself.
+    reader = csv.DictReader(io.StringIO(text), skipinitialspace=True)
+    for raw in reader:
+        surplus = raw.pop(None, None)
+        if surplus:
+            warn("data row on line %d has %d cell(s) more than the %d columns "
+                 "in the header (an unquoted comma?), skipping it: %r"
+                 % (reader.line_num, len(surplus), len(reader.fieldnames or []),
+                    raw.get("date") or raw.get("title") or ""))
+            continue
         row = {(k or "").strip().lower(): (v or "").strip() for k, v in raw.items()}
         if not row.get("date"):
             continue
