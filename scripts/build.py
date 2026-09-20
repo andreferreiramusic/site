@@ -51,6 +51,13 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import events  # noqa: E402
 import press_kit  # noqa: E402
 
+# Where the site is served from, with the trailing slash. Link previews need
+# absolute URLs — a chat app fetches the page from its own servers, so a
+# relative og:image resolves against nothing and the preview falls back to the
+# favicon. Override with SITE_URL when the custom domain lands.
+SITE_URL = os.environ.get(
+    "SITE_URL", "https://andreferreiramusic.github.io/site/").rstrip("/") + "/"
+
 HOME_LIMIT = 4  # upcoming events shown on the home page
 VIDEOS_CSV = "data/videos.csv"  # override with the VIDEOS_CSV env var
 CONTENT_DIR = "content"         # content/<page>/<block>_<lang>.md
@@ -119,6 +126,36 @@ def note(pt, key, indent="      "):
     kept as a constant so its wording lives in content/ with everything
     else."""
     return '%s<p class="note" data-i18n="%s">%s</p>' % (indent, key, pt.get(key, ""))
+
+
+# The page's own <title> and meta description, which sit outside every marker
+# and are written by hand. Reused for the link preview rather than restated in
+# a second set of tags, so a page's wording still lives in exactly one place.
+PAGE_TITLE = re.compile(r"<title>(.*?)</title>", re.S)
+PAGE_DESC = re.compile(r'<meta\s+name="description"\s+content="(.*?)"\s*/?>', re.S)
+
+
+def meta_text(pattern, page, fallback=""):
+    """The text of one hand-written head tag, collapsed to a single line.
+
+    It comes out of the file already HTML-escaped and goes straight back into
+    an attribute, so it is unescaped and re-escaped rather than passed through:
+    an apostrophe written raw in a <title> is fine there and fine in a
+    content="…" too, but only html.escape decides that consistently."""
+    m = pattern.search(page)
+    if not m:
+        return fallback
+    return html.escape(html.unescape(" ".join(m.group(1).split())), quote=True)
+
+
+def fill_head(head, base, page, page_url):
+    """The shared head, with this page's own wording in its preview tags."""
+    title = meta_text(PAGE_TITLE, page, "André Ferreira")
+    return (head.replace("{{base}}", base)
+                .replace("{{site}}", SITE_URL)
+                .replace("{{page_url}}", page_url)
+                .replace("{{og_title}}", title)
+                .replace("{{og_desc}}", meta_text(PAGE_DESC, page, title)))
 
 
 def parts():
@@ -439,7 +476,10 @@ def main():
         page = io.open(path, encoding="utf-8").read()
         filled = []
 
-        page, ok = inject(page, "head", part["head"].replace("{{base}}", base))
+        # index.html is the site root, so its canonical URL is the bare
+        # domain rather than …/index.html — two URLs for one page otherwise.
+        page_url = SITE_URL + ("" if key == "home" else path)
+        page, ok = inject(page, "head", fill_head(part["head"], base, page, page_url))
         if ok:
             filled.append("head")
         nav = "\n".join([

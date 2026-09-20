@@ -286,6 +286,47 @@ the deploy runs bare `python3` with nothing installed, and this keeps it that
 way. It sets the bios in Helvetica, one of the 14 faces every reader carries,
 so no font is embedded either.
 
+## Link previews
+
+Pasting the address into WhatsApp, Telegram, Signal, Messenger, Slack or
+iMessage shows a card: a wide picture, the page's title, its description. The
+tags that produce it are part of the shared head in `templates/parts.html`, so
+every page gets them, and `scripts/build.py` fills in the per-page wording from
+that page's own `<title>` and `<meta name="description">` — there is no second
+copy of the words to keep in step.
+
+The picture is `assets/img/og.jpg`: a real screenshot of the home page, taken
+by a headless browser, which is why it can never drift from the site.
+
+```
+python3 scripts/og_image.py            # Portuguese, the site's own language
+python3 scripts/og_image.py --lang en  # or en / de
+```
+
+Run it when the hero photo, the name or the eyebrow changes, then commit the
+JPEG. It is **not** part of `scripts/build.py` on purpose: it needs Chrome, and
+the Actions runner that builds the site has none. It looks for Chrome, Chromium,
+Brave or Edge in the usual places — set `CHROME=/path/to/it` if yours is
+elsewhere.
+
+Two numbers matter and the script holds both: **1200x630**, which is the size
+every one of those apps reads as "big card" rather than a thumbnail beside the
+text, and **under 300 KB**, which is what WhatsApp will actually fetch — the
+script steps the JPEG quality down until it fits and warns if it cannot.
+
+The URLs in those tags must be absolute, because the chat app fetches the page
+from its own servers where a relative path resolves against nothing. That base
+is `SITE_URL` at the top of `scripts/build.py`; it is also the one thing to
+change when the custom domain lands (see below), or set it in the environment:
+
+```
+SITE_URL=https://andreferreiramusic.com python3 scripts/build.py
+```
+
+After a deploy, a cached old preview can linger. Facebook's
+[sharing debugger](https://developers.facebook.com/tools/debug/) re-scrapes on
+demand; WhatsApp caches per device, so the quickest check is a fresh chat.
+
 ## Languages
 
 Every translated string lives in `content/` (see **Editing the texts**) and is
@@ -305,3 +346,7 @@ the repo root containing just the domain, and add a `CNAME` DNS record at
 your registrar pointing `www` (or an `ALIAS`/`ANAME`/`A` record for the apex
 domain per GitHub's current Pages docs) at `<your-username>.github.io`. Ask
 and I'll do this step when you're ready.
+
+Also change `SITE_URL` at the top of `scripts/build.py` and rebuild, so the
+link-preview and canonical tags point at the new address rather than the old
+`github.io` one.
