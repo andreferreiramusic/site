@@ -802,12 +802,18 @@ def render_link(zip_path, size, count, indent="        "):
         lines.append((lang, text))
     attrs = " ".join('data-%s="%s"' % (lang, html.escape(text, quote=True))
                      for lang, text in lines)
+    wording = dict(lines)
+    visible = wording.get(events.SITE_LANG, lines[0][1])
     href = "{{base}}" + zip_path.replace(os.sep, "/")
     return "\n".join([
+        # data-i18n means the label pass rewrites this in the site's own
+        # language; what stands here is only what ships if that pass is skipped.
         '%s<a class="cta" href="%s" download data-i18n="press.cta">'
-        'Descarregar press kit ↓</a>' % (indent, html.escape(href, quote=True)),
+        'Download press kit ↓</a>' % (indent, html.escape(href, quote=True)),
+        # The visible copy is the site's own language; the rest ride along in
+        # the data-* attributes above for the toggle to swap in.
         '%s<p class="pk-meta" %s>%s</p>' % (indent, attrs,
-                                            html.escape(lines[0][1])),
+                                            html.escape(visible)),
     ])
 
 

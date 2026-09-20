@@ -41,6 +41,13 @@ MONTHS = {
     "de": "JAN FEB MÄR APR MAI JUN JUL AUG SEP OKT NOV DEZ".split(),
 }
 LANGS = ("pt", "en", "de")
+# The site's own language: the one written into the HTML as plain text, which
+# is what a search engine indexes and what shows before main.js has decided
+# anything. Every other language rides along in data-pt/en/de attributes and
+# the toggle swaps to it. One constant, read by build.py and press_kit.py too,
+# so changing the site's language is this line plus the hand-written <title>
+# and <meta name="description"> on each page.
+SITE_LANG = "en"
 # Prefix before the performer names. The names themselves never translate, so
 # the whole string is carried inline per language rather than via a dictionary
 # key — the same data-pt/en/de mechanism the dates and titles already use.
@@ -247,7 +254,7 @@ def render(rows, indent="      ", tickets=True, group_years=False,
         out.append('%s    <div class="when">' % indent)
         out.append(
             '%s      <time class="date" datetime="%s"%s %s>%s</time>'
-            % (indent, days[0].isoformat(), span, attrs(dates), html.escape(dates["pt"]))
+            % (indent, days[0].isoformat(), span, attrs(dates), html.escape(dates[SITE_LANG]))
         )
         if place:
             out.append('%s      <div class="venue">%s</div>' % (indent, html.escape(place)))
@@ -256,13 +263,13 @@ def render(rows, indent="      ", tickets=True, group_years=False,
         out.append('%s    <div class="title">' % indent)
         out.append(
             '%s      <span class="tname" %s>%s</span>'
-            % (indent, attrs(titles), html.escape(titles["pt"]))
+            % (indent, attrs(titles), html.escape(titles[SITE_LANG]))
         )
         if performers:
             withs = {l: "%s %s" % (WITH[l], performers) for l in LANGS}
             out.append(
                 '%s      <span class="performers" %s>%s</span>'
-                % (indent, attrs(withs), html.escape(withs["pt"]))
+                % (indent, attrs(withs), html.escape(withs[SITE_LANG]))
             )
         out.append("%s    </div>" % indent)
         href = safe_url(row.get("tickets", "")) if tickets else ""

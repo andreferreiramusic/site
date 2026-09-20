@@ -108,7 +108,7 @@ Only `date` is required; every other column may be left blank.
 |---|---|---|
 | `date` | `2026-12-21` | ISO `yyyy-mm-dd` only |
 | `end_date` | `2026-11-03` | for a run of **consecutive** days |
-| `title` | `Concerto de Natal` | Portuguese / default |
+| `title` | `Concerto de Natal` | the default title, used when a translation is blank |
 | `title_en`, `title_de` | `Christmas Concert` | optional; blank = use `title` |
 | `performers` | `Bach Consort Wien` | shown in grey under the title |
 | `venue` | `Wiener Musikverein` | |
@@ -181,8 +181,8 @@ one folder: change the wording and the other two are already open in front of
 you, and a translation nobody has written yet is a visible gap.
 
 Edit a file, run `python3 scripts/build.py`, commit. The build writes the
-Portuguese into the HTML — so every page reads correctly before any JavaScript
-runs, and for search engines — and compiles all three languages into
+site's own language into the HTML — so every page reads correctly before any
+JavaScript runs, and for search engines — and compiles all three languages into
 `assets/js/content.js`, which the language toggle uses. One edit, both places.
 
 Both are generated: never edit `assets/js/content.js`, the text inside a page's
@@ -297,9 +297,8 @@ copy of the words to keep in step.
 
 A page that wants the card to read differently from its meta description adds
 an optional `<meta name="share-description" content="…">` beside it, and the
-card uses that instead. `index.html` carries one: the meta description is the
-Portuguese a search engine indexes, while a pasted link travels, so the card
-speaks English.
+card uses that instead. `index.html` carries one, because the description that
+suits a search results page is not the one that suits a chat window.
 
 The picture is `assets/img/og.jpg`: a real screenshot of the hero — the photo
 below the navbar, at its own full 3:2 height — taken by a headless browser,
@@ -308,8 +307,8 @@ shot, and the hero is pinned to 3:2, by a few lines of CSS the script injects
 in memory; nothing card-shaped is shipped to visitors.
 
 ```
-python3 scripts/og_image.py            # Portuguese, the site's own language
-python3 scripts/og_image.py --lang en  # or en / de
+python3 scripts/og_image.py            # the site's own language
+python3 scripts/og_image.py --lang pt  # or pt / de
 ```
 
 Run it when the hero photo, the name or the eyebrow changes, then commit the
@@ -358,6 +357,21 @@ the choice in `localStorage`.
 Concert rows are the exception: their wording comes from the sheet, so each row
 carries its own `data-pt` / `data-en` / `data-de` attributes instead of a
 dictionary key.
+
+### The site's own language
+
+English. One language is written into the HTML as plain text — it is what a
+search engine indexes, what a visitor sees before any JavaScript runs, and what
+`<html lang>` declares; the other two ride along in `data-pt` / `data-en` /
+`data-de` attributes and the toggle swaps to them. On a first visit the site
+follows the browser's own preferences, so a Portuguese speaker still lands on
+Portuguese; the toggle then wins, and is remembered.
+
+That language is `SITE_LANG` at the top of `scripts/events.py`, read by
+`build.py`, `press_kit.py` and `og_image.py` alike. Changing it is that one line
+plus the hand-written `<title>`, `<meta name="description">` and photo `alt`
+text on each of the six pages, and `og:locale` in `templates/parts.html` — then
+a build and a fresh `og_image.py` run. Everything else follows.
 
 ## Custom domain later
 

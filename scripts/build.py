@@ -121,11 +121,11 @@ NAV = [
 ]
 
 
-def note(pt, key, indent="      "):
+def note(site, key, indent="      "):
     """The line shown where a concert list is empty. Generated rather than
     kept as a constant so its wording lives in content/ with everything
     else."""
-    return '%s<p class="note" data-i18n="%s">%s</p>' % (indent, key, pt.get(key, ""))
+    return '%s<p class="note" data-i18n="%s">%s</p>' % (indent, key, site.get(key, ""))
 
 
 # The page's own <title> and meta description, which sit outside every marker
@@ -170,15 +170,15 @@ def parts():
     return {chunks[i]: chunks[i + 1].strip("\n") for i in range(1, len(chunks) - 1, 2)}
 
 
-def nav_links(current_key, base, pt, indent="      "):
-    """`pt` is the Portuguese text map: the menu ships readable before any
-    JavaScript runs, and for crawlers, exactly as the page prose does."""
+def nav_links(current_key, base, site, indent="      "):
+    """`site` is the text map for events.SITE_LANG: the menu ships readable
+    before any JavaScript runs, and for crawlers, exactly as the prose does."""
     out = []
     for key, path, i18n_key in NAV:
         href = base + path
         current = ' aria-current="page"' if key == current_key else ""
         out.append('%s<a href="%s"%s data-i18n="%s">%s</a>'
-                   % (indent, href, current, i18n_key, pt.get(i18n_key, "")))
+                   % (indent, href, current, i18n_key, site.get(i18n_key, "")))
     return "\n".join(out)
 
 
@@ -207,19 +207,19 @@ def inject(text, name, payload):
 LABEL_TEXT = re.compile(r'(<(\w+)\b[^<>]*\sdata-i18n="([\w.]+)"[^<>]*>)([^\n]*?)(</\2>)')
 
 
-def fill_labels(text, pt, where=""):
-    """Rewrite the Portuguese of every label in the page.
+def fill_labels(text, site, where=""):
+    """Rewrite every label in the page in the site's own language.
 
     Prose has start/end markers; a label is a word or two inside an anchor or
     a heading, where a marker comment would mean a line break in a spot where
     whitespace shows. Keying off the attribute instead leaves the markup as
-    someone would write it by hand, and still means content/site/nav-dates_pt.md
+    someone would write it by hand, and still means content/site/nav-dates_en.md
     is the only place the menu's wording lives."""
     def swap(m):
         tag, key = m.group(2).lower(), m.group(3)
-        if KINDS.get(key) != LABEL or key not in pt:
+        if KINDS.get(key) != LABEL or key not in site:
             return m.group(0)
-        body = pt[key]
+        body = site[key]
         if tag == "a" and "<a " in body:
             # An <a> inside an <a> is not markup any browser will keep; the
             # label is already inside a link, so it needs no link of its own.
@@ -270,8 +270,8 @@ def load_videos():
 
 def render_video(video, play_label, indent="  "):
     """Poster only; main.js swaps in the iframe on click. `play_label` is the
-    Portuguese from content/site/video-play_pt.md — it is an attribute, so the
-    label pass can't reach it and it is written in here instead."""
+    site-language text from content/site/video-play_<lang>.md — it is an
+    attribute, so the label pass can't reach it and it is written in here."""
     vid = html.escape(video["id"], quote=True)
     return "\n".join([
         '%s<section class="band">' % indent,
@@ -443,11 +443,11 @@ def main():
         return 1
 
     content = load_content()
-    # Portuguese is what gets written into the HTML: the site reads correctly
-    # before any JavaScript runs, and for crawlers. Everything below that
-    # needs a word of it — the menu, the empty-list notes, the ticket links —
-    # takes it from here rather than carrying a copy.
-    pt = (content or {}).get("pt", {})
+    # events.SITE_LANG is what gets written into the HTML: the site reads
+    # correctly before any JavaScript runs, and for crawlers. Everything below
+    # that needs a word of it — the menu, the empty-list notes, the ticket
+    # links — takes it from here rather than carrying a copy.
+    site = (content or {}).get(events.SITE_LANG, {})
     if content:
         write_content_js(content)
         print("  %-22s %d languages x %d texts" % (CONTENT_JS, len(content), len(TEXTS)))
@@ -462,14 +462,14 @@ def main():
               % (zip_path, pages, photos, press_kit.human(size)))
     if split is not None:
         upcoming, past = split
-        tix = pt.get("concerts.tickets", "")
-        none_now = note(pt, "concerts.none")
+        tix = site.get("concerts.tickets", "")
+        none_now = note(site, "concerts.none")
         blocks.update({
             "events:next": events.render(upcoming[:HOME_LIMIT], tickets_label=tix) if upcoming else none_now,
             "events:upcoming": events.render(upcoming, tickets_label=tix) if upcoming else none_now,
             # Past ticket links point at closed sales, so they are dropped.
             "events:past": (events.render(past, tickets=False, group_years=True)
-                            if past else note(pt, "dates.past.none")),
+                            if past else note(site, "dates.past.none")),
         })
 
     for key, path, _i18n_key in NAV:
@@ -488,7 +488,7 @@ def main():
             filled.append("head")
         nav = "\n".join([
             part["header-open"].replace("{{base}}", base),
-            nav_links(key, base, pt),
+            nav_links(key, base, site),
             part["header-close"].replace("{{base}}", base),
         ])
         page, ok = inject(page, "nav", nav)
@@ -501,7 +501,7 @@ def main():
             page, ok = inject(page, name, payload.replace("{{base}}", base))
             if ok:
                 filled.append(name)
-        for text_key, body_html in sorted(pt.items()):
+        for text_key, body_html in sorted(site.items()):
             if KINDS.get(text_key) != PROSE:
                 continue
             page, ok = inject(page, "text:" + text_key, "      " + body_html)
@@ -511,13 +511,13 @@ def main():
             # A page with the marker but no CSV row gets an empty block rather
             # than a stale video left over from a previous build.
             vid = videos.get(key)
-            body = render_video(vid, pt.get("video.play", "")) if vid else ""
+            body = render_video(vid, site.get("video.play", "")) if vid else ""
             page, ok = inject(page, "video", body)
             if ok:
                 filled.append("video" if vid else "video (none)")
 
-        if pt:
-            page = fill_labels(page, pt, path)
+        if site:
+            page = fill_labels(page, site, path)
         io.open(path, "w", encoding="utf-8").write(page)
         print("  %-22s %s" % (path, ", ".join(filled) or "no markers"))
 

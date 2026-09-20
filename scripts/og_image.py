@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Render the home page into assets/img/og.jpg — the link-preview card.
 
-    python3 scripts/og_image.py            # Portuguese, the site's own language
-    python3 scripts/og_image.py --lang en
+    python3 scripts/og_image.py            # the site's own language
+    python3 scripts/og_image.py --lang pt  # or pt / de
 
 This is the picture WhatsApp, Telegram, Signal, Messenger, Slack and iMessage
 show when someone pastes the address. It is a real screenshot of the home page
@@ -34,6 +34,9 @@ import sys
 import tempfile
 import threading
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import events  # noqa: E402  — for SITE_LANG
+
 # The hero photo's own 3:2, at the width the chat apps want. The card is the
 # picture below the navbar and nothing else, so it is the hero's shape rather
 # than the 1.91:1 that a screenshot of the whole first screenful had.
@@ -44,9 +47,10 @@ QUALITIES = (86, 80, 72, 64, 55)
 TIMEOUT = 120           # seconds to give the browser before calling it stuck
 OUT = "assets/img/og.jpg"
 
-# The site's own language. The card carries the same words as the <title> and
-# og:description beside it, which are Portuguese, so the render is too.
-DEFAULT_LANG = "pt"
+# The card carries the same words as the <title> and og:description beside it,
+# so it renders in the site's own language. Read from events rather than
+# restated here, so changing the site's language changes the card with it.
+DEFAULT_LANG = events.SITE_LANG
 ACCEPT_LANG = {"pt": "pt-PT,pt", "en": "en-GB,en", "de": "de-AT,de"}
 
 # Injected into the page for the capture and never written to disk: the bar is
