@@ -110,7 +110,14 @@
     });
     videoBtn.addEventListener('click', function(){
       var frame = document.createElement('iframe');
-      frame.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
+      // playsinline is what makes one tap enough on an iPhone or iPad.
+      // Without it iOS insists on playing fullscreen, and entering fullscreen
+      // needs a gesture of its own — so autoplay was ignored, the poster came
+      // back with YouTube's own play button on it, and the video only started
+      // on a second tap. Desktop never hit this, which is why it only showed
+      // up on the phone.
+      frame.src = 'https://www.youtube-nocookie.com/embed/' + id +
+                  '?autoplay=1&playsinline=1&rel=0';
       frame.title = document.querySelector('.video-caption .vt').textContent;
       frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
       frame.allowFullscreen = true;
