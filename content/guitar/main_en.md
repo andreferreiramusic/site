@@ -1,5 +1,7 @@
 The guitar occupies a central place in André Ferreira’s artistic work, encompassing classical and Romantic repertoire, chamber music and historically informed performance. His work explores different periods and traditions of the instrument, with attention to the characteristics of each repertoire and the context in which it was created.
 
+## Vienna and Schubert
+
 Among his current projects is an exploration of Viennese repertoire from the late eighteenth and early nineteenth centuries, with a particular interest in the music of Franz Schubert and the relationship between the guitar and the Lied tradition. This interest in the world of the Lied has been reflected in recent projects such as Schubert’s Winterreise, presented at the Brucknerhaus Linz with Michael Schade and Christoph Hammer, and a Soirée at the Wiener Konzerthaus with Julian Prégardien, dedicated to Schubert Lieder.
 
 André Ferreira’s work as a guitarist nevertheless extends across different periods, repertoires and formations, both as a soloist and in chamber music and collaboration with other musicians.
