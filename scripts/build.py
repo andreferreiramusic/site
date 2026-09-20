@@ -133,6 +133,9 @@ def note(pt, key, indent="      "):
 # a second set of tags, so a page's wording still lives in exactly one place.
 PAGE_TITLE = re.compile(r"<title>(.*?)</title>", re.S)
 PAGE_DESC = re.compile(r'<meta\s+name="description"\s+content="(.*?)"\s*/?>', re.S)
+# Optional, and only for the link preview: a page that wants the card to say
+# something other than its meta description says it here. See index.html.
+PAGE_SHARE = re.compile(r'<meta\s+name="share-description"\s+content="(.*?)"\s*/?>', re.S)
 
 
 def meta_text(pattern, page, fallback=""):
@@ -151,11 +154,12 @@ def meta_text(pattern, page, fallback=""):
 def fill_head(head, base, page, page_url):
     """The shared head, with this page's own wording in its preview tags."""
     title = meta_text(PAGE_TITLE, page, "André Ferreira")
+    desc = meta_text(PAGE_SHARE, page) or meta_text(PAGE_DESC, page, title)
     return (head.replace("{{base}}", base)
                 .replace("{{site}}", SITE_URL)
                 .replace("{{page_url}}", page_url)
                 .replace("{{og_title}}", title)
-                .replace("{{og_desc}}", meta_text(PAGE_DESC, page, title)))
+                .replace("{{og_desc}}", desc))
 
 
 def parts():

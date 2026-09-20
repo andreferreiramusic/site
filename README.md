@@ -295,8 +295,17 @@ every page gets them, and `scripts/build.py` fills in the per-page wording from
 that page's own `<title>` and `<meta name="description">` — there is no second
 copy of the words to keep in step.
 
-The picture is `assets/img/og.jpg`: a real screenshot of the home page, taken
-by a headless browser, which is why it can never drift from the site.
+A page that wants the card to read differently from its meta description adds
+an optional `<meta name="share-description" content="…">` beside it, and the
+card uses that instead. `index.html` carries one: the meta description is the
+Portuguese a search engine indexes, while a pasted link travels, so the card
+speaks English.
+
+The picture is `assets/img/og.jpg`: a real screenshot of the hero — the photo
+below the navbar, at its own full 3:2 height — taken by a headless browser,
+which is why it can never drift from the site. The bar itself is hidden for the
+shot, and the hero is pinned to 3:2, by a few lines of CSS the script injects
+in memory; nothing card-shaped is shipped to visitors.
 
 ```
 python3 scripts/og_image.py            # Portuguese, the site's own language
@@ -304,15 +313,27 @@ python3 scripts/og_image.py --lang en  # or en / de
 ```
 
 Run it when the hero photo, the name or the eyebrow changes, then commit the
-JPEG. It is **not** part of `scripts/build.py` on purpose: it needs Chrome, and
-the Actions runner that builds the site has none. It looks for Chrome, Chromium,
-Brave or Edge in the usual places — set `CHROME=/path/to/it` if yours is
-elsewhere.
+JPEG. It takes a few seconds. It is **not** part of `scripts/build.py` on
+purpose: it needs Chrome, and the Actions runner that builds the site has none.
+It looks for Chrome, Chromium, Brave or Edge in the usual places — set
+`CHROME=/path/to/it` if yours is elsewhere.
 
-Two numbers matter and the script holds both: **1200x630**, which is the size
-every one of those apps reads as "big card" rather than a thumbnail beside the
+It uses Chrome's own profile, with extensions and background networking turned
+off so nothing of yours reaches the picture. If Chrome is busy and won't share,
+it retries on a private profile — that one can take a minute or two the first
+time, because a brand-new Chrome profile sets itself up before it will render
+anything.
+
+Two numbers matter and the script holds both: **1200x800**, wide enough that
+every one of those apps draws a big card rather than a thumbnail beside the
 text, and **under 300 KB**, which is what WhatsApp will actually fetch — the
-script steps the JPEG quality down until it fits and warns if it cannot.
+script steps the JPEG quality down until it fits and warns if it cannot. The
+size is declared in `og:image:width` / `og:image:height` too, so changing one
+means changing the other in `templates/parts.html`.
+
+WhatsApp, Telegram and Signal show a 3:2 card whole. Facebook and X prefer a
+wider 1.91:1 and may trim the top and bottom of it; the name sits low in the
+frame, so it survives that crop.
 
 The URLs in those tags must be absolute, because the chat app fetches the page
 from its own servers where a relative path resolves against nothing. That base
