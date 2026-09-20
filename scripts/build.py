@@ -89,6 +89,7 @@ TEXTS = [
     ("contact", "press-heading",    "press.h",          LABEL),
     ("contact", "press-body",       "press.d",          LABEL),
     ("contact", "press-cta",        "press.cta",        LABEL),
+    ("contact", "photo-credit",     "press.credit",     LABEL),
     ("site",    "nav-home",         "nav.home",         LABEL),
     ("site",    "nav-about",        "nav.about",        LABEL),
     ("site",    "nav-guitar",       "nav.guitar",       LABEL),

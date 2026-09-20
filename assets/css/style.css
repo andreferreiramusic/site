@@ -283,6 +283,9 @@ radial-gradient(circle at 68% 32%, #3a322a 0%, #1c1712 62%, #100d0a 100%); }
 .presskit .pk-desc{ font-size:.95rem; line-height:1.6; color:var(--ink); margin:0; max-width:48ch; }
 .presskit .cta{ margin-top:20px; }
 .presskit .pk-meta{ font-size:.78rem; letter-spacing:.04em; color:var(--sub); margin:12px 0 0; }
+/* Credit for the press-kit photographs, under the whole block. */
+.photo-credit{ max-width:560px; font-size:.78rem; letter-spacing:.04em; color:var(--sub);
+  margin:clamp(20px,3vw,28px) 0 0; padding-top:14px; border-top:1px solid var(--line); }
 
 .foot{ background:var(--black); color:#e9e3d5; padding:26px var(--pad); display:flex; flex-wrap:wrap; gap:12px; justify-content:center; align-items:center; font-size:.82rem; }
 .social{ list-style:none; display:flex; align-items:center; gap:32px; margin:0; padding:0; }
