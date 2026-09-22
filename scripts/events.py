@@ -21,9 +21,13 @@ Columns (header row, case-insensitive, any order; only `date` is required):
   title_de   Weihnachtskonzert     optional, falls back to title
   performers Bach Consort Wien     optional, shown under the title
   venue      Wiener Musikverein    optional
-  city       Vienna                optional
-  country    AT                    optional; venue/city/country are joined with
-                                   commas, so any of them may be blank
+  city_en    Vienna                optional, one column per language:
+  city_pt    Viena                 city_en/_pt/_de and country_en/_pt/_de.
+  city_de    Wien                  A blank one falls back to the site's
+  country_en Austria               language, then to any language that is
+  country_pt Áustria               filled, so a name written once shows
+  country_de Österreich            everywhere. venue/city/country are joined
+                                   with commas, so any of them may be blank
   tickets    https://...           optional, the link is omitted when blank
 """
 
@@ -202,6 +206,17 @@ def date_label(kind, days, lang, this_year, show_year=True):
     return label + suffix
 
 
+def localized(row, field):
+    """{lang: value} for a column written once per language (city_en, city_pt,
+    city_de). A blank cell borrows the site's language, then a plain `field`
+    column if the sheet still has one, then whichever language is filled —
+    Graz is Graz everywhere, so it only needs typing once."""
+    values = {l: row.get("%s_%s" % (field, l), "") for l in LANGS}
+    fallback = (values[SITE_LANG] or row.get(field, "")
+                or next((v for v in values.values() if v), ""))
+    return {l: values[l] or fallback for l in LANGS}
+
+
 def safe_url(value):
     """The CSV is hand-edited; don't let a stray javascript: land in an href."""
     return value if value.lower().startswith(("http://", "https://")) else ""
@@ -248,16 +263,22 @@ def render(rows, indent="      ", tickets=True, group_years=False,
             span = ' data-dates="%s"' % " ".join(d.isoformat() for d in days)
         # Date and place share the first column, place on the line below.
         # Any of venue/city/country may be blank — a recording session has none.
-        place = ", ".join(
-            p for p in (row.get("venue", ""), row.get("city", ""), row.get("country", "")) if p
-        )
+        # The venue keeps its own name; city and country translate.
+        cities, countries = localized(row, "city"), localized(row, "country")
+        places = {
+            l: ", ".join(p for p in (row.get("venue", ""), cities[l], countries[l]) if p)
+            for l in LANGS
+        }
         out.append('%s    <div class="when">' % indent)
         out.append(
             '%s      <time class="date" datetime="%s"%s %s>%s</time>'
             % (indent, days[0].isoformat(), span, attrs(dates), html.escape(dates[SITE_LANG]))
         )
-        if place:
-            out.append('%s      <div class="venue">%s</div>' % (indent, html.escape(place)))
+        if places[SITE_LANG]:
+            out.append(
+                '%s      <div class="venue" %s>%s</div>'
+                % (indent, attrs(places), html.escape(places[SITE_LANG]))
+            )
         out.append("%s    </div>" % indent)
         performers = row.get("performers", "")
         out.append('%s    <div class="title">' % indent)

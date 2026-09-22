@@ -112,8 +112,8 @@ Only `date` is required; every other column may be left blank.
 | `title_en`, `title_de` | `Christmas Concert` | optional; blank = use `title` |
 | `performers` | `Bach Consort Wien` | shown in grey under the title |
 | `venue` | `Wiener Musikverein` | |
-| `city` | `Vienna` | |
-| `country` | `AT` | venue/city/country are joined with commas |
+| `city_en`, `city_pt`, `city_de` | `Vienna`, `Viena`, `Wien` | one per language; blank = use the English one (or whichever is filled) |
+| `country_en`, `country_pt`, `country_de` | `Austria`, `Áustria`, `Österreich` | same; venue/city/country are joined with commas |
 | `tickets` | `https://…` | blank = no ticket link on that row |
 
 Anything containing a comma must be wrapped in double quotes, as the existing
