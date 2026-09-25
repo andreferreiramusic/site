@@ -1,1 +1,1 @@
-André Ferreira is a Portuguese guitarist and lutenist based in Vienna. His work focuses on classical guitar and historical plucked-string instruments, performing as a soloist, chamber musician and with ensembles specialising in early music.
+Portuguese guitarist and lutenist specialising in classical guitar and historical plucked-string instruments, performing as a soloist, in chamber music, and with early music ensembles.
