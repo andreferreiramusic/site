@@ -1,1 +1,1 @@
-Percurso artístico, ensino, colaborações, salas e festivais
+Percurso artístico e ensino
