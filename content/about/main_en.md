@@ -1,9 +1,7 @@
-André Ferreira's artistic work develops between classical guitar and historical plucked-string instruments, with a particular interest in the relationship between repertoire, instrument and musical practice.
+André Ferreira’s artistic work is shaped by an ongoing dialogue between repertoire, instrument and musical practice. Moving between modern and historical traditions, he is particularly interested in how the choice of instrument can influence the way music is understood, performed and heard.
 
-As a performer, he appears as a soloist, chamber musician and in collaboration with orchestras and ensembles specialising in early music. His interest in historical repertoire has led him to deepen his practice of the lute and other plucked-string instruments, incorporating different instruments and repertoires into his work.
+His work with historical plucked-string instruments has led to a broad exploration of the lute and guitar across different periods, where repertoire and performance approach continually inform one another.
 
-André Ferreira regularly collaborates with ensembles such as Concentus Musicus Wien and Bach Consort Wien, performing at major European venues and festivals including the Wiener Musikverein, Wiener Konzerthaus, Theater an der Wien, Kölner Philharmonie, Brucknerhaus Linz, Palau de la Música Catalana and Auditorio Nacional de Música de Madrid.
-
-Alongside his artistic work, André teaches guitar and lute at the Universität für Musik und darstellende Kunst Wien (mdw).
+Teaching is an integral part of his musical work. At the Universität für Musik und darstellende Kunst Wien (mdw), where he teaches guitar and lute, he works closely with students while continuing to question and refine his own artistic approach.
 
 [Faculty profile at mdw →](https://mdw.ac.at/altemusik/en/faculty/andre-ferreira-inst-17/)
