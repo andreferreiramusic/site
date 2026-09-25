@@ -2,4 +2,4 @@ The guitar occupies a central place in André Ferreira’s artistic work, from c
 
 ## Vienna and Schubert
 
-A particular focus of his current work is Viennese repertoire from the late eighteenth and early nineteenth centuries, especially the music of Franz Schubert and its connection to the tradition of the Lied. This has led to recent projects including Schubert’s Winterreise, presented at the **Brucknerhaus Linz** with **Michael Schade** and **Christoph Hammer**, and at the **Wiener Konzerthaus-Soirée** with **Julian Prégardien**, in a programme dedicated to Schubert Lieder.
+A particular focus of his current work is Viennese repertoire from the late eighteenth and early nineteenth centuries, especially the music of Franz Schubert and its connection to the tradition of the Lied. This has led to recent projects including Schubert’s *Winterreise*, presented at the **Brucknerhaus Linz** with **Michael Schade** and **Christoph Hammer**, and at the **Wiener Konzerthaus-Soirée** with **Julian Prégardien**, in a programme dedicated to Schubert Lieder.
