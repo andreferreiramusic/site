@@ -1,5 +1,5 @@
-André Ferreira dedicates part of his artistic work to the lute and theorbo within the field of early music. His practice extends from solo repertoire to chamber music and continuo playing.
+The lute and theorbo form an important part of André Ferreira’s engagement with historical performance, particularly through the exploration of solo repertoire and continuo practice.
 
-He currently presents the solo programme Musica Humana, dedicated to the music of J. Dowland, A. Piccinini and G. G. Kapsberger. He also works regularly with ensembles such as Concentus Musicus Wien and Bach Consort Wien in concerts, opera productions and chamber music projects.
+He currently presents the solo programme *Musica Humana*, featuring music by J. Dowland, A. Piccinini and G. G. Kapsberger. His continuo work has also led to collaborations with ensembles including **Concentus Musicus Wien** and **Bach Consort Wien**, across concert and opera productions.
 
-His work includes regular performances at major venues and festivals, including the Wiener Musikverein, Theater an der Wien and Internationale Barocktage Stift Melk.
+He has performed on these instruments at venues and festivals including the **Wiener Musikverein**, **Theater an der Wien** and the **Internationale Barocktage Stift Melk**.
