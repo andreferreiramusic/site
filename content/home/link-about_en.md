@@ -1,1 +1,1 @@
-Artistic profile, teaching, collaborations, venues and festivals
+Artistic profile and teaching
