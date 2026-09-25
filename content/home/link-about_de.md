@@ -1,1 +1,1 @@
-Künstlerischer Werdegang, Lehre, Zusammenarbeit, Spielstätten und Festivals
+Künstlerischer Werdegang und Lehre
