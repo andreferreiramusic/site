@@ -1,2 +1,1 @@
-André Ferreira é guitarrista e alaudista português, com base em Viena. Dedica-se à guitarra clássica e aos instrumentos históricos de corda dedilhada, apresentando-se a solo, em música de câmara e com agrupamentos especializados em música antiga.
-
+Guitarrista e alaudista português, especializado em guitarra clássica e instrumentos históricos de cordas dedilhadas, atuando como solista, em música de câmara e com ensembles de música antiga.
