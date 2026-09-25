@@ -1,5 +1,5 @@
-André Ferreira widmet einen Teil seiner künstlerischen Tätigkeit der Laute und Theorbe im Bereich der Alten Musik. Seine Praxis reicht vom solistischen Repertoire über die Kammermusik bis zum Spiel als Continuo-Instrumentalist.
+Laute und Theorbe bilden einen wichtigen Teil von André Ferreiras Auseinandersetzung mit historischer Aufführungspraxis, insbesondere in der Beschäftigung mit solistischem Repertoire und Continuospiel.
 
-Derzeit präsentiert er das Soloprogramm Musica Humana, das der Musik von J. Dowland, A. Piccinini und G. G. Kapsberger gewidmet ist. Darüber hinaus arbeitet er regelmäßig mit Ensembles wie dem Concentus Musicus Wien und dem Bach Consort Wien in Konzerten, Opernproduktionen und kammermusikalischen Projekten zusammen.
+Derzeit präsentiert er das Soloprogramm *Musica Humana* mit Werken von J. Dowland, A. Piccinini und G. G. Kapsberger. Seine Tätigkeit im Continuospiel hat zudem zu Kooperationen mit Ensembles wie **Concentus Musicus Wien** und **Bach Consort Wien** in Konzerten und Opernproduktionen geführt.
 
-Zu seiner Tätigkeit gehören regelmäßige Auftritte in bedeutenden Konzertsälen und bei Festivals, darunter der Wiener Musikverein, das Theater an der Wien und die Internationalen Barocktage Stift Melk.
+Mit diesen Instrumenten ist er an Spielstätten und bei Festivals wie dem **Wiener Musikverein**, dem **Theater an der Wien** und den **Internationalen Barocktagen Stift Melk** aufgetreten.
