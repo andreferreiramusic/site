@@ -1,9 +1,7 @@
-André Ferreiras künstlerische Tätigkeit bewegt sich zwischen klassischer Gitarre und historischen Zupfinstrumenten, mit einem besonderen Interesse an den Beziehungen zwischen Repertoire, Instrument und musikalischer Praxis.
+André Ferreiras künstlerische Arbeit ist geprägt von einem kontinuierlichen Dialog zwischen Repertoire, Instrument und musikalischer Praxis. Zwischen modernen und historischen Traditionen bewegt er sich mit besonderem Interesse an der Frage, wie die Wahl des Instruments die Art und Weise beeinflussen kann, wie Musik verstanden, gespielt und gehört wird.
 
-Als Interpret tritt er solistisch, kammermusikalisch und in Zusammenarbeit mit Orchestern und auf Alte Musik spezialisierten Ensembles auf. Sein Interesse am historischen Repertoire hat ihn dazu geführt, seine Praxis auf der Laute und anderen Zupfinstrumenten zu vertiefen und unterschiedliche Instrumente und Repertoires in seine künstlerische Arbeit zu integrieren.
+Seine Arbeit mit historischen Zupfinstrumenten hat zu einer umfassenden Auseinandersetzung mit Laute und Gitarre über verschiedene Epochen hinweg geführt, wobei sich Repertoire und Aufführungspraxis kontinuierlich gegenseitig beeinflussen.
 
-André Ferreira arbeitet regelmäßig mit Ensembles wie dem Concentus Musicus Wien und dem Bach Consort Wien zusammen und tritt in bedeutenden europäischen Konzertsälen und bei Festivals auf, darunter der Wiener Musikverein, das Wiener Konzerthaus, das Theater an der Wien, die Kölner Philharmonie, das Brucknerhaus Linz, der Palau de la Música Catalana und das Auditorio Nacional de Música de Madrid.
-
-Neben seiner künstlerischen Tätigkeit unterrichtet André Gitarre und Laute an der Universität für Musik und darstellende Kunst Wien (mdw).
+Das Unterrichten ist ein wesentlicher Bestandteil seiner musikalischen Arbeit. An der Universität für Musik und darstellende Kunst Wien (mdw), wo er Gitarre und Laute unterrichtet, arbeitet er eng mit seinen Studierenden und hinterfragt und verfeinert dabei fortlaufend seinen eigenen künstlerischen Zugang.
 
 [Profil an der mdw →](https://mdw.ac.at/altemusik/en/faculty/andre-ferreira-inst-17/)
